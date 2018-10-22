@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">GD</string>
+    <!--起始页-->
+    <string name="back_to_today">返回今天</string>
+    <string name="yyyy_MM">%d年%d月</string>
+    <string name="yyyy_MM_dd">%d年%d月%d日</string>
+    <string name="temperature">%d℃</string>
+
+    <!--创建活动-->
+    <string name="create_event">创建活动</string>
+    <string name="type_in_event_name">请输入活动名称</string>
+    <string name="select_event_type">选择活动类别</string>
+    <string name="start_and_end">起始时间</string>
+    <string name="location">位置</string>
+    <string name="add_alert">添加提醒</string>
+    <string name="alert">提醒</string>
+    <string name="repeat">重复</string>
+    <string name="alert_after_event">活动结束是否提醒</string>
+
+    <!--新建任务-->
+    <string name="deadline">截止时间</string>
+    <string name="task_name">任务名称</string>
+
+    <!--通用-->
+    <string name="detail">说明</string>
+    <string name="NULL">无</string>
+    <string name="calendar">日历</string>
+    <string name="task">任务</string>
+    <string name="event">活动</string>
+    <string name="settings">设置</string>
+
+</resources>
