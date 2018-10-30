@@ -7,7 +7,7 @@ import com.orhanobut.logger.Logger;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-import mt.cn.networklibrary.BuildConfig;
+import mt.cn.uilibrary.BuildConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
