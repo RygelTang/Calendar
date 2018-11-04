@@ -29,4 +29,10 @@
     <string name="event">活动</string>
     <string name="settings">设置</string>
 
+    <!--默认提供的事件类型-->
+    <string name="type_default">默认</string>
+    <string name="type_birthday">生日</string>
+    <string name="type_meeting">会议</string>
+    <string name="type_appointment">约会</string>
+    <string name="type_memorial">纪念日</string>
 </resources>

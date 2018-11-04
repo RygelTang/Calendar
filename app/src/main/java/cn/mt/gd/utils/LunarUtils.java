@@ -1,5 +1,7 @@
 package cn.mt.gd.utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 /**
@@ -97,8 +99,6 @@ public class LunarUtils {
      * @return 传回农历 year年month月的总天数
      */
     public static int daysInLunarMonth(int year, int month) {
-
-
         if ((LUNAR_INFO[year - MIN_YEAR] & (0x100000 >> month)) == 0)
             return 29;
         else
@@ -295,7 +295,7 @@ public class LunarUtils {
         return lunar;
     }
 
-    public static class Solar {
+    public static class Solar implements Parcelable {
         int solarDay;
         int solarMonth;
         int solarYear;
@@ -305,13 +305,70 @@ public class LunarUtils {
             this.solarMonth = solarMonth;
             this.solarDay = solarDay;
         }
+
+        /****************************************** 支持Parcelable ****************************************/
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(solarYear);
+            dest.writeInt(solarMonth);
+            dest.writeInt(solarDay);
+        }
+
+        public final static Creator<Solar> CREATOR = new Creator<Solar>() {
+            @Override
+            public Solar createFromParcel(Parcel source) {
+                return new Solar(source.readInt(),source.readInt(),source.readInt());
+            }
+
+            @Override
+            public Solar[] newArray(int size) {
+                return new Solar[size];
+            }
+        };
     }
 
-    public static class Lunar {
+    public static class Lunar implements Parcelable{
         public boolean isLeap;
         public int lunarDay;
         public int lunarMonth;
         public int lunarYear;
+
+        /****************************************** 支持Parcelable ****************************************/
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeByte((byte) (isLeap ? 1 : 0));
+            dest.writeInt(lunarYear);
+            dest.writeInt(lunarMonth);
+            dest.writeInt(lunarDay);
+        }
+
+        public final static Parcelable.Creator<Lunar> CREATOR = new Parcelable.Creator<Lunar>() {
+            @Override
+            public Lunar createFromParcel(Parcel source) {
+                Lunar lunar = new Lunar();
+                lunar.isLeap = source.readByte() != 0;
+                lunar.lunarYear = source.readInt();
+                lunar.lunarMonth = source.readInt();
+                lunar.lunarDay = source.readInt();
+                return lunar;
+            }
+
+            @Override
+            public Lunar[] newArray(int size) {
+                return new Lunar[size];
+            }
+        };
+
     }
 
     /**

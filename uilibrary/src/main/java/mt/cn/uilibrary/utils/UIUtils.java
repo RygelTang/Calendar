@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,11 +20,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 import mt.cn.uilibrary.R;
 
@@ -36,7 +33,7 @@ public class UIUtils {
     /**
      * dip转换px
      */
-    public static int dip2px(Context context,int dip) {
+    public static int dip2px(@NonNull Context context,int dip) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
     }
@@ -44,61 +41,61 @@ public class UIUtils {
     /**
      * pxz转换dip
      */
-    public static int px2dip(Context context,int px) {
+    public static int px2dip(@NonNull Context context,int px) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
     }
 
-    public static View inflate(Context context,int resId) {
+    public static View inflate(@NonNull Context context,int resId) {
         return LayoutInflater.from(context).inflate(resId, null);
     }
 
     /**
      * 获取资源
      */
-    public static Resources getResources(Context context) {
+    public static Resources getResources(@NonNull Context context) {
         return context.getResources();
     }
 
     /**
      * 获取文字
      */
-    public static String getString(Context context,int resId) {
+    public static String getString(@NonNull Context context,int resId) {
         return getResources(context).getString(resId);
     }
 
     /**
      * 获取文字数组
      */
-    public static String[] getStringArray(Context context,int resId) {
+    public static String[] getStringArray(@NonNull Context context,int resId) {
         return getResources(context).getStringArray(resId);
     }
 
     /**
      * 获取dimen
      */
-    public static int getDimens(Context context,int resId) {
+    public static int getDimens(@NonNull Context context,int resId) {
         return getResources(context).getDimensionPixelSize(resId);
     }
 
     /**
      * 获取drawable
      */
-    public static Drawable getDrawable(Context context,int resId) {
+    public static Drawable getDrawable(@NonNull Context context,int resId) {
         return getResources(context).getDrawable(resId);
     }
 
     /**
      * 获取颜色
      */
-    public static int getColor(Context context,int resId) {
+    public static int getColor(@NonNull Context context,int resId) {
         return getResources(context).getColor(resId);
     }
 
     /**
      * 获取颜色选择器
      */
-    public static ColorStateList getColorStateList(Context context,int resId) {
+    public static ColorStateList getColorStateList(@NonNull Context context,int resId) {
         return getResources(context).getColorStateList(resId);
     }
 
@@ -109,7 +106,7 @@ public class UIUtils {
      * @return
      */
     @SuppressWarnings("deprecation")
-    public static int getSreenHeight(Activity activity) {
+    public static int getScreenHeight(@NonNull Activity activity) {
         return activity.getWindowManager().getDefaultDisplay().getHeight();
     }
 
@@ -120,7 +117,7 @@ public class UIUtils {
      * @return
      */
     @SuppressWarnings("deprecation")
-    public static int getSreenWidth(Activity activity) {
+    public static int getScreenWidth(@NonNull Activity activity) {
         return activity.getWindowManager().getDefaultDisplay().getWidth();
     }
 
@@ -130,7 +127,7 @@ public class UIUtils {
      * @param view
      * @return
      */
-    public static int getLeftOnScreen(View view) {
+    public static int getLeftOnScreen(@NonNull View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[0];
@@ -143,7 +140,7 @@ public class UIUtils {
      * @param view
      * @return
      */
-    public static int getRightOnScreen(View view) {
+    public static int getRightOnScreen(@NonNull View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[0];
@@ -156,7 +153,7 @@ public class UIUtils {
      * @param view
      * @return
      */
-    public static int getTopOnScreen(View view) {
+    public static int getTopOnScreen(@NonNull View view) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
         return location[1];
@@ -168,7 +165,7 @@ public class UIUtils {
      *
      * @return
      */
-    public static int getStatusHeight(Context context) {
+    public static int getStatusHeight(@NonNull Context context) {
         int statusHeight = -1;
         try {
             Class clazz = Class.forName("com.android.internal.R$dimen");
@@ -187,10 +184,25 @@ public class UIUtils {
      * @param activity
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void hideStatusBar(Activity activity){
+    public static void hideStatusBar(@NonNull Activity activity){
         Window window = activity.getWindow();
         window.addFlags(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    /**
+     * 设置全屏
+     * @param activity
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void setFullScreen(@NonNull Activity activity){
+        Window window = activity.getWindow();
+        window.addFlags(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
@@ -200,7 +212,7 @@ public class UIUtils {
      * @param activity
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void translucentStatusBar(Activity activity) {
+    public static void translucentStatusBar(@NonNull Activity activity) {
         Window window = activity.getWindow();
         //设置Window为透明
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -223,7 +235,7 @@ public class UIUtils {
      * @param hideStatusBarBackground 是否保留StatusBar的背景，true会留个半透明的背景
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void translucentStatusBar(Activity activity, boolean hideStatusBarBackground) {
+    public static void translucentStatusBar(@NonNull Activity activity, boolean hideStatusBarBackground) {
         Window window = activity.getWindow();
         //添加Flag把状态栏设为可绘制模式
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -255,7 +267,7 @@ public class UIUtils {
      * @param statusColor
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static void setStatusBarColor(Activity activity,int statusColor){
+    public static void setStatusBarColor(@NonNull Activity activity,int statusColor){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
             Window window = activity.getWindow();
             //取消状态栏透明
@@ -311,7 +323,7 @@ public class UIUtils {
      * 将Activity设置的假的StatusBar移除
      * @param activity
      */
-    private static void removeFakeStatusBarViewIfExist(Activity activity) {
+    private static void removeFakeStatusBarViewIfExist(@NonNull Activity activity) {
         Window window = activity.getWindow();
         ViewGroup mDecorView = (ViewGroup) window.getDecorView();
 
@@ -328,7 +340,7 @@ public class UIUtils {
      * @param statusBarHeight
      * @return
      */
-    private static View addFakeStatusBarView(Activity activity, int statusBarColor, int statusBarHeight) {
+    private static View addFakeStatusBarView(@NonNull Activity activity, int statusBarColor, int statusBarHeight) {
         Window window = activity.getWindow();
         ViewGroup mDecorView = (ViewGroup) window.getDecorView();
 
@@ -348,7 +360,7 @@ public class UIUtils {
      * @param activity
      * @param padding
      */
-    private static void setContentTopPadding(Activity activity, int padding) {
+    private static void setContentTopPadding(@NonNull Activity activity, int padding) {
         ViewGroup mContentView = activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT);
         mContentView.setPadding(0, padding, 0, 0);
     }
@@ -358,7 +370,7 @@ public class UIUtils {
      * @param mContentChild
      * @param statusBarHeight
      */
-    private static void addMarginTopToContentChild(View mContentChild, int statusBarHeight) {
+    private static void addMarginTopToContentChild(@NonNull View mContentChild, int statusBarHeight) {
         if (mContentChild == null) {
             return;
         }
@@ -375,7 +387,7 @@ public class UIUtils {
      * @param mContentChild
      * @param statusBarHeight
      */
-    private static void removeMarginTopOfContentChild(View mContentChild, int statusBarHeight) {
+    private static void removeMarginTopOfContentChild(@NonNull View mContentChild, int statusBarHeight) {
         if (mContentChild == null) {
             return;
         }
@@ -392,7 +404,7 @@ public class UIUtils {
      * @param activity
      * @param color
      */
-    public static void setStatusBarLightMode(Activity activity, int color) {
+    public static void setStatusBarLightMode(@NonNull Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //如果是6.0以上将状态栏文字改为黑色，并设置状态栏颜色
             activity.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -421,4 +433,57 @@ public class UIUtils {
             view.getLayoutParams().height = (int) (view.getLayoutParams().width / ratio);
         }
     }
+
+    /**
+     * 屏幕截图
+     * @param activity
+     * @return
+     */
+    public static Bitmap screenshot(@NonNull Activity activity){
+        Window window = activity.getWindow();
+        View decorView = window.getDecorView();
+        Bitmap screenshot;
+        int width = getScreenWidth(activity);
+        int height = getScreenHeight(activity) + getStatusHeight(activity);
+        screenshot = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Canvas c = new Canvas(screenshot);
+        c.translate(-decorView.getScrollX(), -decorView.getScrollY());
+        decorView.draw(c);
+        return screenshot;
+    }
+
+    /**
+     * 屏幕截图（不包含状态栏）
+     * @param activity
+     * @return
+     */
+    public static Bitmap screenshotWithoutStatusBar(@NonNull Activity activity){
+        Window window = activity.getWindow();
+        View decorView = window.getDecorView();
+        Bitmap screenshot;
+        int width = getScreenWidth(activity);
+        int height = getScreenHeight(activity);
+        int statusBarHeight= getStatusHeight(activity);
+        screenshot = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Canvas c = new Canvas(screenshot);
+        c.translate(-decorView.getScrollX(), -decorView.getScrollY());
+        decorView.draw(c);
+        screenshot = Bitmap.createBitmap(screenshot,0,statusBarHeight,width,height - statusBarHeight);
+        return screenshot;
+    }
+
+    /**
+     * 屏幕截图
+     * @param view
+     * @return
+     */
+    public static Bitmap screenshot(@NonNull View view){
+        Bitmap screenshot;
+        screenshot = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.RGB_565);
+        Canvas c = new Canvas(screenshot);
+        c.translate(-view.getScrollX(), -view.getScrollY());
+        view.draw(c);
+        return screenshot;
+    }
+
 }
