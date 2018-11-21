@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
-// TODO: 2018/11/4 对外暴露的属性以及方法的设计，以及接口的设计
-public class CalendarView extends ViewPager {
+import cn.rygel.gd.utils.LunarUtils;
+
+// TODO: 2018/11/4 对外暴露的属性设计
+public class CalendarView extends ViewPager implements ICalendar {
 
     /**
      * 构造方法
@@ -24,4 +26,31 @@ public class CalendarView extends ViewPager {
         super(context,attrs);
     }
 
+
+    /******************************************* 对外暴露方法 *********************************************/
+    // TODO: 2018/11/21 对外暴露方法的实现
+    @Override
+    public void setSelect(LunarUtils.Solar solar) {
+
+    }
+
+    @Override
+    public void setCalendarDataHelper(CalendarDataHelper calendarDataHelper) {
+
+    }
+
+    @Override
+    public void setOnDateSelectListener(OnDateSelectedListener onDateSelectedListener) {
+
+    }
+
+    @Override
+    public void setOnMonthChangedListener(OnMonthChangedListener onMonthChangedListener) {
+
+    }
+
+    @Override
+    public LunarUtils.Solar getSelectDate() {
+        return null;
+    }
 }

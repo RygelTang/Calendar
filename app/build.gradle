@@ -64,6 +64,9 @@ dependencies {
     // Optional, if you use support library fragments:
     debugImplementation rootProject.ext.leak_canary.support_fragment
 
+    // EventBus
+    implementation rootProject.ext.event_bus
+
     // UI基础库
     implementation project(':uilibrary')
 

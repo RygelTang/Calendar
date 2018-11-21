@@ -24,6 +24,7 @@ ext {
             material_dialog             : "0.9.6.0",
             rxlifecycle                 : "2.2.2",
             brva                        : "2.9.30",
+            event_bus                   : "3.1.1",
     ]
 
     support = [
@@ -78,6 +79,8 @@ ext {
             no_op               : "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}",
             support_fragment    : "com.squareup.leakcanary:leakcanary-support-fragment:${versions.leak_canary}"
     ]
+
+    event_bus = "org.greenrobot:eventbus:${versions.event_bus}"
 
     brva = "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.brva}"
 
