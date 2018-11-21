@@ -1,9 +1,92 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 ext {
+    application_id = "cn.rygel.gd"
     compileSdkVersion = 28
     buildToolsVersion = "28.0.0"
     minSdkVersion = 16
     targetSdkVersion = 28
+    versionCode = 1
+    versionName = "1.0"
+
+    testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+
+    def versions = [
+            support                     : "28.0.0",
+            glide                       : "4.8.0",
+            retrofit                    : "2.4.0",
+            okhttp                      : "3.12.0",
+            gson                        : "2.8.5",
+            logger                      : "2.2.0",
+            okhttp_log_interceptor      : "3.9.1",
+            scoops                      : "1.0.0",
+            butter_knife                : "9.0.0-rc1",
+            leak_canary                 : "1.6.2",
+            material_dialog             : "0.9.6.0",
+            rxlifecycle                 : "2.2.2",
+            brva                        : "2.9.30",
+    ]
+
+    support = [
+            design              : "com.android.support:design:${versions.support}",
+            v4                  : "com.android.support:support-v4:${versions.support}",
+            support_compat      : "com.android.support:support-compat:${versions.support}",
+            app_compat          : "com.android.support:appcompat-v7:${versions.support}",
+            animated_vector_drawable        : "com.android.support:animated-vector-drawable:${versions.support}",
+            recyclerview        : "com.android.support:recyclerview-v7:${versions.support}",
+            media_compat        : "com.android.support:support-media-compat:${versions.support}",
+            cardview            : "com.android.support:cardview-v7:${versions.support}",
+            annotations         : "com.android.support:support-annotations:${versions.support}",
+            core_utils          : "com.android.support:support-core-utils:${versions.support}",
+            multidex            : "com.android.support:multidex:1.0.3",
+            constraint_layout   : "com.android.support.constraint:constraint-layout:1.1.2"
+    ]
+
+    rxlifecycle = [
+            rxlifecycle         : "com.trello.rxlifecycle2:rxlifecycle:${versions.rxlifecycle}",
+            components          : "com.trello.rxlifecycle2:rxlifecycle-components:${versions.rxlifecycle}",
+            android             : "com.trello.rxlifecycle2:rxlifecycle-android:${versions.rxlifecycle}"
+    ]
+
+    glide = [
+            glide               : "com.github.bumptech.glide:glide:${versions.glide}",
+            compiler            : "com.github.bumptech.glide:compiler:${versions.glide}"
+    ]
+
+    retrofit = [
+            retrofit            : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+            adapter_rxjava      : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}",
+            adapter_gson        : "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    ]
+
+    okhttp = [
+            okhttp              : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+            log_interceptor     : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_log_interceptor}"
+    ]
+
+    scoops = [
+            scoops              : "com.52inc:scoops:${versions.scoops}",
+            compiler            : "com.52inc:scoops-compiler:${versions.scoops}"
+    ]
+
+    butter_knife = [
+            butter_knife        : "com.jakewharton:butterknife:${versions.butter_knife}",
+            compiler            : "com.jakewharton:butterknife-compiler:${versions.butter_knife}"
+    ]
+
+    leak_canary = [
+            leak_canary         : "com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}",
+            no_op               : "com.squareup.leakcanary:leakcanary-android-no-op:${versions.leak_canary}",
+            support_fragment    : "com.squareup.leakcanary:leakcanary-support-fragment:${versions.leak_canary}"
+    ]
+
+    brva = "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.brva}"
+
+    gson = "com.google.code.gson:gson:${versions.gson}"
+
+    logger = "com.orhanobut:logger:${versions.logger}"
+
+    material_dialog = "com.afollestad.material-dialogs:core:${versions.material_dialog}"
+
 }
 
 buildscript {

@@ -5,10 +5,10 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
 
     }
     compileOptions {
@@ -26,13 +26,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation rootProject.ext.support.app_compat
+    implementation rootProject.ext.support.recyclerview
+
     // RxJava 订阅生命周期处理
-    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
-    api 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
-    api 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    api rootProject.ext.rxlifecycle.rxlifecycle
+    api rootProject.ext.rxlifecycle.components
+    api rootProject.ext.rxlifecycle.android
+
+    // Base RecyclerView Adapter
+    api rootProject.ext.brva
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
