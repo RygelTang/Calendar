@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import rygel.cn.uilibrary.dialog.LoadingDialog;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 public abstract class BaseActivity extends rygel.cn.uilibrary.base.BaseActivity
         implements IView {
@@ -14,10 +14,23 @@ public abstract class BaseActivity extends rygel.cn.uilibrary.base.BaseActivity
      */
     private IPresenter mPresenter = null;
 
+    protected MaterialDialog mLoadingDialog = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initPresenter();
+        initLoadingDialog();
         super.onCreate(savedInstanceState);
+    }
+
+    /**
+     * 初始化加载中对话框
+     */
+    private void initLoadingDialog() {
+        mLoadingDialog = new MaterialDialog.Builder(this)
+                .progress(true,0)
+                .cancelable(false)
+                .build();
     }
 
     /**
@@ -41,12 +54,12 @@ public abstract class BaseActivity extends rygel.cn.uilibrary.base.BaseActivity
 
     @Override
     public void onLoading() {
-        LoadingDialog.show();
+        mLoadingDialog.show();
     }
 
     @Override
     public void onLoadFinish() {
-        LoadingDialog.dismiss();
+        mLoadingDialog.dismiss();
     }
 
     @Override

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import rygel.cn.uilibrary.dialog.LoadingDialog;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
         implements IView {
@@ -18,11 +18,24 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
      */
     private IPresenter mPresenter = null;
 
+    protected MaterialDialog mLoadingDialog = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initPresenter();
+        initLoadingDialog();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    /**
+     * 初始化加载中对话框
+     */
+    private void initLoadingDialog() {
+        mLoadingDialog = new MaterialDialog.Builder(getContext())
+                .progress(true,0)
+                .cancelable(false)
+                .build();
     }
 
     /**
@@ -51,12 +64,12 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
 
     @Override
     public void onLoading() {
-        LoadingDialog.show();
+        mLoadingDialog.show();
     }
 
     @Override
     public void onLoadFinish() {
-        LoadingDialog.dismiss();
+        mLoadingDialog.dismiss();
     }
 
     /**
