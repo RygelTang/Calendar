@@ -2,9 +2,9 @@ package cn.rygel.gd.widget.calendar.impl.helper;
 
 import android.text.TextUtils;
 
-import rygel.cn.calendardemo.calendar.helper.CalendarDataHelper;
-import rygel.cn.calendardemo.utils.CalendarUtils;
-import rygel.cn.calendardemo.utils.LunarUtils;
+import cn.rygel.gd.utils.CalendarUtils;
+import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
 
 // TODO: 2018/11/25 实现下标数据获取
 public class DefaultCalendarDataHelper implements CalendarDataHelper {

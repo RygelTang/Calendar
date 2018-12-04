@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.text.TextPaint;
 
-import rygel.cn.calendardemo.calendar.helper.CustomCalendarWeekItem;
+import cn.rygel.gd.widget.calendar.helper.CustomCalendarWeekItem;
 
 public class DefaultCalendarWeekItem implements CustomCalendarWeekItem {
 

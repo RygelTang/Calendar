@@ -3,7 +3,7 @@ package cn.rygel.gd.widget.calendar.helper;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import rygel.cn.calendardemo.calendar.bean.CalendarData;
+import cn.rygel.gd.widget.calendar.bean.CalendarData;
 
 public interface CustomCalendarItem {
 

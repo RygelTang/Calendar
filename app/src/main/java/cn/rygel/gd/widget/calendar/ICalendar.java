@@ -1,9 +1,9 @@
 package cn.rygel.gd.widget.calendar;
 
-import rygel.cn.calendardemo.calendar.helper.CalendarDataHelper;
-import rygel.cn.calendardemo.calendar.listener.OnDateSelectedListener;
-import rygel.cn.calendardemo.calendar.listener.OnMonthChangedListener;
-import rygel.cn.calendardemo.utils.LunarUtils;
+import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
+import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
+import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
 
 public interface ICalendar {
 

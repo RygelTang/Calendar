@@ -8,16 +8,16 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import rygel.cn.calendardemo.calendar.ICalendar;
-import rygel.cn.calendardemo.calendar.bean.CalendarData;
-import rygel.cn.calendardemo.calendar.helper.CalendarDataHelper;
-import rygel.cn.calendardemo.calendar.helper.CustomCalendarItem;
-import rygel.cn.calendardemo.calendar.helper.CustomCalendarWeekItem;
-import rygel.cn.calendardemo.calendar.impl.helper.DefaultCalendarItem;
-import rygel.cn.calendardemo.calendar.impl.helper.DefaultCalendarWeekItem;
-import rygel.cn.calendardemo.calendar.listener.OnDateSelectedListener;
-import rygel.cn.calendardemo.calendar.listener.OnMonthChangedListener;
-import rygel.cn.calendardemo.utils.LunarUtils;
+import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.widget.calendar.ICalendar;
+import cn.rygel.gd.widget.calendar.bean.CalendarData;
+import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
+import cn.rygel.gd.widget.calendar.helper.CustomCalendarItem;
+import cn.rygel.gd.widget.calendar.helper.CustomCalendarWeekItem;
+import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarItem;
+import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarWeekItem;
+import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
+import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
 
 // TODO: 2018/11/4 对外暴露的属性设计
 public class CalendarView extends ViewPager implements ICalendar {

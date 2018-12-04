@@ -6,8 +6,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.TextPaint;
 
-import rygel.cn.calendardemo.calendar.bean.CalendarData;
-import rygel.cn.calendardemo.calendar.helper.CustomCalendarItem;
+import cn.rygel.gd.widget.calendar.bean.CalendarData;
+import cn.rygel.gd.widget.calendar.helper.CustomCalendarItem;
 
 public class DefaultCalendarItem implements CustomCalendarItem {
 
