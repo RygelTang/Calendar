@@ -164,16 +164,6 @@ public class LunarUtils {
      */
     public static String getLunarDayString(int solarYear, int solarMonth, int solarDay, int lunatYear, int lunatMonth, int lunatDay, boolean isLeap) {
 
-        String lunarHoliday = getLunarHoliday(lunatYear, lunatMonth, lunatDay);
-        if (!TextUtils.isEmpty(lunarHoliday)) {
-            return lunarHoliday;
-        }
-
-        String solarHoliday = getHolidayFromSolar(solarYear, solarMonth - 1, solarDay);
-        if (!TextUtils.isEmpty(solarHoliday)) {
-            return solarHoliday;
-        }
-
         String chineseTen[] = {"初", "十", "廿", "卅"};
         int n = lunatDay % 10 == 0 ? 9 : lunatDay % 10 - 1;
         String result = "";
@@ -296,9 +286,9 @@ public class LunarUtils {
     }
 
     public static class Solar implements Parcelable {
-        int solarDay;
-        int solarMonth;
-        int solarYear;
+        public int solarDay;
+        public int solarMonth;
+        public int solarYear;
 
         public Solar(int solarYear, int solarMonth, int solarDay) {
             this.solarYear = solarYear;

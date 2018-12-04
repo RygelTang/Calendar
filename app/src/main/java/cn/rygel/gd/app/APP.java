@@ -8,6 +8,7 @@ import com.squareup.leakcanary.LeakCanary;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
+import cn.rygel.gd.utils.sp.SPUtils;
 
 public class APP extends Application {
 
@@ -19,6 +20,7 @@ public class APP extends Application {
         sInstance = this;
         initLeakCanary();
         initScoop();
+        initSharedPreferences();
     }
 
     /**
@@ -45,6 +47,13 @@ public class APP extends Application {
                 .addDayNightFlavor("DayNight",R.style.Theme_Scoop_DayNight)
                 .setSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this))
                 .initialize();
+    }
+
+    /**
+     * 初始化SP
+     */
+    private void initSharedPreferences(){
+        SPUtils.getInstance().init(this);
     }
 
     /**

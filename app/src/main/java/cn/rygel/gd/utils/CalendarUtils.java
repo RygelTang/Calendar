@@ -1,9 +1,31 @@
 package cn.rygel.gd.utils;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class CalendarUtils {
 
     private static final int[] LEAP_YEAR_DAYS_OF_MONTH = {31,29,31,30,31,30,31,31,30,31,30,31};
     private static final int[] COMMON_YEAR_DAYS_OF_MONTH = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+    /**
+     * 获取当天日期
+     * @return
+     */
+    public static LunarUtils.Solar today(){
+        Calendar today = Calendar.getInstance();
+        return new LunarUtils.Solar(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DATE));
+    }
+
+    /**
+     * 获取某月的天数
+     * @param year
+     * @param month
+     * @return
+     */
+    public static int getMonthDay(int year,int month){
+        return isLeapYear(year) ? LEAP_YEAR_DAYS_OF_MONTH[month - 1] : COMMON_YEAR_DAYS_OF_MONTH[month - 1];
+    }
 
     /**
      * 星期,0开始，0对应周日

@@ -1,4 +1,4 @@
-package cn.rygel.gd.widget.calendar;
+package cn.rygel.gd.widget.calendar.helper;
 
 public interface CalendarDataHelper {
 
@@ -8,7 +8,7 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    int getDaysOfMonth(int year,int month);
+    int getDaysOfMonth(int year, int month);
 
     /**
      * 根据年月返回当月的第一天的起始位置
@@ -34,7 +34,7 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    String[] getDaysInfo(int year,int month);
+    String[] getDaysInfo(int year, int month);
 
     /**
      * 根据年月，返回当月的农历信息
@@ -43,7 +43,7 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    String[] getLunarsInfo(int year,int month);
+    String[] getLunarsInfo(int year, int month);
 
     /**
      * 根据年月，返回当月的节假日信息
@@ -53,7 +53,7 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    String[] getHolidaysInfo(int year,int month);
+    String[] getHolidaysInfo(int year, int month);
 
     /**
      * 根据年月返回当月的需要有下标的日期
@@ -65,7 +65,7 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    int getIndicatorsInfo(int year,int month);
+    int getIndicatorsInfo(int year, int month);
 
     /**
      * 返回相应的下标的颜色
@@ -73,12 +73,13 @@ public interface CalendarDataHelper {
      * @param month
      * @return
      */
-    int[] getIndicatorColors(int year,int month);
+    int[] getIndicatorColors(int year, int month);
 
     /**
      * 获取当天的index，如果当天不是这个月，则返回-1
+     * 从0开始计数
      * @return
      */
-    int getTodayIndex(int year,int month);
+    int getTodayIndex(int year, int month);
 
 }
