@@ -16,6 +16,7 @@ import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarItem;
 import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarWeekItem;
 import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
 
+// TODO: 2018/12/5 长按选择日期需要重新写
 public class RealCalendarView extends View {
 
     private static final long LONG_CLICK_DURATION = 3 * 1000;
