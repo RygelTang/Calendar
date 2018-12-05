@@ -4,6 +4,9 @@ import android.text.TextUtils;
 
 import cn.rygel.gd.utils.CalendarUtils;
 import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.utils.sp.SPUtils;
+import cn.rygel.gd.utils.sp.SettingConstants;
+import cn.rygel.gd.widget.calendar.bean.CalendarData;
 import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
 
 // TODO: 2018/11/25 实现下标数据获取
@@ -16,10 +19,10 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
     private int mStartOffset = 0;
 
     public DefaultCalendarDataHelper() {
-//        mStartOffset = SPUtils
-//                .getInstance()
-//                .getCustomSharedPreferences(SPUtils.PreferenceKeys.SETTING)
-//                .getInt(SettingConstants.SETTING_WEEKDAY_OFFSET,mStartOffset);
+        mStartOffset = SPUtils
+                .getInstance()
+                .getCustomSharedPreferences(SPUtils.PreferenceKeys.SETTING)
+                .getInt(SettingConstants.SETTING_WEEKDAY_OFFSET,mStartOffset);
     }
 
     @Override
@@ -99,5 +102,22 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
         }
 
         return null;
+    }
+
+    @Override
+    public CalendarData getCalendarData(int year, int month){
+        CalendarData data = new CalendarData();
+        data.setYear(year);
+        data.setMonth(month);
+        data.setDayInfos(getDaysInfo(year, month));
+        data.setDays(getDaysOfMonth(year, month));
+        data.setHolidays(getHolidaysInfo(year, month));
+        data.setIndicatorColors(getIndicatorColors(year, month));
+        data.setIndicators(getIndicatorsInfo(year, month));
+        data.setLunars(getLunarsInfo(year, month));
+        data.setStartIndex(getStartIndex(year, month));
+        data.setWeekDayInfo(getWeekDayInfo());
+        data.setTodayIndex(getTodayIndex(year, month));
+        return data;
     }
 }

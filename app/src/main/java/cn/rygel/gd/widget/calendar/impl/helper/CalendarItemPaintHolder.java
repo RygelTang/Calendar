@@ -100,10 +100,10 @@ public class CalendarItemPaintHolder {
     public Paint getBackgroundPaint(boolean mode) {
         mBackgroundPaint.setColor(mPrimaryColor);
         if(mode){
-            mHolidayPaint.setStyle(Paint.Style.FILL);
+            mBackgroundPaint.setStyle(Paint.Style.FILL);
         } else {
-            mHolidayPaint.setStyle(Paint.Style.STROKE);
-            mHolidayPaint.setStrokeWidth(5);
+            mBackgroundPaint.setStyle(Paint.Style.STROKE);
+            mBackgroundPaint.setStrokeWidth(5);
         }
         return mBackgroundPaint;
     }

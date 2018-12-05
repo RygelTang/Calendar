@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="CalendarView">
+        
+        <attr name="week_bar_height" format="dimension"/>
+        <attr name="week_day_text_size" format="dimension"/>
+        <attr name="date_text_size" format="dimension"/>
+        <attr name="lunar_text_size" format="dimension"/>
+        <attr name="holiday_text_size" format="dimension"/>
+        <attr name="child_padding_left" format="dimension"/>
+        <attr name="child_padding_right" format="dimension"/>
+        <attr name="child_padding_top" format="dimension"/>
+        <attr name="child_padding_bottom" format="dimension"/>
+        <attr name="week_day_text_color" format="color"/>
+        <attr name="select_text_color" format="color"/>
+        <attr name="primary_color" format="color"/>
+        <attr name="accent_color" format="color"/>
+        <attr name="text_color" format="color"/>
+
+    </declare-styleable>
+    
+</resources>

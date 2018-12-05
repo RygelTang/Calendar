@@ -2,6 +2,8 @@ package cn.rygel.gd.widget.calendar.bean;
 
 public class CalendarData {
 
+    public int year = 0;
+    public int month = 0;
     public int mDays = 0;
     public int mStartIndex = 0;
     public String[] mWeekDayInfo = null;
@@ -82,5 +84,21 @@ public class CalendarData {
 
     public void setTodayIndex(int todayIndex) {
         mTodayIndex = todayIndex;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
 }

@@ -1,5 +1,7 @@
 package cn.rygel.gd.widget.calendar.helper;
 
+import cn.rygel.gd.widget.calendar.bean.CalendarData;
+
 public interface CalendarDataHelper {
 
     /**
@@ -81,5 +83,13 @@ public interface CalendarDataHelper {
      * @return
      */
     int getTodayIndex(int year, int month);
+
+    /**
+     * 获取封装好的CalendarData数据
+     * @param year
+     * @param month
+     * @return
+     */
+    CalendarData getCalendarData(int year, int month);
 
 }

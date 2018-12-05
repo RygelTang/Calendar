@@ -43,7 +43,7 @@ public class DefaultCalendarItem implements CustomCalendarItem {
     private void drawLunarOrHoliday(Canvas canvas, Rect bound, CalendarData data, int index, boolean mode){
         Rect textBound = new Rect();
         if(data.mHolidays[index] != null){
-            final TextPaint holidayPaint = mCalendarItemPaintHolder.getHolidayPaint(false);
+            final TextPaint holidayPaint = mCalendarItemPaintHolder.getHolidayPaint(mode);
             final String holiday = data.mHolidays[index];
             holidayPaint.getTextBounds(holiday,0,holiday.length(),textBound);
             canvas.drawText(holiday,
@@ -52,7 +52,7 @@ public class DefaultCalendarItem implements CustomCalendarItem {
                     holidayPaint
             );
         } else {
-            final TextPaint lunarPaint = mCalendarItemPaintHolder.getLunarPaint(false);
+            final TextPaint lunarPaint = mCalendarItemPaintHolder.getLunarPaint(mode);
             final String lunar = data.mLunars[index];
             lunarPaint.getTextBounds(lunar,0,lunar.length(),textBound);
             canvas.drawText(lunar,
