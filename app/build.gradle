@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'io.objectbox'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -10,9 +11,11 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+        multiDexEnabled true
     }
     buildTypes {
         release {
+            buildConfigField "boolean","LOG_DEBUG","false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -66,6 +69,9 @@ dependencies {
 
     // EventBus
     implementation rootProject.ext.event_bus
+
+    // multidex
+    implementation rootProject.ext.multidex
 
     // UI基础库
     implementation project(':uilibrary')

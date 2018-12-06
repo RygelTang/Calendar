@@ -8,7 +8,10 @@ import com.squareup.leakcanary.LeakCanary;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
+import cn.rygel.gd.db.BoxStoreHolder;
+import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.utils.sp.SPUtils;
+import io.objectbox.android.AndroidObjectBrowser;
 
 public class APP extends Application {
 
@@ -18,9 +21,26 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        initBoxStore();
         initLeakCanary();
         initScoop();
         initSharedPreferences();
+    }
+
+    /**
+     * 初始化BoxStore
+     */
+    private void initBoxStore(){
+        BoxStoreHolder.getInstance()
+                .init(MyObjectBox.builder()
+                        .androidContext(this)
+                        .build()
+                );
+        if(BuildConfig.DEBUG){
+            new AndroidObjectBrowser(BoxStoreHolder.getInstance()
+                    .getBoxStore())
+                    .start(this);
+        }
     }
 
     /**

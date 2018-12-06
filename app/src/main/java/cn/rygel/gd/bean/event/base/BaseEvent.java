@@ -8,31 +8,15 @@ import cn.rygel.gd.utils.LunarUtils;
 
 public class BaseEvent implements Parcelable {
 
-    protected int mId = 0;
     protected String mName = "";
     protected String mDescription = "";
     protected String mUser = "";
     protected int mTimeZone = 8;
     protected boolean mIsLunarEvent = false;
     protected long mStart = 0;
-    protected LunarUtils.Solar mEventSolarDate = new LunarUtils.Solar(1990,1,1);
+    protected LunarUtils.Solar mEventSolarDate = new LunarUtils.Solar();
     protected LunarUtils.Lunar mEventLunarDate = new LunarUtils.Lunar();
     protected EventType mEventType = null;
-
-    public BaseEvent(){ }
-
-    public BaseEvent(Parcel in){
-        setId(in.readInt());
-        setName(in.readString());
-        setDescription(in.readString());
-        setUser(in.readString());
-        setTimeZone(in.readInt());
-        setLunarEvent(in.readByte() == 1);
-        setStart(in.readLong());
-        setEventSolarDate(in.readParcelable(LunarUtils.Solar.class.getClassLoader()));
-        setEventLunarDate(in.readParcelable(LunarUtils.Lunar.class.getClassLoader()));
-        mEventType = in.readParcelable(EventType.class.getClassLoader());
-    }
 
     /**
      * 提前提醒时间
@@ -44,12 +28,20 @@ public class BaseEvent implements Parcelable {
      */
     protected long mDelayTime = 5 * 60 * 1000;
 
-    public int getId() {
-        return mId;
-    }
+    public BaseEvent(){ }
 
-    public void setId(int id) {
-        mId = id;
+    public BaseEvent(Parcel in){
+        setAdvanceTime(in.readLong());
+        setDelayTime(in.readLong());
+        setName(in.readString());
+        setDescription(in.readString());
+        setUser(in.readString());
+        setTimeZone(in.readInt());
+        setLunarEvent(in.readByte() == 1);
+        setStart(in.readLong());
+        setEventSolarDate(in.readParcelable(LunarUtils.Solar.class.getClassLoader()));
+        setEventLunarDate(in.readParcelable(LunarUtils.Lunar.class.getClassLoader()));
+        mEventType = in.readParcelable(EventType.class.getClassLoader());
     }
 
     public String getName() {
@@ -145,7 +137,8 @@ public class BaseEvent implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(getId());
+        dest.writeLong(getAdvanceTime());
+        dest.writeLong(getDelayTime());
         dest.writeString(getName());
         dest.writeString(getDescription());
         dest.writeString(getUser());
