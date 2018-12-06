@@ -3,10 +3,12 @@ package cn.rygel.gd.bean.event.base;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.utils.LunarUtils;
 
-public class BaseEvent implements Parcelable {
+public class BaseEvent implements Parcelable,MultiItemEntity {
 
     protected String mName = "";
     protected String mDescription = "";
@@ -126,6 +128,11 @@ public class BaseEvent implements Parcelable {
 
     public EventType getEventType() {
         return mEventType;
+    }
+
+    @Override
+    public int getItemType() {
+        return EventType.EVENT_TYPE_SUPPORT.indexOf(getEventType());
     }
 
     /****************************************** 支持Parcelable ****************************************/

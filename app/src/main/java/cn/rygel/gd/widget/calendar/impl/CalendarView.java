@@ -59,7 +59,6 @@ public class CalendarView extends ViewPager implements ICalendar {
     }
 
     /******************************************* 对外暴露方法 *********************************************/
-    // TODO: 2018/11/21 对外暴露方法的实现
     @Override
     public void setSelect(LunarUtils.Solar solar) {
         mCalendarPageAdapter.select(solar);

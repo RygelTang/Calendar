@@ -5,4 +5,5 @@ package cn.rygel.gd.constants;
  */
 public class Global {
     public static final String APP_NAME = "APP_NAME";
+    public static final String BASE_URL = "";
 }
