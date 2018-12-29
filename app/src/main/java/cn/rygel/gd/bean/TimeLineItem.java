@@ -10,6 +10,13 @@ public class TimeLineItem {
     private LunarUtils.Solar mDate;
     private Set<BaseEvent> mEvents;
 
+    public TimeLineItem() { }
+
+    public TimeLineItem(LunarUtils.Solar date, Set<BaseEvent> events) {
+        mDate = date;
+        mEvents = events;
+    }
+
     public LunarUtils.Solar getDate() {
         return mDate;
     }

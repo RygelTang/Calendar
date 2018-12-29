@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="colorTimeLine">#444444</color>
+
     <color name="white">#FFFFFF</color>
     <color name="gray">#AAAAAA</color>
     <color name="black">#313335</color>

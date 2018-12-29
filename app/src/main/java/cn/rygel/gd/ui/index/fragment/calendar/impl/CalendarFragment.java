@@ -7,9 +7,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.rygel.gd.R;
+import cn.rygel.gd.adapter.TimeLineAdapter;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.utils.CalendarUtils;
 import cn.rygel.gd.utils.LunarUtils;
@@ -30,6 +33,8 @@ public class CalendarFragment extends BaseFragment implements ICalendarView {
 
     @BindView(R.id.rv_time_line)
     RecyclerView mTimeLine;
+
+    TimeLineAdapter mTimeLineAdapter = new TimeLineAdapter(new ArrayList<>());
 
     @Override
     protected IPresenter createPresenter() {
@@ -57,6 +62,7 @@ public class CalendarFragment extends BaseFragment implements ICalendarView {
             }
         });
         mCalendarView.setSelect(CalendarUtils.today());
+        mTimeLine.setAdapter(mTimeLineAdapter);
     }
 
     @Override

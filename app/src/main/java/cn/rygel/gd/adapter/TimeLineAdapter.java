@@ -13,7 +13,7 @@ import rygel.cn.uilibrary.utils.UIUtils;
 
 public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolder> {
 
-    private TimeLineAdapter(@Nullable List<TimeLineItem> data) {
+    public TimeLineAdapter(@Nullable List<TimeLineItem> data) {
         super(R.layout.item_time_line,data);
     }
 

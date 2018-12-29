@@ -12,7 +12,7 @@ public class RepeatTypeConverter implements PropertyConverter<RepeatType,Integer
 
     @Override
     public Integer convertToDatabaseValue(RepeatType entityProperty) {
-        return RepeatType.EVERY_DAY.mIndex;
+        return entityProperty.ordinal();
     }
 
 }
