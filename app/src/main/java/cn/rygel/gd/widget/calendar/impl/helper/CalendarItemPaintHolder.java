@@ -101,7 +101,9 @@ public class CalendarItemPaintHolder {
         mBackgroundPaint.setColor(mPrimaryColor);
         if(mode){
             mBackgroundPaint.setStyle(Paint.Style.FILL);
+            mBackgroundPaint.setShadowLayer(20,10,10,Color.LTGRAY);
         } else {
+            mBackgroundPaint.clearShadowLayer();
             mBackgroundPaint.setStyle(Paint.Style.STROKE);
             mBackgroundPaint.setStrokeWidth(5);
         }

@@ -18,9 +18,9 @@ import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
 
 public class CalendarPageAdapter extends PagerAdapter {
 
-    private static final int MONTH_COUNT = 12 * 200;
+    private static final int MONTH_COUNT = 12 * 199;
 
-    private int mCacheSize = 5;
+    private int mCacheSize = 7;
 
     private List<RealCalendarView> mCachedCalendarViews = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView(mCachedCalendarViews.get(position % mCacheSize));
+        container.removeView((View) object);
     }
 
     @Override
@@ -141,6 +141,9 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     protected void setCacheSize(int cacheSize){
         mCacheSize = cacheSize;
+        if(mCacheSize <= 7){
+            mCacheSize = 7;
+        }
         mCachedCalendarViews.clear();
     }
 
