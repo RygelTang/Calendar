@@ -70,8 +70,17 @@ dependencies {
     // EventBus
     implementation rootProject.ext.event_bus
 
+    // 屏幕适配
+    implementation rootProject.ext.auto_size
+
+    // 垂直ViewPager
+    implementation rootProject.ext.vertical_view_pager
+
     // multidex
     implementation rootProject.ext.multidex
+
+    // 引入多级列表
+    implementation rootProject.ext.multi_level
 
     // UI基础库
     implementation project(':uilibrary')

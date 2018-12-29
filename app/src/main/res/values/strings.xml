@@ -4,6 +4,8 @@
     <string name="back_to_today">返回今天</string>
     <string name="yyyy_MM">%d年%d月</string>
     <string name="yyyy_MM_dd">%d年%d月%d日</string>
+    <string name="dd">%d日</string>
+    <string name="default_time">12:00</string>
     <string name="temperature">%d℃</string>
 
     <!--创建活动-->

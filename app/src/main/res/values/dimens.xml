@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--通用尺寸-->
+    <dimen name="round_corner_radius_s">10mm</dimen>
+    <dimen name="round_corner_radius_m">20mm</dimen>
+    <dimen name="round_corner_radius_l">30mm</dimen>
+    <dimen name="round_corner_radius_xl">40mm</dimen>
+
+    <dimen name="elevation_s">4mm</dimen>
+    <dimen name="elevation_m">8mm</dimen>
+    <dimen name="elevation_l">12mm</dimen>
+    <dimen name="elevation_xl">16mm</dimen>
+
+    <dimen name="divide_width">1mm</dimen>
+
+    <dimen name="text_xxs">18mm</dimen>
+    <dimen name="text_xs">22mm</dimen>
+    <dimen name="text_s">26mm</dimen>
+    <dimen name="text_m">36mm</dimen>
+    <dimen name="text_l">48mm</dimen>
+    <dimen name="text_xl">60mm</dimen>
+    <dimen name="text_xxl">72mm</dimen>
+    <dimen name="text_xxxl">96mm</dimen>
+
+    <dimen name="margin_xs">10mm</dimen>
+    <dimen name="margin_s">20mm</dimen>
+    <dimen name="margin_m">30mm</dimen>
+    <dimen name="margin_l">40mm</dimen>
+    <dimen name="margin_xl">50mm</dimen>
+    <dimen name="margin_xxl">60mm</dimen>
+    <dimen name="margin_xxxl">90mm</dimen>
+    <dimen name="margin_xxxxl">120mm</dimen>
+    <dimen name="margin_xxxxxl">160mm</dimen>
+
+    <dimen name="padding_xs">10mm</dimen>
+    <dimen name="padding_s">20mm</dimen>
+    <dimen name="padding_m">30mm</dimen>
+    <dimen name="padding_l">40mm</dimen>
+    <dimen name="padding_xl">50mm</dimen>
+    <dimen name="padding_xxl">60mm</dimen>
+    <dimen name="padding_xxxl">90mm</dimen>
+    <dimen name="padding_xxxxl">120mm</dimen>
+    <dimen name="padding_xxxxxl">160mm</dimen>
+
+    <!--tool bar-->
+    <dimen name="status_bar_height">72mm</dimen>
+    <dimen name="tool_bar_height">120mm</dimen>
+    <dimen name="tool_bar_icon_width">100mm</dimen>
+
+    <!--主界面-->
+    <!--calendar view-->
+    <dimen name="calendar_view_height">810mm</dimen>
+    <dimen name="calendar_View_week_bar_height">42mm</dimen>
+    <dimen name="calendar_view_child_padding">6mm</dimen>
+    
+    <!--event list-->
+    <dimen name="item_indicator">80mm</dimen>
+
+</resources>

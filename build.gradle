@@ -26,7 +26,10 @@ ext {
             brva                        : "2.9.30",
             event_bus                   : "3.1.1",
             object_box                  : "2.2.0",
-            multidex                    : "1.0.3"
+            multidex                    : "1.0.3",
+            auto_size                   : "1.1.0",
+            vertical_view_pager         : "1.0.0@aar",
+            multi_level                 : "1.0.2"
     ]
 
     support = [
@@ -82,6 +85,10 @@ ext {
             support_fragment    : "com.squareup.leakcanary:leakcanary-support-fragment:${versions.leak_canary}"
     ]
 
+    vertical_view_pager = "me.kaelaela:verticalviewpager:${versions.vertical_view_pager}"
+
+    auto_size = "me.jessyan:autosize:${versions.auto_size}"
+
     multidex = "com.android.support:multidex:${versions.multidex}"
 
     object_box = "io.objectbox:objectbox-gradle-plugin:${versions.object_box}"
@@ -95,6 +102,8 @@ ext {
     logger = "com.orhanobut:logger:${versions.logger}"
 
     material_dialog = "com.afollestad.material-dialogs:core:${versions.material_dialog}"
+
+    multi_level = "com.github.JianxunMaster:MultiLevelLibrary:${versions.multi_level}"
 
 }
 

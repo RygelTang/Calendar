@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        style="@style/BaseToolBar"
+        android:id="@+id/tb_main"
+        app:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_menu_white_24dp"
+        app:title="@string/yyyy_MM"/>
+
+    <cn.rygel.gd.widget.calendar.impl.CalendarView
+        android:id="@+id/cv_calendar"
+        android:padding="@dimen/padding_s"
+        android:layout_margin="@dimen/margin_m"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_view_height"
+        android:background="@drawable/bg_round_corner"
+        android:elevation="@dimen/elevation_m"
+        app:accent_color="@color/colorAccent"
+        app:child_padding_bottom="@dimen/calendar_view_child_padding"
+        app:child_padding_left="@dimen/calendar_view_child_padding"
+        app:child_padding_right="@dimen/calendar_view_child_padding"
+        app:child_padding_top="@dimen/calendar_view_child_padding"
+        app:date_text_size="@dimen/text_l"
+        app:holiday_text_size="@dimen/text_s"
+        app:lunar_text_size="@dimen/text_s"
+        app:primary_color="@color/colorPrimary"
+        app:week_bar_height="@dimen/calendar_View_week_bar_height"
+        app:week_day_text_size="@dimen/text_s" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_margin="@dimen/margin_m"
+        android:id="@+id/rv_time_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

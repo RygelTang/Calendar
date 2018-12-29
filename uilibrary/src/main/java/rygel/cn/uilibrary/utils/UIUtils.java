@@ -65,6 +65,13 @@ public class UIUtils {
     }
 
     /**
+     * 获取文字
+     */
+    public static String getString(@NonNull Context context,int resId,Object... formatArgs) {
+        return getResources(context).getString(resId,formatArgs);
+    }
+
+    /**
      * 获取文字数组
      */
     public static String[] getStringArray(@NonNull Context context,int resId) {
@@ -190,6 +197,19 @@ public class UIUtils {
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    /**
+     * 为Activity隐藏状态栏
+     * @param activity
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void showStatusBar(@NonNull Activity activity){
+        Window window = activity.getWindow();
+        window.addFlags((~View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+                & (~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+                & (~View.SYSTEM_UI_FLAG_FULLSCREEN)
+                & (~View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY));
     }
 
     /**

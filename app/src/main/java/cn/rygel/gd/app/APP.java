@@ -12,6 +12,8 @@ import cn.rygel.gd.db.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.utils.sp.SPUtils;
 import io.objectbox.android.AndroidObjectBrowser;
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.unit.Subunits;
 
 public class APP extends Application {
 
@@ -24,6 +26,7 @@ public class APP extends Application {
         initBoxStore();
         initLeakCanary();
         initScoop();
+        initAutoSize();
         initSharedPreferences();
     }
 
@@ -74,6 +77,16 @@ public class APP extends Application {
      */
     private void initSharedPreferences(){
         SPUtils.getInstance().init(this);
+    }
+
+    /**
+     * 初始化AutoSize
+     */
+    private void initAutoSize(){
+        AutoSizeConfig.getInstance().getUnitsManager()
+                .setSupportDP(false)
+                .setSupportSP(false)
+                .setSupportSubunits(Subunits.MM);
     }
 
     /**

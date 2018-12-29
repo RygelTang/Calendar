@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -21,30 +22,24 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         ActivityCollector.addActivity(this);
     }
 
+    protected void hideActionBar(){
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.hide();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         ActivityCollector.removeActivity(this);
         super.onDestroy();
     }
 
-    protected void showSoftKeyBoard(){
-
-    }
-
-    protected void hideSoftKeyBoard(){
-
-    }
-
     protected void setStatusBarVisible(boolean visible){
-
-    }
-
-    protected void setNavigationBarVisible(boolean visible){
-
-    }
-
-    protected void setNavigationBarColor(){
-
+        if(!visible)
+            UIUtils.hideStatusBar(this);
+        else
+            UIUtils.showStatusBar(this);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)

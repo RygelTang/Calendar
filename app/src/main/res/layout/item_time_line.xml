@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <View
+        android:layout_marginLeft="@dimen/margin_l"
+        android:layout_marginRight="@dimen/margin_l"
+        android:layout_toLeftOf="@id/tv_date"
+        android:background="@drawable/src_time_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img_indicator"
+        android:background="@color/white"
+        android:padding="@dimen/padding_xs"
+        android:layout_margin="@dimen/margin_s"
+        android:src="@drawable/src_indicator"
+        android:layout_width="@dimen/item_indicator"
+        android:layout_height="@dimen/item_indicator" />
+
+    <TextView
+        android:layout_toRightOf="@id/img_indicator"
+        android:id="@+id/tv_date"
+        android:layout_margin="@dimen/margin_s"
+        android:padding="@dimen/padding_xs"
+        android:textColor="@color/black"
+        android:text="@string/dd"
+        android:textSize="@dimen/text_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ViewStub
+        android:layout_margin="@dimen/margin_m"
+        android:layout_toRightOf="@id/img_indicator"
+        android:layout_below="@+id/tv_date"
+        android:id="@+id/stub_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
