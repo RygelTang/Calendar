@@ -14,7 +14,7 @@ public class CalendarUtils {
      */
     public static LunarUtils.Solar today(){
         Calendar today = Calendar.getInstance();
-        return new LunarUtils.Solar(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DATE));
+        return new LunarUtils.Solar(today.get(Calendar.YEAR),today.get(Calendar.MONTH) + 1,today.get(Calendar.DATE));
     }
 
     /**
@@ -117,7 +117,7 @@ public class CalendarUtils {
             yearBaseDaysToBase = getIntervalDaysToBase(yearBase); //计算当年的年初到标准年的间隔
             offset = newDayToBase - yearBaseDaysToBase + 1; //误差
         }
-        while (offset >= daysOfYear){
+        while (offset > daysOfYear){
             yearBase = new LunarUtils.Solar(++year,1,1);
             yearBaseDaysToBase = getIntervalDaysToBase(yearBase); //计算当年的年初到标准年的间隔
             offset = newDayToBase - yearBaseDaysToBase + 1; //误差
@@ -132,9 +132,18 @@ public class CalendarUtils {
      * @return
      */
     private static int getIntervalDaysToBase(LunarUtils.Solar day){
-        final int leapYearCount = getLeapYearCount(day.solarYear);
+        final int leapYearCount = getLeapYearCountWithoutThisYear(day.solarYear);
         int daysInYear = getDaysInYear(day);
-        return leapYearCount + day.solarYear * 365 + daysInYear;
+        return leapYearCount + (day.solarYear - 1) * 365 + daysInYear;
+    }
+
+    /**
+     * 闰年的年数，不包含今年
+     * @param year
+     * @return
+     */
+    private static int getLeapYearCountWithoutThisYear(int year){
+        return getLeapYearCount(--year);
     }
 
     /**
@@ -143,7 +152,7 @@ public class CalendarUtils {
      * @return
      */
     private static int getLeapYearCount(int year){
-        return year / 4 - year / 100 + year % 400;
+        return year / 4 - year / 100 + year / 400;
     }
 
 }
