@@ -57,6 +57,6 @@
     <!--event list-->
     <dimen name="time_line_item_min_height">360mm</dimen>
     <dimen name="item_indicator">80mm</dimen>
-    <dimen name="time_line_width">16mm</dimen>
+    <dimen name="time_line_width">8mm</dimen>
 
 </resources>

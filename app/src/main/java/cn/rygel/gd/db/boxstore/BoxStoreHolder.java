@@ -1,4 +1,4 @@
-package cn.rygel.gd.db;
+package cn.rygel.gd.db.boxstore;
 
 import io.objectbox.BoxStore;
 

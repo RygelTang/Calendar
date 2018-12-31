@@ -4,11 +4,15 @@ import android.app.Application;
 import android.preference.PreferenceManager;
 
 import com.ftinc.scoop.Scoop;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
-import cn.rygel.gd.db.BoxStoreHolder;
+import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.utils.sp.SPUtils;
 import io.objectbox.android.AndroidObjectBrowser;
@@ -23,11 +27,23 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        initLogger();
         initBoxStore();
         initLeakCanary();
         initScoop();
         initAutoSize();
         initSharedPreferences();
+    }
+
+    /**
+     * 初始化Logger
+     */
+    private void initLogger(){
+        FormatStrategy strategy = PrettyFormatStrategy
+                .newBuilder()
+                .tag("Rygel")
+                .build();
+        Logger.addLogAdapter(new AndroidLogAdapter(strategy));
     }
 
     /**

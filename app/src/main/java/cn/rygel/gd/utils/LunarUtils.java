@@ -58,17 +58,6 @@ public class LunarUtils {
      *
      * @param year  要计算的年份
      * @param month 要计算的月
-     * @return 传回天数
-     */
-    public static int daysInMonth(int year, int month) {
-        return daysInMonth(year, month, false);
-    }
-
-    /**
-     * 传回农历year年month月的总天数
-     *
-     * @param year  要计算的年份
-     * @param month 要计算的月
      * @param leap  当月是否是闰月
      * @return 传回天数，如果闰月是错误的，返回0.
      */
@@ -95,11 +84,11 @@ public class LunarUtils {
     /**
      * 传回农历year年month月的总天数，总共有13个月包括闰月
      * @param year  将要计算的年份
-     * @param month 将要计算的月份
+     * @param index 将要计算的月份的index
      * @return 传回农历 year年month月的总天数
      */
-    public static int daysInLunarMonth(int year, int month) {
-        if ((LUNAR_INFO[year - MIN_YEAR] & (0x100000 >> month)) == 0)
+    private static int daysInLunarMonth(int year, int index) {
+        if ((LUNAR_INFO[year - MIN_YEAR] & (0x100000 >> index)) == 0)
             return 29;
         else
             return 30;
@@ -286,6 +275,9 @@ public class LunarUtils {
     }
 
     public static class Solar implements Parcelable {
+
+        public static final Solar BASE = new Solar(1901,1,1);
+
         public int solarDay;
         public int solarMonth;
         public int solarYear;
@@ -327,9 +319,18 @@ public class LunarUtils {
 
     public static class Lunar implements Parcelable{
         public boolean isLeap;
-        public int lunarDay;
-        public int lunarMonth;
         public int lunarYear;
+        public int lunarMonth;
+        public int lunarDay;
+
+        public Lunar() { }
+
+        public Lunar(boolean isLeap, int lunarYear, int lunarMonth, int lunarDay) {
+            this.isLeap = isLeap;
+            this.lunarYear = lunarYear;
+            this.lunarMonth = lunarMonth;
+            this.lunarDay = lunarDay;
+        }
 
         /****************************************** 支持Parcelable ****************************************/
         @Override

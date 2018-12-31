@@ -79,9 +79,6 @@ dependencies {
     // multidex
     implementation rootProject.ext.multidex
 
-    // 引入多级列表
-    implementation rootProject.ext.multi_level
-
     // UI基础库
     implementation project(':uilibrary')
 

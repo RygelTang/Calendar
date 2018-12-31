@@ -85,6 +85,53 @@ public class CalendarUtils {
     }
 
     /**
+     * 判断两个日期哪个更大
+     * @param date0
+     * @param date1
+     * @return
+     */
+    public static boolean compare(LunarUtils.Solar date0, LunarUtils.Solar date1){
+        return ((date0.solarYear << 9) | (date0.solarMonth << 5) | date0.solarDay) -
+                ((date1.solarYear << 9) | (date1.solarMonth << 5) | date1.solarDay) > 0;
+    }
+
+    /**
+     * 昨天
+     * @param solar
+     * @return
+     */
+    public static LunarUtils.Solar yesterday(LunarUtils.Solar solar){
+        solar.solarDay--;
+        if(solar.solarDay < 1){
+            solar.solarMonth--;
+            if(solar.solarMonth == 1){
+                solar.solarYear--;
+                solar.solarMonth = 12;
+            }
+            solar.solarDay = getMonthDay(solar.solarYear,solar.solarMonth);
+        }
+        return solar;
+    }
+
+    /**
+     * 明天
+     * @param solar
+     * @return
+     */
+    public static LunarUtils.Solar tomorrow(LunarUtils.Solar solar){
+        solar.solarDay++;
+        if(solar.solarDay > getMonthDay(solar.solarYear,solar.solarMonth)){
+            solar.solarDay = 1;
+            solar.solarMonth++;
+            if(solar.solarMonth == 13){
+                solar.solarMonth = 1;
+                solar.solarYear++;
+            }
+        }
+        return solar;
+    }
+
+    /**
      * 日期间隔
      * @param start
      * @param end

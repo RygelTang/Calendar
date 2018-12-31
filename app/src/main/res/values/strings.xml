@@ -24,6 +24,7 @@
     <string name="task_name">任务名称</string>
 
     <!--通用-->
+    <string name="default_user">默认用户</string>
     <string name="detail">说明</string>
     <string name="NULL">无</string>
     <string name="calendar">日历</string>

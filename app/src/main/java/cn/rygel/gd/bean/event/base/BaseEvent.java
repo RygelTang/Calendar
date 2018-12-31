@@ -14,6 +14,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
     protected String mDescription = "";
     protected String mUser = "";
     protected int mTimeZone = 8;
+    protected boolean mShowNotification = true;
     protected boolean mIsLunarEvent = false;
     protected long mStart = 0;
     protected LunarUtils.Solar mEventSolarDate = new LunarUtils.Solar();
@@ -39,6 +40,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         setDescription(in.readString());
         setUser(in.readString());
         setTimeZone(in.readInt());
+        setShowNotification(in.readByte() == 1);
         setLunarEvent(in.readByte() == 1);
         setStart(in.readLong());
         setEventSolarDate(in.readParcelable(LunarUtils.Solar.class.getClassLoader()));
@@ -52,6 +54,14 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public boolean isShowNotification() {
+        return mShowNotification;
+    }
+
+    public void setShowNotification(boolean showNotification) {
+        mShowNotification = showNotification;
     }
 
     public String getDescription() {
@@ -126,6 +136,10 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         mDelayTime = delayTime;
     }
 
+    public void setEventType(EventType eventType) {
+        mEventType = eventType;
+    }
+
     public EventType getEventType() {
         return mEventType;
     }
@@ -150,6 +164,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         dest.writeString(getDescription());
         dest.writeString(getUser());
         dest.writeInt(getTimeZone());
+        dest.writeByte((byte) (isShowNotification() ? 1 : 0));
         dest.writeByte((byte) (isLunarEvent() ? 1 : 0));
         dest.writeLong(getStart());
         dest.writeParcelable(getEventSolarDate(),Parcelable.CONTENTS_FILE_DESCRIPTOR);

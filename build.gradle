@@ -28,8 +28,7 @@ ext {
             object_box                  : "2.2.0",
             multidex                    : "1.0.3",
             auto_size                   : "1.1.0",
-            vertical_view_pager         : "1.0.0@aar",
-            multi_level                 : "1.0.2"
+            vertical_view_pager         : "1.0.0@aar"
     ]
 
     support = [
@@ -102,8 +101,6 @@ ext {
     logger = "com.orhanobut:logger:${versions.logger}"
 
     material_dialog = "com.afollestad.material-dialogs:core:${versions.material_dialog}"
-
-    multi_level = "com.github.JianxunMaster:MultiLevelLibrary:${versions.multi_level}"
 
 }
 
