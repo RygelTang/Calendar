@@ -1,17 +1,25 @@
 package cn.rygel.gd.utils;
 
+import com.orhanobut.logger.Logger;
+
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseObserver<T> implements Subscriber<T> {
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
+public abstract class BaseObserver<T> implements Subscriber<T>,Observer<T> {
+
+    private static final String TAG = "BaseObserver";
 
     /**
      * 对异步任务进行管理
      */
     private static Map<Object, Subscription> sSubscriptions = new HashMap<>();
+    private static Map<Object, Disposable> sDisposables = new HashMap<>();
 
     /**
      * 为Observer设置TAG，这个TAG是用于方便取消异步任务
@@ -27,13 +35,20 @@ public abstract class BaseObserver<T> implements Subscriber<T> {
     /**
      * 请求失败的回调
      */
-    public abstract void onFail(Throwable t);
+    public void onFail(Throwable t){
+        Logger.e(TAG,getTag(),t,t.getMessage());
+    }
 
     /**
      * 取消任务
      */
     private void cancel(){
         cancel(getTag());
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
     }
 
     @Override
@@ -49,11 +64,12 @@ public abstract class BaseObserver<T> implements Subscriber<T> {
     @Override
     public void onError(Throwable t) {
         onFail(t);
+        cancel();
     }
 
     @Override
     public void onComplete() {
-       sSubscriptions.remove(getTag());
+       cancel();
     }
 
     /**
@@ -65,6 +81,14 @@ public abstract class BaseObserver<T> implements Subscriber<T> {
         if(subscription != null){
             subscription.cancel();
             sSubscriptions.remove(tag);
+        } else {
+            Disposable disposable = sDisposables.get(tag);
+            if(disposable != null){
+                if(!disposable.isDisposed()) {
+                    disposable.dispose();
+                }
+                sDisposables.remove(tag);
+            }
         }
     }
 

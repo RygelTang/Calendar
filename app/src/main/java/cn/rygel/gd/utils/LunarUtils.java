@@ -2,6 +2,7 @@ package cn.rygel.gd.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 /**
@@ -291,6 +292,16 @@ public class LunarUtils {
             this.solarDay = solarDay;
         }
 
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if(!(obj instanceof Solar)){
+                return false;
+            }
+            return ((Solar) obj).solarDay == solarDay &&
+                    ((Solar) obj).solarMonth == solarMonth &&
+                    ((Solar) obj).solarYear == solarYear;
+        }
+
         /****************************************** 支持Parcelable ****************************************/
         @Override
         public int describeContents() {
@@ -330,6 +341,17 @@ public class LunarUtils {
             this.lunarYear = lunarYear;
             this.lunarMonth = lunarMonth;
             this.lunarDay = lunarDay;
+        }
+
+        @Override
+        public boolean equals(@Nullable Object obj) {
+            if(!(obj instanceof Lunar)){
+                return false;
+            }
+            return ((Lunar) obj).lunarDay == lunarDay &&
+                    ((Lunar) obj).lunarMonth == lunarMonth &&
+                    ((Lunar) obj).lunarYear == lunarYear &&
+                    ((Lunar) obj).isLeap == isLeap;
         }
 
         /****************************************** 支持Parcelable ****************************************/
