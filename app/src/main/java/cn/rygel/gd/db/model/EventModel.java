@@ -94,6 +94,30 @@ public class EventModel {
     }
 
     /**
+     * 删除事件
+     * @param event
+     */
+    public void delete(BaseEvent event){
+        Logger.i(TAG,"object delete event, event id : " + event.getId());
+        if(event.getId() >= 0){
+            mEventBox.remove(event.getId());
+        }
+    }
+
+    /**
+     * 删除用户
+     * @param userName
+     */
+    public void delete(String userName){
+        Logger.i(TAG,"object delete user : " + userName);
+        User user = queryUser(userName).findUnique();
+        Logger.i(TAG,"user found is null? " + (user == null));
+        if(user != null){
+            mUserBox.remove(user);
+        }
+    }
+
+    /**
      * 保存集合内所有的事件
      * @param events
      */

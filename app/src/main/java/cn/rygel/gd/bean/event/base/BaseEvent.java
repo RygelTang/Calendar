@@ -10,6 +10,8 @@ import cn.rygel.gd.utils.LunarUtils;
 
 public class BaseEvent implements Parcelable,MultiItemEntity {
 
+    protected long mId = -1;
+
     protected String mName = "";
     protected String mDescription = "";
     protected String mUser = "";
@@ -34,6 +36,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
     public BaseEvent(){ }
 
     public BaseEvent(Parcel in){
+        setId(in.readLong());
         setAdvanceTime(in.readLong());
         setDelayTime(in.readLong());
         setName(in.readString());
@@ -46,6 +49,14 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         setEventSolarDate(in.readParcelable(LunarUtils.Solar.class.getClassLoader()));
         setEventLunarDate(in.readParcelable(LunarUtils.Lunar.class.getClassLoader()));
         mEventType = in.readParcelable(EventType.class.getClassLoader());
+    }
+
+    public long getId() {
+        return mId;
+    }
+
+    public void setId(long id) {
+        mId = id;
     }
 
     public String getName() {
@@ -158,6 +169,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(getId());
         dest.writeLong(getAdvanceTime());
         dest.writeLong(getDelayTime());
         dest.writeString(getName());
