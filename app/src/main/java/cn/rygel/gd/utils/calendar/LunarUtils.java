@@ -1,9 +1,8 @@
-package cn.rygel.gd.utils;
+package cn.rygel.gd.utils.calendar;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 /**
  * Created by Jimmy on 2017/1/9 0009.

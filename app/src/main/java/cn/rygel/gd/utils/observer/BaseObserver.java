@@ -1,4 +1,4 @@
-package cn.rygel.gd.utils;
+package cn.rygel.gd.utils.observer;
 
 import com.orhanobut.logger.Logger;
 

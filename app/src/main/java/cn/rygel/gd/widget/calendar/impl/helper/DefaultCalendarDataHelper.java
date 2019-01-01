@@ -2,8 +2,8 @@ package cn.rygel.gd.widget.calendar.impl.helper;
 
 import android.text.TextUtils;
 
-import cn.rygel.gd.utils.CalendarUtils;
-import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.utils.calendar.CalendarUtils;
+import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.utils.sp.SPUtils;
 import cn.rygel.gd.utils.sp.SettingConstants;
 import cn.rygel.gd.widget.calendar.bean.CalendarData;

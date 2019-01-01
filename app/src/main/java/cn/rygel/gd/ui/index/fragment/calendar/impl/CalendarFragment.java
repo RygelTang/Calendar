@@ -14,8 +14,8 @@ import butterknife.ButterKnife;
 import cn.rygel.gd.R;
 import cn.rygel.gd.adapter.TimeLineAdapter;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
-import cn.rygel.gd.utils.CalendarUtils;
-import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.utils.calendar.CalendarUtils;
+import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.impl.CalendarView;
 import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
 import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
@@ -24,6 +24,8 @@ import rygel.cn.uilibrary.mvp.IPresenter;
 import rygel.cn.uilibrary.utils.UIUtils;
 
 public class CalendarFragment extends BaseFragment implements ICalendarView {
+
+    private static final String TAG = "CalendarFragment";
 
     @BindView(R.id.tb_main)
     Toolbar mToolbar;

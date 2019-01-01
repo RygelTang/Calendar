@@ -1,6 +1,6 @@
 package cn.rygel.gd.db.converter;
 
-import cn.rygel.gd.utils.LunarUtils;
+import cn.rygel.gd.utils.calendar.LunarUtils;
 import io.objectbox.converter.PropertyConverter;
 
 public class SolarConverter implements PropertyConverter<LunarUtils.Solar,Integer> {
