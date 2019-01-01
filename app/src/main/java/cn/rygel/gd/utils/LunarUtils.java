@@ -293,6 +293,15 @@ public class LunarUtils {
         }
 
         @Override
+        public String toString() {
+            return "Solar{" +
+                    "solarDay=" + solarDay +
+                    ", solarMonth=" + solarMonth +
+                    ", solarYear=" + solarYear +
+                    '}';
+        }
+
+        @Override
         public boolean equals(@Nullable Object obj) {
             if(!(obj instanceof Solar)){
                 return false;
@@ -352,6 +361,16 @@ public class LunarUtils {
                     ((Lunar) obj).lunarMonth == lunarMonth &&
                     ((Lunar) obj).lunarYear == lunarYear &&
                     ((Lunar) obj).isLeap == isLeap;
+        }
+
+        @Override
+        public String toString() {
+            return "Lunar{" +
+                    "isLeap=" + isLeap +
+                    ", lunarYear=" + lunarYear +
+                    ", lunarMonth=" + lunarMonth +
+                    ", lunarDay=" + lunarDay +
+                    '}';
         }
 
         /****************************************** 支持Parcelable ****************************************/
