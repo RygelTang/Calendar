@@ -8,15 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 public abstract class BaseFragment extends RxFragment {
 
+    private static final String TAG = "BaseFragment";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Logger.i(TAG,"onCreateView");
+        final int layoutRes = getLayoutResID();
+        Logger.i(TAG,"getLayoutResID : " + layoutRes);
         View layout = inflater.inflate(getLayoutResID(),container,false);
+        Logger.i(TAG,"initView");
         initView(layout);
+        Logger.i(TAG,"loadData");
         loadData();
         return layout;
     }

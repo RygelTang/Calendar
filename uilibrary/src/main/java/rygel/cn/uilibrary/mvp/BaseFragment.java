@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.orhanobut.logger.Logger;
 
 public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
         implements IView {
+
+    private static final String TAG = "BaseFragment";
 
     /**
      * 中介
@@ -36,6 +39,7 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
                 .progress(true,0)
                 .cancelable(false)
                 .build();
+        Logger.i(TAG,"create loading dialog success?" + (mLoadingDialog == null));
     }
 
     /**
@@ -43,7 +47,9 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
      */
     private void initPresenter(){
         mPresenter = createPresenter();
+        Logger.i(TAG,"create presenter success? " + (mPresenter == null));
         if(mPresenter != null){
+            Logger.i(TAG,"presenter bind view.");
             mPresenter.bindView(this);
         }
     }
@@ -51,6 +57,7 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
     @Override
     public void onDestroy() {
         if(mPresenter != null){
+            Logger.i(TAG,"presenter drop view.");
             mPresenter.dropView();
             mPresenter = null;
         }
@@ -59,16 +66,19 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
 
     @Override
     public void showToast(String str) {
+        Logger.i(TAG,"show toast -------------------------> \n\t" + str);
         Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoading() {
+        Logger.i(TAG,"onLoading");
         mLoadingDialog.show();
     }
 
     @Override
     public void onLoadFinish() {
+        Logger.i(TAG,"onLoadFinish");
         mLoadingDialog.dismiss();
     }
 

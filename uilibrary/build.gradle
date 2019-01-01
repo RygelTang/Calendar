@@ -37,7 +37,11 @@ dependencies {
     // Base RecyclerView Adapter
     api rootProject.ext.brva
 
+    // md 风格对话框
     implementation rootProject.ext.material_dialog
+
+    // 导入Logcat
+    implementation rootProject.ext.logger
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
