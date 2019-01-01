@@ -23,6 +23,7 @@
     <dimen name="text_xxl">72mm</dimen>
     <dimen name="text_xxxl">96mm</dimen>
 
+    <dimen name="margin_xxs">5mm</dimen>
     <dimen name="margin_xs">10mm</dimen>
     <dimen name="margin_s">20mm</dimen>
     <dimen name="margin_m">30mm</dimen>
@@ -33,6 +34,7 @@
     <dimen name="margin_xxxxl">120mm</dimen>
     <dimen name="margin_xxxxxl">160mm</dimen>
 
+    <dimen name="padding_xxs">5mm</dimen>
     <dimen name="padding_xs">10mm</dimen>
     <dimen name="padding_s">20mm</dimen>
     <dimen name="padding_m">30mm</dimen>
@@ -56,7 +58,7 @@
     
     <!--event list-->
     <dimen name="time_line_item_min_height">360mm</dimen>
-    <dimen name="item_indicator">80mm</dimen>
-    <dimen name="time_line_width">8mm</dimen>
+    <dimen name="item_indicator">72mm</dimen>
+    <dimen name="time_line_width">6mm</dimen>
 
 </resources>

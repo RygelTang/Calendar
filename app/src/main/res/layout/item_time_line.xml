@@ -20,7 +20,7 @@
         <ImageView
             android:id="@+id/img_indicator"
             android:background="@color/white"
-            android:padding="@dimen/padding_xs"
+            android:padding="@dimen/padding_xxs"
             android:layout_margin="@dimen/margin_s"
             android:src="@drawable/src_indicator"
             android:layout_width="@dimen/item_indicator"
