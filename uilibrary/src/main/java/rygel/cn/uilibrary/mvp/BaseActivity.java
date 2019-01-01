@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleProvider;
 
 public abstract class BaseActivity extends rygel.cn.uilibrary.base.BaseActivity
         implements IView {
@@ -75,6 +76,11 @@ public abstract class BaseActivity extends rygel.cn.uilibrary.base.BaseActivity
     public void showToast(String str) {
         Logger.i(TAG,"show toast -------------------------> \n\t" + str);
         Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public LifecycleProvider getLifecycleProvider() {
+        return this;
     }
 
     /**

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.LifecycleProvider;
 
 public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
         implements IView {
@@ -80,6 +81,11 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
     public void onLoadFinish() {
         Logger.i(TAG,"onLoadFinish");
         mLoadingDialog.dismiss();
+    }
+
+    @Override
+    public LifecycleProvider getLifecycleProvider() {
+        return this;
     }
 
     /**
