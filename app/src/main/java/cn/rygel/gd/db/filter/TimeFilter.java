@@ -65,6 +65,8 @@ public class TimeFilter implements QueryFilter<Time>{
                 flag = true;
                 break;
             case NO_REPEAT:
+                final LunarUtils.Solar eventSolar = time.getSolar();
+                flag = CalendarUtils.compare(eventSolar,mStartSolar) && CalendarUtils.compare(mEndSolar, eventSolar);
                 break;
             case EVERY_WEEK:
                 flag = getInterval() > 7;

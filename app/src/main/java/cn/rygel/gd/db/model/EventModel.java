@@ -31,7 +31,7 @@ public class EventModel {
 
     private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
 
-    private SolarConverter mSolarConverter = new SolarConverter();
+    private SolarConverter mSolarConverter = SolarConverter.getInstance();
 
     private TimeFilter mTimeFilter = new TimeFilter();
 
@@ -75,11 +75,6 @@ public class EventModel {
     public List<BaseEvent> queryInRange(LunarUtils.Solar start, LunarUtils.Solar end){
         List<BaseEvent> events = new ArrayList<>();
         List<Time> times = mTimeBox.query()
-                .between(Time_.mSolar,
-                        mSolarConverter.convertToDatabaseValue(start),
-                        mSolarConverter.convertToDatabaseValue(end)
-                )
-                .or()
                 .filter(mTimeFilter
                         .setStartSolar(start)
                         .setEndSolar(end)

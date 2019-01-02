@@ -1,6 +1,6 @@
 package cn.rygel.gd.bean;
 
-import java.util.Set;
+import java.util.List;
 
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.utils.calendar.LunarUtils;
@@ -8,11 +8,11 @@ import cn.rygel.gd.utils.calendar.LunarUtils;
 public class TimeLineItem {
 
     private LunarUtils.Solar mDate;
-    private Set<BaseEvent> mEvents;
+    private List<BaseEvent> mEvents;
 
     public TimeLineItem() { }
 
-    public TimeLineItem(LunarUtils.Solar date, Set<BaseEvent> events) {
+    public TimeLineItem(LunarUtils.Solar date, List<BaseEvent> events) {
         mDate = date;
         mEvents = events;
     }
@@ -25,11 +25,11 @@ public class TimeLineItem {
         mDate = date;
     }
 
-    public Set<BaseEvent> getEvents() {
+    public List<BaseEvent> getEvents() {
         return mEvents;
     }
 
-    public void setEvents(Set<BaseEvent> events) {
+    public void setEvents(List<BaseEvent> events) {
         mEvents = events;
     }
 }

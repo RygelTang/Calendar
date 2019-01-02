@@ -4,6 +4,8 @@ import cn.rygel.gd.widget.calendar.bean.CalendarData;
 
 public interface CalendarDataHelper {
 
+    void setDateOffset(int offset);
+
     /**
      * 根据年月返回该月的有多少天
      * @param year

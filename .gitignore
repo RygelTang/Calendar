@@ -39,3 +39,9 @@ proguard/
 
 */src/androidTest
 */src/test
+
+# Keystore info
+/keystore.properties
+
+# objectbox model
+objectbox-models/

@@ -42,6 +42,7 @@ public class CalendarView extends ViewPager implements ICalendar {
     private void obtainAttrs(AttributeSet attrs){
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
         ParamBean param = new ParamBean();
+        param.setDateOffset(ta.getInteger(R.styleable.CalendarView_date_offset,param.getDateOffset()));
         param.setAccentColor(ta.getColor(R.styleable.CalendarView_accent_color,param.getAccentColor()));
         param.setPrimaryColor(ta.getColor(R.styleable.CalendarView_primary_color,param.getPrimaryColor()));
         param.setTextColor(ta.getColor(R.styleable.CalendarView_text_color,param.getTextColor()));

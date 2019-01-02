@@ -2,7 +2,8 @@
 <resources>
     
     <declare-styleable name="CalendarView">
-        
+
+        <attr name="date_offset" format="integer"/>
         <attr name="week_bar_height" format="dimension"/>
         <attr name="week_day_text_size" format="dimension"/>
         <attr name="date_text_size" format="dimension"/>

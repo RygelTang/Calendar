@@ -136,6 +136,9 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     protected void setCalendarDataHelper(CalendarDataHelper calendarDataHelper) {
+        if(calendarDataHelper != null && mParam != null){
+            calendarDataHelper.setDateOffset(mParam.getDateOffset());
+        }
         mCalendarDataHelper = calendarDataHelper;
     }
 
@@ -149,6 +152,10 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     protected void setParam(ParamBean param) {
         mParam = param;
+        if(mCalendarDataHelper != null && mParam != null){
+            mCalendarDataHelper.setDateOffset(mParam.getDateOffset());
+            mCalendarPager.invalidate();
+        }
         mCachedCalendarViews.clear();
     }
 

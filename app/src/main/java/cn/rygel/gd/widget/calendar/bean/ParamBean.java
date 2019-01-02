@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 public class ParamBean {
 
+    private int mDateOffset = 0;
     private int mWeekBarHeight = 120;
     private int mWeekDayTextSize = 32;
     private int mDateTextSize = 48;
@@ -18,6 +19,14 @@ public class ParamBean {
     private int mPrimaryColor = Color.BLUE;
     private int mAccentColor = Color.GREEN;
     private int mTextColor = Color.BLACK;
+
+    public int getDateOffset() {
+        return mDateOffset;
+    }
+
+    public void setDateOffset(int dateOffset) {
+        mDateOffset = dateOffset;
+    }
 
     public int getWeekBarHeight() {
         return mWeekBarHeight;

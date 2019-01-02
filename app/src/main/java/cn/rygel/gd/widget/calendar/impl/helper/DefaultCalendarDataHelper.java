@@ -4,8 +4,6 @@ import android.text.TextUtils;
 
 import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;
-import cn.rygel.gd.utils.sp.SPUtils;
-import cn.rygel.gd.utils.sp.SettingConstants;
 import cn.rygel.gd.widget.calendar.bean.CalendarData;
 import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
 
@@ -19,10 +17,12 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
     private int mStartOffset = 0;
 
     public DefaultCalendarDataHelper() {
-        mStartOffset = SPUtils
-                .getInstance()
-                .getCustomSharedPreferences(SPUtils.PreferenceKeys.SETTING)
-                .getInt(SettingConstants.SETTING_WEEKDAY_OFFSET,mStartOffset);
+
+    }
+
+    @Override
+    public void setDateOffset(int offset) {
+        mStartOffset = offset;
     }
 
     @Override

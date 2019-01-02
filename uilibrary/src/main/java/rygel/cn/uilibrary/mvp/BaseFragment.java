@@ -12,7 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.LifecycleProvider;
 
-public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
+public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibrary.base.BaseFragment
         implements IView {
 
     private static final String TAG = "BaseFragment";
@@ -20,7 +20,7 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
     /**
      * 中介
      */
-    private IPresenter mPresenter = null;
+    protected P mPresenter = null;
 
     protected MaterialDialog mLoadingDialog = null;
 
@@ -53,6 +53,14 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
             Logger.i(TAG,"presenter bind view.");
             mPresenter.bindView(this);
         }
+    }
+
+    /**
+     * 获取中介
+     * @return
+     */
+    protected P getPresenter(){
+        return mPresenter;
     }
 
     @Override
@@ -92,6 +100,6 @@ public abstract class BaseFragment extends rygel.cn.uilibrary.base.BaseFragment
      * 创建中介
      * @return 根据不同的View创建不同的中介
      */
-    protected abstract IPresenter createPresenter();
+    protected abstract P createPresenter();
 
 }

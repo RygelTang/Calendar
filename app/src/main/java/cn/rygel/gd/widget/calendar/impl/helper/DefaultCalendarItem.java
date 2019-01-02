@@ -13,7 +13,7 @@ public class DefaultCalendarItem implements CustomCalendarItem {
 
     private int mOfficialHolidayPadding = 20;
 
-    private int mRoundCornerRadius = 10;
+    private int mRoundCornerRadius = 15;
 
     private CalendarItemPaintHolder mCalendarItemPaintHolder = new CalendarItemPaintHolder();
 

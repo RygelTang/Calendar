@@ -5,6 +5,10 @@ import io.objectbox.converter.PropertyConverter;
 
 public class SolarConverter implements PropertyConverter<LunarUtils.Solar,Integer> {
 
+    public static SolarConverter getInstance(){
+        return Instance.sInstance;
+    }
+
     @Override
     public LunarUtils.Solar convertToEntityProperty(Integer databaseValue) {
         return new LunarUtils.Solar((databaseValue & 0x1FFE00) >> 9,
@@ -17,5 +21,9 @@ public class SolarConverter implements PropertyConverter<LunarUtils.Solar,Intege
         return (entityProperty.solarYear << 9) |
                 (entityProperty.solarMonth << 5) |
                 entityProperty.solarDay;
+    }
+
+    private static class Instance {
+        private static SolarConverter sInstance = new SolarConverter();
     }
 }

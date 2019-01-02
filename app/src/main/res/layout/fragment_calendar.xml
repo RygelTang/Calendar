@@ -13,18 +13,19 @@
         app:titleTextColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation_m"
         app:navigationIcon="@drawable/ic_menu_white_24dp"
         app:title="@string/yyyy_MM"/>
 
     <cn.rygel.gd.widget.calendar.impl.CalendarView
         android:id="@+id/cv_calendar"
         android:padding="@dimen/padding_s"
-        android:layout_margin="@dimen/margin_m"
         android:layout_width="match_parent"
         android:layout_height="@dimen/calendar_view_height"
-        android:background="@drawable/bg_round_corner"
-        android:elevation="@dimen/elevation_m"
+        android:background="@color/white"
+        android:elevation="@dimen/elevation_s"
         app:accent_color="@color/colorAccent"
+        app:date_offset="1"
         app:child_padding_bottom="@dimen/calendar_view_child_padding"
         app:child_padding_left="@dimen/calendar_view_child_padding"
         app:child_padding_right="@dimen/calendar_view_child_padding"
@@ -37,11 +38,10 @@
         app:week_day_text_size="@dimen/text_s" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_margin="@dimen/margin_m"
         android:id="@+id/rv_time_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
-    </android.support.v7.widget.RecyclerView>
+        tools:listitem="@layout/item_time_line"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
 </LinearLayout>
