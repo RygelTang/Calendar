@@ -41,6 +41,7 @@ public class APP extends Application {
     private void initLogger(){
         FormatStrategy strategy = PrettyFormatStrategy
                 .newBuilder()
+                .methodCount(5)
                 .tag("Rygel")
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(strategy));

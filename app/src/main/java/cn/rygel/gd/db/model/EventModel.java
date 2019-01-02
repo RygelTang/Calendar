@@ -10,7 +10,6 @@ import java.util.List;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
-import cn.rygel.gd.db.converter.SolarConverter;
 import cn.rygel.gd.db.entity.Alert;
 import cn.rygel.gd.db.entity.Description;
 import cn.rygel.gd.db.entity.Event;
@@ -30,8 +29,6 @@ public class EventModel {
     private static final String TAG = "EventModel";
 
     private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
-
-    private SolarConverter mSolarConverter = SolarConverter.getInstance();
 
     private TimeFilter mTimeFilter = new TimeFilter();
 

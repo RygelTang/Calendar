@@ -1,11 +1,14 @@
 package cn.rygel.gd.widget.calendar.impl;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.bean.CalendarData;
@@ -41,6 +44,12 @@ public class RealCalendarView extends View {
     private int mDownY = 0;
 
     private long mDownTime = 0L;
+
+    private float mAnimationPercent = 0F;
+
+    private ObjectAnimator mClickAnimator = ObjectAnimator
+            .ofFloat(this,"AnimationPercent",0.5F,1)
+            .setDuration(300);
 
     private CustomCalendarItem mCustomCalendarItem = new DefaultCalendarItem();
     private CustomCalendarWeekItem mCustomCalendarWeekItem = new DefaultCalendarWeekItem();
@@ -79,6 +88,7 @@ public class RealCalendarView extends View {
         super(context, attrs);
         setClickable(true);
         setOnTouchListener(mTouchListener);
+        mClickAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
     }
 
     protected void onActionDown(MotionEvent event){
@@ -91,8 +101,8 @@ public class RealCalendarView extends View {
         if(Math.abs(event.getX() - mDownX) > 20 || Math.abs(event.getY() - mDownY) > 20){
             return;
         }
-        mSelectIndex = getSelectItem(event.getX(),event.getY());
-        invalidate();
+        setSelectIndex(getSelectItem(event.getX(),event.getY()));
+        playSoundEffect(SoundEffectConstants.CLICK);
         if(mOnDateSelectedListener != null) {
             LunarUtils.Solar select = new LunarUtils.Solar(mCalendarData.year,mCalendarData.month,mSelectIndex + 1);
             if(System.currentTimeMillis() - mDownTime > LONG_CLICK_DURATION) {
@@ -161,26 +171,34 @@ public class RealCalendarView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(mCalendarData != null){
-            mCustomCalendarWeekItem.drawWeekDays(canvas,mWeekBarBound,mCalendarData.mWeekDayInfo);
+        if (mCalendarData != null) {
+            mCustomCalendarWeekItem.drawWeekDays(canvas, mWeekBarBound, mCalendarData.mWeekDayInfo);
             int maxWeek = (mCalendarData.mDays + mCalendarData.mStartIndex) / 7 +
                     ((mCalendarData.mDays + mCalendarData.mStartIndex) % 7 == 0 ? 0 : 1);
-            for(int i = 0;i < mCalendarData.mDays;i++){
-                if(mSelectIndex != i){
-                    mCustomCalendarItem.drawDateItem(canvas,getChildBound(i + mCalendarData.mStartIndex,maxWeek),mCalendarData,i);
-                }else {
-                    Rect select = getChildBound(i + mCalendarData.mStartIndex,maxWeek);
-                    select.offset(-mSelectItemLeftOffset,-mSelectItemTopOffset);
-                    mCustomCalendarItem.drawSelectItem(canvas,select,mCalendarData,i);
+            for (int i = 0; i < mCalendarData.mDays; i++) {
+                if (mSelectIndex != i) {
+                    mCustomCalendarItem.drawDateItem(canvas, getChildBound(i + mCalendarData.mStartIndex, maxWeek), mCalendarData, i);
+                } else {
+                    final Rect select = getChildBound(i + mCalendarData.mStartIndex, maxWeek);
+                    select.offset(-mSelectItemLeftOffset, -mSelectItemTopOffset);
+                    final int width = (int) (select.width() * mAnimationPercent);
+                    final int height = (int) (select.height() * mAnimationPercent);
+                    final int centerX = select.centerX();
+                    final int centerY = select.centerY();
+                    select.top = centerY - height / 2;
+                    select.left = centerX - width / 2;
+                    select.bottom = centerY + height / 2;
+                    select.right = centerX + width / 2;
+                    mCustomCalendarItem.drawSelectItem(canvas, select, mCalendarData, i);
                 }
             }
-            if(mCalendarData.mTodayIndex > 0 && mSelectIndex != mCalendarData.mTodayIndex){
-                mCustomCalendarItem.drawTodayItem(canvas, getChildBound(mCalendarData.mTodayIndex + mCalendarData.mStartIndex,maxWeek),mCalendarData);
+            if (mCalendarData.mTodayIndex > 0 && mSelectIndex != mCalendarData.mTodayIndex) {
+                mCustomCalendarItem.drawTodayItem(canvas, getChildBound(mCalendarData.mTodayIndex + mCalendarData.mStartIndex, maxWeek), mCalendarData);
             }
         }
     }
 
-    private Rect getChildBound(int index,int maxWeek){
+    private Rect getChildBound(int index, int maxWeek){
         final int column = index % 7;
         final int row = index / 7;
         final int itemWidth = mBound.width() / 7;
@@ -214,6 +232,10 @@ public class RealCalendarView extends View {
             return;
         }
         mSelectIndex = selectIndex;
+        if(mClickAnimator.isRunning()){
+            mClickAnimator.cancel();
+        }
+        mClickAnimator.start();
         postInvalidate();
     }
 
@@ -321,5 +343,14 @@ public class RealCalendarView extends View {
 
     protected int getSelectIndex() {
         return mSelectIndex;
+    }
+
+    private float getAnimationPercent() {
+        return mAnimationPercent;
+    }
+
+    private void setAnimationPercent(float animationPercent) {
+        mAnimationPercent = animationPercent;
+        postInvalidate();
     }
 }

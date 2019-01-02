@@ -57,7 +57,7 @@
     <dimen name="calendar_view_child_padding">6mm</dimen>
     
     <!--event list-->
-    <dimen name="time_line_item_min_height">360mm</dimen>
+    <dimen name="time_line_item_min_height">240mm</dimen>
     <dimen name="item_indicator">64mm</dimen>
     <dimen name="time_line_width">3mm</dimen>
 

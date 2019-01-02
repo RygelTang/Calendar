@@ -48,7 +48,7 @@ public abstract class BaseObserver<T> implements Subscriber<T>,Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-
+        sDisposables.put(getTag(),d);
     }
 
     @Override

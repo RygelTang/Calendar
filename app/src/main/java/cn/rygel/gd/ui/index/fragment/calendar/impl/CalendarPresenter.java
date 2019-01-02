@@ -13,7 +13,9 @@ import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import cn.rygel.gd.utils.calendar.LunarUtils;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Function;
 import rygel.cn.uilibrary.mvp.BasePresenter;
 
@@ -32,10 +34,16 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
         BaseObserver.cancel(subscribeTag);
         final LunarUtils.Solar solarStart = new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarDay);
         final LunarUtils.Solar solarEnd = new LunarUtils.Solar(end.solarYear,end.solarMonth,end.solarDay);
-        Flowable.just(mEventModel.queryInRange(start, end))
+        Observable.create(new ObservableOnSubscribe<List<BaseEvent>>() {
+
+            @Override
+            public void subscribe(ObservableEmitter<List<BaseEvent>> emitter) throws Exception {
+                emitter.onNext(mEventModel.queryInRange(start, end));
+                emitter.onComplete();
+            }
+        }).compose(getView().getLifecycleProvider().bindToLifecycle())
                 .compose(new AsyncTransformer<List<BaseEvent>>())
-                .compose(getView().getLifecycleProvider().bindToLifecycle())
-                .flatMap(new Function<List<BaseEvent>,List<TimeLineItem>>() {
+                .map(new Function<List<BaseEvent>,List<TimeLineItem>>() {
                     @Override
                     public List<TimeLineItem> apply(List<BaseEvent> events) throws Exception {
                         return formatEvents(solarStart, solarEnd, events);
@@ -57,7 +65,7 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
 
     private static List<TimeLineItem> formatEvents(LunarUtils.Solar start, LunarUtils.Solar end, List<BaseEvent> events){
         final List<TimeLineItem> items = new ArrayList<>();
-        final int interval = CalendarUtils.getIntervalDays(end, start);
+        final int interval = CalendarUtils.getIntervalDays(start, end);
         int index = 0;
         while(index <= interval){
             List<BaseEvent> eventList = new ArrayList<>();
@@ -67,10 +75,11 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
                 }
             }
             TimeLineItem item = new TimeLineItem();
-            item.setDate(new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarMonth));
+            item.setDate(new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarDay));
             item.setEvents(eventList);
             items.add(item);
             start = CalendarUtils.tomorrow(start);
+            index++;
         }
         return items;
     }
