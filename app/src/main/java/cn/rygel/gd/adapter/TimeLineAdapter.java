@@ -1,6 +1,9 @@
 package cn.rygel.gd.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -9,6 +12,7 @@ import java.util.List;
 
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.utils.calendar.LunarUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 
 public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolder> {
@@ -18,12 +22,32 @@ public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolde
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, TimeLineItem events) {
+    protected void convert(BaseViewHolder helper, final TimeLineItem events) {
+        RecyclerView rvEvents = helper.getView(R.id.rv_date_detail);
+        Button btnEmpty = helper.getView(R.id.btn_event_empty);
+        btnEmpty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createNewEventIn(events.getDate());
+            }
+        });
+        if(events.getEvents().size() > 0){
+            btnEmpty.setVisibility(View.GONE);
+            rvEvents.setVisibility(View.VISIBLE);
+            rvEvents.setAdapter(new EventAdapter(events.getEvents()));
+        } else {
+            btnEmpty.setVisibility(View.VISIBLE);
+            rvEvents.setVisibility(View.GONE);
+        }
         helper.setText(R.id.tv_date,
                 UIUtils.getString(helper.itemView.getContext(),
                         R.string.dd,
                         events.getDate().solarDay
                 )
         );
+    }
+
+    private void createNewEventIn(LunarUtils.Solar solar){
+
     }
 }

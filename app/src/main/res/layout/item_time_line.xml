@@ -45,11 +45,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ViewStub
-            android:layout_margin="@dimen/margin_m"
-            android:id="@+id/stub_content"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
+        <include
+            layout="@layout/item_date_detail"
+            android:id="@+id/item_date_detail"/>
+
+        <include
+            layout="@layout/item_event_empty"
+            android:id="@+id/item_event_empty"/>
 
     </LinearLayout>
 
