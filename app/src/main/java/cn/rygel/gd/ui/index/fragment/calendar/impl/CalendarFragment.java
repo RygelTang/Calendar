@@ -11,9 +11,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.adapter.TimeLineAdapter;
 import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;
@@ -76,6 +78,11 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     private void initTimeLine(){
         mTimeLine.setAdapter(mTimeLineAdapter);
+    }
+
+    @OnClick(R.id.fab_add_event)
+    protected void addEvent(){
+        AddEventActivity.start(getContext(),null,null,null);
     }
 
     @Override

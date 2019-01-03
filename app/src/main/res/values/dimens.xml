@@ -61,4 +61,7 @@
     <dimen name="item_indicator">64mm</dimen>
     <dimen name="time_line_width">3mm</dimen>
 
+    <!--创建日程-->
+    <dimen name="icon_width">64mm</dimen>
+
 </resources>

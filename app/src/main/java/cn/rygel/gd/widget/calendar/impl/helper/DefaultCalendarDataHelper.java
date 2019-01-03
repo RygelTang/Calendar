@@ -32,8 +32,9 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
 
     @Override
     public int getStartIndex(int year, int month) {
-        return CalendarUtils.getWeekDay(new LunarUtils.Solar(year,month,1))
-                + mStartOffset;
+        int startIndex = CalendarUtils.getWeekDay(new LunarUtils.Solar(year,month,1))
+                - mStartOffset;
+        return startIndex < 0 ? startIndex + 7 : startIndex;
     }
 
     @Override

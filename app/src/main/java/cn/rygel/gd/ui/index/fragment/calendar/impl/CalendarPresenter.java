@@ -38,7 +38,11 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
 
             @Override
             public void subscribe(ObservableEmitter<List<BaseEvent>> emitter) throws Exception {
-                emitter.onNext(mEventModel.queryInRange(start, end));
+                try {
+                    emitter.onNext(mEventModel.queryInRange(start, end));
+                } catch (Exception e){
+                    emitter.onError(e);
+                }
                 emitter.onComplete();
             }
         }).compose(getView().getLifecycleProvider().bindToLifecycle())
