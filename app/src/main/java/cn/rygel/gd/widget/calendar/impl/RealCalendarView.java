@@ -103,14 +103,6 @@ public class RealCalendarView extends View {
         }
         setSelectIndex(getSelectItem(event.getX(),event.getY()));
         playSoundEffect(SoundEffectConstants.CLICK);
-        if(mOnDateSelectedListener != null) {
-            LunarUtils.Solar select = new LunarUtils.Solar(mCalendarData.year,mCalendarData.month,mSelectIndex + 1);
-            if(System.currentTimeMillis() - mDownTime > LONG_CLICK_DURATION) {
-                mOnDateSelectedListener.onDateLongClick(select);
-            } else {
-                mOnDateSelectedListener.onDateSelect(select);
-            }
-        }
     }
 
     protected int getSelectItem(float x, float y){
@@ -232,11 +224,17 @@ public class RealCalendarView extends View {
             return;
         }
         mSelectIndex = selectIndex;
+        if(selectIndex == -1){
+            return;
+        }
         if(mClickAnimator.isRunning()){
             mClickAnimator.cancel();
         }
         mClickAnimator.start();
-        postInvalidate();
+        if(mOnDateSelectedListener != null) {
+            LunarUtils.Solar select = new LunarUtils.Solar(mCalendarData.year,mCalendarData.month,mSelectIndex + 1);
+            mOnDateSelectedListener.onDateSelect(select);
+        }
     }
 
     public void setWeekBarHeight(int weekBarHeight) {

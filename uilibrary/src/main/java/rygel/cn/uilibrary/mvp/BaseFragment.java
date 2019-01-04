@@ -15,8 +15,6 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibrary.base.BaseFragment
         implements IView {
 
-    private static final String TAG = "BaseFragment";
-
     /**
      * 中介
      */
@@ -40,7 +38,7 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
                 .progress(true,0)
                 .cancelable(false)
                 .build();
-        Logger.i(TAG,"create loading dialog success?" + (mLoadingDialog == null));
+        Logger.i("create loading dialog success?" + (mLoadingDialog == null));
     }
 
     /**
@@ -48,9 +46,9 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
      */
     private void initPresenter(){
         mPresenter = createPresenter();
-        Logger.i(TAG,"create presenter success? " + (mPresenter == null));
+        Logger.i("create presenter success? " + (mPresenter == null));
         if(mPresenter != null){
-            Logger.i(TAG,"presenter bind view.");
+            Logger.i("presenter bind view.");
             mPresenter.bindView(this);
         }
     }
@@ -66,7 +64,7 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
     @Override
     public void onDestroy() {
         if(mPresenter != null){
-            Logger.i(TAG,"presenter drop view.");
+            Logger.i("presenter drop view.");
             mPresenter.dropView();
             mPresenter = null;
         }
@@ -75,19 +73,19 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
 
     @Override
     public void showToast(String str) {
-        Logger.i(TAG,"show toast -------------------------> \n\t" + str);
+        Logger.i("show toast -------------------------> \n\t" + str);
         Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoading() {
-        Logger.i(TAG,"onLoading");
+        Logger.i("onLoading");
         mLoadingDialog.show();
     }
 
     @Override
     public void onLoadFinish() {
-        Logger.i(TAG,"onLoadFinish");
+        Logger.i("onLoadFinish");
         mLoadingDialog.dismiss();
     }
 

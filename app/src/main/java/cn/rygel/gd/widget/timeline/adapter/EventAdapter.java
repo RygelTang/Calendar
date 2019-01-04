@@ -1,4 +1,4 @@
-package cn.rygel.gd.adapter;
+package cn.rygel.gd.widget.timeline.adapter;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

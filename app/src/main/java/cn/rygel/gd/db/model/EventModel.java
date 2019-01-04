@@ -26,8 +26,6 @@ import io.objectbox.query.Query;
 
 public class EventModel {
 
-    private static final String TAG = "EventModel";
-
     private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
 
     private TimeFilter mTimeFilter = new TimeFilter();
@@ -90,7 +88,7 @@ public class EventModel {
      * @param event
      */
     public void delete(BaseEvent event){
-        Logger.i(TAG,"object delete event, event id : " + event.getId());
+        Logger.i("object delete event, event id : " + event.getId());
         if(event.getId() >= 0){
             mEventBox.remove(event.getId());
         }
@@ -101,9 +99,9 @@ public class EventModel {
      * @param userName
      */
     public void delete(String userName){
-        Logger.i(TAG,"object delete user : " + userName);
+        Logger.i("object delete user : " + userName);
         User user = queryUser(userName).findUnique();
-        Logger.i(TAG,"user found is null? " + (user == null));
+        Logger.i("user found is null? " + (user == null));
         if(user != null){
             mUserBox.remove(user);
         }
@@ -135,7 +133,7 @@ public class EventModel {
             Logger.e(ex,ex.getMessage());
             flag = false;
         }
-        Logger.i(TAG,"object box put",userName,flag ? "success" : "fail");
+        Logger.i("object box put",userName,flag ? "success" : "fail");
         return flag;
     }
 
@@ -151,12 +149,12 @@ public class EventModel {
     public boolean putEvent(BaseEvent baseEvent){
         boolean flag = false;
         if(baseEvent == null){
-            Logger.e(TAG,"event to put is null");
+            Logger.e("event to put is null");
             return flag;
         }
         long eventId = mEventBox.put(format2Event(baseEvent));
         flag = eventId >= 0;
-        Logger.i(TAG,"object box put",mGson.toJson(baseEvent),flag ? "success" : "fail");
+        Logger.i("object box put",mGson.toJson(baseEvent),flag ? "success" : "fail");
         return flag;
     }
 

@@ -92,7 +92,7 @@ public class CalendarUtils {
      */
     public static boolean compare(LunarUtils.Solar date0, LunarUtils.Solar date1){
         return ((date0.solarYear << 9) | (date0.solarMonth << 5) | date0.solarDay) -
-                ((date1.solarYear << 9) | (date1.solarMonth << 5) | date1.solarDay) > 0;
+                ((date1.solarYear << 9) | (date1.solarMonth << 5) | date1.solarDay) >= 0;
     }
 
     /**
@@ -104,7 +104,7 @@ public class CalendarUtils {
         solar.solarDay--;
         if(solar.solarDay < 1){
             solar.solarMonth--;
-            if(solar.solarMonth == 1){
+            if(solar.solarMonth == 0){
                 solar.solarYear--;
                 solar.solarMonth = 12;
             }
@@ -199,6 +199,10 @@ public class CalendarUtils {
      */
     private static int getLeapYearCount(int year){
         return year / 4 - year / 100 + year / 400;
+    }
+
+    public static LunarUtils.Solar clone(LunarUtils.Solar solar){
+        return new LunarUtils.Solar(solar.solarYear,solar.solarMonth,solar.solarDay);
     }
 
 }

@@ -14,24 +14,22 @@ import rygel.cn.uilibrary.utils.UIUtils;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
 
-    private static final String TAG = "BaseActivity";
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.i(TAG,"onCreate");
+        Logger.i("onCreate");
         final int layoutRes = getLayoutResId();
-        Logger.i(TAG,"getLayoutResId : " + layoutRes);
+        Logger.i("getLayoutResId : " + layoutRes);
         setContentView(getLayoutResId());
-        Logger.i(TAG,"initView");
+        Logger.i("initView");
         initView();
-        Logger.i(TAG,"loadData");
+        Logger.i("loadData");
         loadData();
         ActivityCollector.addActivity(this);
     }
 
     protected void hideActionBar(){
-        Logger.i(TAG,"hideActionBar");
+        Logger.i("hideActionBar");
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -41,12 +39,12 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         ActivityCollector.removeActivity(this);
-        Logger.i(TAG,"onDestroy");
+        Logger.i("onDestroy");
         super.onDestroy();
     }
 
     protected void setStatusBarVisible(boolean visible){
-        Logger.i(TAG,"set status bar visible : " + visible);
+        Logger.i("set status bar visible : " + visible);
         if(!visible)
             UIUtils.hideStatusBar(this);
         else
@@ -55,7 +53,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     protected void setStatusBarColor(int color){
-        Logger.i(TAG,"set status bar color : " + Integer.toHexString(color));
+        Logger.i("set status bar color : " + Integer.toHexString(color));
         UIUtils.setStatusBarColor(this,color);
     }
 

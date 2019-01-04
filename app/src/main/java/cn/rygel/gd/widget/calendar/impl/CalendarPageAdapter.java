@@ -3,11 +3,9 @@ package cn.rygel.gd.widget.calendar.impl;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.bean.ParamBean;
@@ -20,9 +18,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private static final int MONTH_COUNT = 12 * 199;
 
-    private int mCacheSize = 7;
-
-    private List<RealCalendarView> mCachedCalendarViews = new ArrayList<>();
+    private SparseArray<RealCalendarView> mCachedCalendarViews = new SparseArray<>();
 
     private CalendarDataHelper mCalendarDataHelper = new DefaultCalendarDataHelper();
 
@@ -35,6 +31,8 @@ public class CalendarPageAdapter extends PagerAdapter {
     private ViewPager mCalendarPager = null;
 
     private LunarUtils.Solar mTargetToSelect = null;
+
+    private int mLastItem = -1;
 
     public CalendarPageAdapter(ViewPager calendarPager) {
         mCalendarPager = calendarPager;
@@ -51,6 +49,13 @@ public class CalendarPageAdapter extends PagerAdapter {
                     mOnMonthChangedListener.onMonthChanged(getYearByPosition(i),getMonthByPosition(i));
                 }
                 removeSelectItem();
+                mLastItem = i;
+                if(i == getIndexByDate(mTargetToSelect)) {
+                    RealCalendarView calendar = mCachedCalendarViews.get(i);
+                    if(calendar != null){
+                        calendar.setSelectIndex(mTargetToSelect.solarDay - 1);
+                    }
+                }
             }
 
             @Override
@@ -66,17 +71,19 @@ public class CalendarPageAdapter extends PagerAdapter {
         if(position < 0 ){
             return super.instantiateItem(container, position);
         }
-        while (mCachedCalendarViews.size() < mCacheSize){
-            RealCalendarView cache = new RealCalendarView(container.getContext());
-            cache.setParam(mParam);
-            cache.setOnDateSelectedListener(mOnDateSelectedListener);
-            mCachedCalendarViews.add(cache);
-        }
-        RealCalendarView calendar = mCachedCalendarViews.get(position % mCacheSize);
-        if(position == getIndexByDate(mTargetToSelect)) {
-            calendar.setSelectIndex(mTargetToSelect.solarDay - 1);
+        RealCalendarView calendar = mCachedCalendarViews.get(position);
+        if(calendar == null){
+            calendar = new RealCalendarView(container.getContext());
+            calendar.setParam(mParam);
+            calendar.setOnDateSelectedListener(mOnDateSelectedListener);
+            mCachedCalendarViews.put(position,calendar);
         }
         calendar.setCalendarData(mCalendarDataHelper.getCalendarData(getYearByPosition(position), getMonthByPosition(position)));
+        if(position == mCalendarPager.getCurrentItem() && position == getIndexByDate(mTargetToSelect)) {
+            if(calendar.getSelectIndex() != mTargetToSelect.solarDay - 1){
+                calendar.setSelectIndex(mTargetToSelect.solarDay - 1);
+            }
+        }
         container.addView(calendar);
         return calendar;
     }
@@ -88,7 +95,13 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        removeParent((View) object);
+    }
+
+    private void removeParent(View view){
+        if(view.getParent() != null && view.getParent() instanceof ViewGroup){
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
     }
 
     @Override
@@ -106,13 +119,20 @@ public class CalendarPageAdapter extends PagerAdapter {
     protected void select(LunarUtils.Solar solar){
         mTargetToSelect = solar;
         int targetIndex = getIndexByDate(solar);
-        mCalendarPager.setCurrentItem(targetIndex,true);
+        if(targetIndex == mCalendarPager.getCurrentItem()){
+            RealCalendarView calendar = mCachedCalendarViews.get(targetIndex);
+            if(calendar != null){
+                calendar.setSelectIndex(solar.solarDay - 1);
+            }
+        } else {
+            mCalendarPager.setCurrentItem(targetIndex,true);
+        }
     }
 
     protected LunarUtils.Solar getSelectDate(){
         int currentItem = mCalendarPager.getCurrentItem();
-        int selectIndex = mCachedCalendarViews.get(currentItem % mCacheSize).getSelectIndex();
-        if(selectIndex < 0){
+        int selectIndex = mCachedCalendarViews.get(currentItem).getSelectIndex();
+        if(selectIndex < 0) {
             return null;
         }
         return new LunarUtils.Solar(getYearByPosition(currentItem),getMonthByPosition(currentItem),selectIndex + 1);
@@ -142,14 +162,6 @@ public class CalendarPageAdapter extends PagerAdapter {
         mCalendarDataHelper = calendarDataHelper;
     }
 
-    protected void setCacheSize(int cacheSize){
-        mCacheSize = cacheSize;
-        if(mCacheSize <= 7){
-            mCacheSize = 7;
-        }
-        mCachedCalendarViews.clear();
-    }
-
     protected void setParam(ParamBean param) {
         mParam = param;
         if(mCalendarDataHelper != null && mParam != null){
@@ -160,8 +172,11 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     protected void removeSelectItem(){
-        for(RealCalendarView calendar : mCachedCalendarViews){
-            calendar.setSelectIndex(-1);
+        if(mLastItem >= 0){
+            RealCalendarView calendar = mCachedCalendarViews.get(mLastItem);
+            if(calendar != null){
+                calendar.setSelectIndex(-1);
+            }
         }
     }
 

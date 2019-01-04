@@ -27,19 +27,19 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
 
     private Set<String> mSubscribeTags = new HashSet<>();
 
-    public void loadEventItemsInRange(LunarUtils.Solar start, LunarUtils.Solar end) {
+    public void loadEventItemsInRange(LunarUtils.Solar start, int interval, final boolean isStart) {
         final String method = "loadEventItemsInRange";
         final String subscribeTag = TAG + "#" + method;
         mSubscribeTags.add(subscribeTag);
         BaseObserver.cancel(subscribeTag);
         final LunarUtils.Solar solarStart = new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarDay);
-        final LunarUtils.Solar solarEnd = new LunarUtils.Solar(end.solarYear,end.solarMonth,end.solarDay);
+        final LunarUtils.Solar solarEnd = CalendarUtils.getDayByInterval(start,interval);
         Observable.create(new ObservableOnSubscribe<List<BaseEvent>>() {
 
             @Override
             public void subscribe(ObservableEmitter<List<BaseEvent>> emitter) throws Exception {
                 try {
-                    emitter.onNext(mEventModel.queryInRange(start, end));
+                    emitter.onNext(mEventModel.queryInRange(solarStart, solarEnd));
                 } catch (Exception e){
                     emitter.onError(e);
                 }
@@ -61,7 +61,7 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
 
                     @Override
                     public void onSuccess(List<TimeLineItem> events) {
-                        getView().showEvents(events);
+                        getView().showEvents(events,isStart);
                     }
 
                 });

@@ -7,6 +7,6 @@ import rygel.cn.uilibrary.mvp.IView;
 
 public interface ICalendarView extends IView {
 
-    void showEvents(List<TimeLineItem> items);
+    void showEvents(List<TimeLineItem> items,boolean isStart);
 
 }

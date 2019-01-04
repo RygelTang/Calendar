@@ -41,12 +41,10 @@
             app:week_bar_height="@dimen/calendar_View_week_bar_height"
             app:week_day_text_size="@dimen/text_s" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_time_line"
+        <cn.rygel.gd.widget.timeline.TimeLineView
+            android:id="@+id/tl_calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_time_line"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

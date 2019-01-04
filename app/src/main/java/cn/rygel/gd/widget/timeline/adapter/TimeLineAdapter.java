@@ -1,4 +1,4 @@
-package cn.rygel.gd.adapter;
+package cn.rygel.gd.widget.timeline.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -39,12 +39,13 @@ public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolde
             btnEmpty.setVisibility(View.VISIBLE);
             rvEvents.setVisibility(View.GONE);
         }
-        helper.setText(R.id.tv_date,
-                UIUtils.getString(helper.itemView.getContext(),
-                        R.string.dd,
-                        events.getDate().solarDay
-                )
-        );
+        helper.setText(R.id.tv_date, events.getDate().solarYear + "年" + events.getDate().solarMonth + "月" + events.getDate().solarDay + "日");
+//        helper.setText(R.id.tv_date,
+//                UIUtils.getString(helper.itemView.getContext(),
+//                        R.string.dd,
+//                        events.getDate().solarDay
+//                )
+//        );
     }
 
     private void createNewEventIn(LunarUtils.Solar solar){
