@@ -87,13 +87,14 @@ dependencies {
     // 屏幕适配
     implementation rootProject.ext.auto_size
 
-    // 垂直ViewPager
-    implementation rootProject.ext.vertical_view_pager
-
     // multi dex
     implementation rootProject.ext.multidex
 
+    // mmkv 用于替换 sp
     implementation rootProject.ext.mmkv
+
+    // 图片选择框架
+    implementation rootProject.ext.matisse
 
     // UI基础库
     implementation project(':uilibrary')

@@ -28,7 +28,8 @@ ext {
             multidex                    : "1.0.3",
             auto_size                   : "1.1.0",
             vertical_view_pager         : "1.0.0@aar",
-            mmkv                        : "1.0.16"
+            mmkv                        : "1.0.16",
+            matisse                     : "0.5.2-beta4"
     ]
 
     support = [
@@ -101,6 +102,8 @@ ext {
     material_dialog = "com.afollestad.material-dialogs:core:${versions.material_dialog}"
 
     mmkv = "com.tencent:mmkv:${versions.mmkv}"
+
+    matisse = "com.zhihu.android:matisse:${versions.matisse}"
 }
 
 buildscript {

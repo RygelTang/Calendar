@@ -39,12 +39,14 @@ public class APP extends Application {
      * 初始化Logger
      */
     private void initLogger(){
-        FormatStrategy strategy = PrettyFormatStrategy
-                .newBuilder()
-                .methodCount(5)
-                .tag("Rygel")
-                .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(strategy));
+        Logger.addLogAdapter(
+                new AndroidLogAdapter(
+                        PrettyFormatStrategy.newBuilder()
+                                .methodCount(5)
+                                .tag("Rygel")
+                                .build()
+                )
+        );
     }
 
     /**
