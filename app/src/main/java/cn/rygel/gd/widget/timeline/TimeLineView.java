@@ -15,13 +15,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.timeline.adapter.TimeLineAdapter;
 import rygel.cn.uilibrary.widget.SmoothRecyclerScroller;
-
-import static com.chad.library.adapter.base.BaseQuickAdapter.SLIDEIN_BOTTOM;
 
 public class TimeLineView extends RecyclerView {
 
@@ -29,26 +27,24 @@ public class TimeLineView extends RecyclerView {
     private static final LunarUtils.Solar EVENT_END = new LunarUtils.Solar(2099,12,31);
 
     private LinearLayoutManager mLayoutManager = null;
-
     private SmoothRecyclerScroller mScroller = null;
-
-    private LunarUtils.Solar mSelectDate = CalendarUtils.today();
-
     private TimeLineAdapter mTimeLineAdapter = new TimeLineAdapter(new ArrayList<>());
 
     private ILoadMoreListener mLoadMoreListener = null;
-
     private IDateSelectListener mDateSelectListener = null;
 
+    private boolean mShouldTaskRunDelay = false;
     private Set<Runnable> mTaskAfterScroll = new HashSet<>();
 
-    private boolean mShouldTaskRunDelay = false;
+    private LunarUtils.Solar mSelectDate = CalendarUtils.today();
+    private boolean mScrolling = false;
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
         @Override
         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            if(newState == RecyclerView.SCROLL_STATE_IDLE){
+            mScrolling = newState != RecyclerView.SCROLL_STATE_IDLE;
+            if(!mScrolling){
                 if(mTimeLineAdapter.getData().size() > 0){
                     if(mLayoutManager != null){
                         final TimeLineItem firstItem = getFirstVisibleItem();
@@ -84,6 +80,13 @@ public class TimeLineView extends RecyclerView {
     private void init(){
         mLayoutManager = new LinearLayoutManager(getContext());
         mScroller = new SmoothRecyclerScroller(getContext()).bind(this);
+        initAdapter();
+        addOnScrollListener(mOnScrollListener);
+        setLayoutManager(mLayoutManager);
+        setAdapter(mTimeLineAdapter);
+    }
+
+    private void initAdapter(){
         mTimeLineAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -115,12 +118,9 @@ public class TimeLineView extends RecyclerView {
                 }
             }
         });
-        mTimeLineAdapter.setStartUpFetchPosition(30);
-        mTimeLineAdapter.setPreLoadNumber(30);
-        mTimeLineAdapter.openLoadAnimation(SLIDEIN_BOTTOM);
-        addOnScrollListener(mOnScrollListener);
-        setLayoutManager(mLayoutManager);
-        setAdapter(mTimeLineAdapter);
+        mTimeLineAdapter.setStartUpFetchPosition(15);
+        mTimeLineAdapter.setPreLoadNumber(15);
+        mTimeLineAdapter.openLoadAnimation();
     }
 
     public void addEvents(List<TimeLineItem> items){
@@ -151,18 +151,11 @@ public class TimeLineView extends RecyclerView {
                     mTimeLineAdapter.addData(position,items);
                 }
             }
+            TimeLineItem firstVisible = getFirstVisibleItem();
+            if(!mScrolling && firstVisible != null && !mSelectDate.equals(firstVisible.getDate())){
+                smoothScrollToPosition(getItemLocation(mSelectDate));
+            }
         }
-    }
-
-    public TimeLineAdapter getTimeLineAdapter(){
-        return mTimeLineAdapter;
-    }
-
-    public List<TimeLineItem> getData(){
-        if(mTimeLineAdapter == null){
-            return null;
-        }
-        return mTimeLineAdapter.getData();
     }
 
     private void dispatchOnDateSelect(LunarUtils.Solar solar){
@@ -195,6 +188,7 @@ public class TimeLineView extends RecyclerView {
     }
 
     public void setDate(LunarUtils.Solar solar){
+        mSelectDate = CalendarUtils.clone(solar);
         if(!checkOutOfRange(solar)){
             mTimeLineAdapter.getData().clear();
             mTimeLineAdapter.notifyDataSetChanged();
@@ -203,7 +197,7 @@ public class TimeLineView extends RecyclerView {
             final TimeLineItem firstItem = getFirstVisibleItem();
             if(firstItem != null && !firstItem.getDate().equals(solar)) {
                 final int index = getItemLocation(solar);
-                mShouldTaskRunDelay = index <= 30;
+                mShouldTaskRunDelay = index <= 15                                                                                                                                                                           ;
                 smoothScrollToPosition(index);
             }
         }
@@ -227,7 +221,7 @@ public class TimeLineView extends RecyclerView {
         if(mTimeLineAdapter != null && mLayoutManager != null){
             final List<TimeLineItem> items = mTimeLineAdapter.getData();
             final int index = mLayoutManager.findFirstCompletelyVisibleItemPosition();
-            if(index > 0 && items.size() > index){
+            if(index >= 0 && items.size() > index){
                 return items.get(index);
             }
         }
@@ -236,6 +230,17 @@ public class TimeLineView extends RecyclerView {
 
     private int getItemLocation(LunarUtils.Solar solar){
         return CalendarUtils.getIntervalDays(mTimeLineAdapter.getData().get(0).getDate(),solar);
+    }
+
+    public TimeLineAdapter getTimeLineAdapter(){
+        return mTimeLineAdapter;
+    }
+
+    public List<TimeLineItem> getData(){
+        if(mTimeLineAdapter == null){
+            return null;
+        }
+        return mTimeLineAdapter.getData();
     }
 
     private boolean checkOutOfRange(LunarUtils.Solar solar){

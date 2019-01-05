@@ -9,12 +9,12 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.mmkv.MMKV;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
-import cn.rygel.gd.utils.sp.SPUtils;
 import io.objectbox.android.AndroidObjectBrowser;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.unit.Subunits;
@@ -32,7 +32,7 @@ public class APP extends Application {
         initLeakCanary();
         initScoop();
         initAutoSize();
-        initSharedPreferences();
+        initMMKV();
     }
 
     /**
@@ -90,10 +90,11 @@ public class APP extends Application {
     }
 
     /**
-     * 初始化SP
+     * 初始化MMVKV
      */
-    private void initSharedPreferences(){
-        SPUtils.getInstance().init(this);
+    private void initMMKV(){
+        String dir = MMKV.initialize(this);
+        Logger.i("MMKV root : " + dir);
     }
 
     /**

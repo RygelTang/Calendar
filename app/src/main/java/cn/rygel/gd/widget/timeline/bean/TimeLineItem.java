@@ -1,4 +1,4 @@
-package cn.rygel.gd.bean;
+package cn.rygel.gd.widget.timeline.bean;
 
 import java.util.List;
 

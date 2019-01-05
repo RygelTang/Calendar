@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;

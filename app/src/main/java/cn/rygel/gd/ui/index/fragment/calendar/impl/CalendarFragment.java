@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.widget.timeline.TimeLineView;
-import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.utils.calendar.CalendarUtils;

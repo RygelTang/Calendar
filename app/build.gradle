@@ -93,6 +93,8 @@ dependencies {
     // multi dex
     implementation rootProject.ext.multidex
 
+    implementation rootProject.ext.mmkv
+
     // UI基础库
     implementation project(':uilibrary')
 

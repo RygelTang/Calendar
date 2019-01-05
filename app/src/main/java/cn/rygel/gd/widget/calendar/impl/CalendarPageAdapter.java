@@ -75,7 +75,23 @@ public class CalendarPageAdapter extends PagerAdapter {
         if(calendar == null){
             calendar = new RealCalendarView(container.getContext());
             calendar.setParam(mParam);
-            calendar.setOnDateSelectedListener(mOnDateSelectedListener);
+            calendar.setOnDateSelectedListener(new OnDateSelectedListener() {
+                @Override
+                public void onDateSelect(LunarUtils.Solar date) {
+                    mTargetToSelect = date;
+                    if(mOnDateSelectedListener != null) {
+                        mOnDateSelectedListener.onDateSelect(date);
+                    }
+                }
+
+                @Override
+                public void onDateLongClick(LunarUtils.Solar date) {
+                    mTargetToSelect = date;
+                    if(mOnDateSelectedListener != null) {
+                        mOnDateSelectedListener.onDateLongClick(date);
+                    }
+                }
+            });
             mCachedCalendarViews.put(position,calendar);
         }
         calendar.setCalendarData(mCalendarDataHelper.getCalendarData(getYearByPosition(position), getMonthByPosition(position)));

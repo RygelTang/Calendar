@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import cn.rygel.gd.R;
-import cn.rygel.gd.bean.TimeLineItem;
+import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 
@@ -39,13 +39,12 @@ public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolde
             btnEmpty.setVisibility(View.VISIBLE);
             rvEvents.setVisibility(View.GONE);
         }
-        helper.setText(R.id.tv_date, events.getDate().solarYear + "年" + events.getDate().solarMonth + "月" + events.getDate().solarDay + "日");
-//        helper.setText(R.id.tv_date,
-//                UIUtils.getString(helper.itemView.getContext(),
-//                        R.string.dd,
-//                        events.getDate().solarDay
-//                )
-//        );
+        helper.setText(R.id.tv_date,
+                UIUtils.getString(helper.itemView.getContext(),
+                        R.string.dd,
+                        events.getDate().solarDay
+                )
+        );
     }
 
     private void createNewEventIn(LunarUtils.Solar solar){
