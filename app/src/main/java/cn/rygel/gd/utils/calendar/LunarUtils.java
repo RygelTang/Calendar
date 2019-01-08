@@ -274,6 +274,27 @@ public class LunarUtils {
         return lunar;
     }
 
+    public static Solar lunarToSolar(Lunar lunar){
+        int index = lunar.lunarYear - solar_1_1[0];
+        int solar11 = solar_1_1[index];
+        int y = getBitInt(solar11, 12, 9);
+        int m = getBitInt(solar11, 4, 5);
+        int d = getBitInt(solar11, 5, 0);
+        // 春节的公历日期
+        Solar base = new Solar(y, m, d);
+        // 用于保存农历日期到春节的日期
+        int offset = 0;
+        int days = lunar_month_days[index];
+        int leap = getBitInt(days, 4, 13);
+        int month = (lunar.isLeap || (leap != 0 && lunar.lunarMonth > leap)) ? lunar.lunarMonth :lunar.lunarMonth - 1;
+        for (int i = 0; i < month; i++) {
+            int dm = getBitInt(days, 1, 12 - i) == 1 ? 30 : 29;
+            offset += dm;
+        }
+        offset += lunar.lunarDay - 1;
+        return CalendarUtils.getDayByInterval(base,offset);
+    }
+
     public static class Solar implements Parcelable {
 
         public static final Solar BASE = new Solar(1901,1,1);

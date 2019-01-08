@@ -48,6 +48,7 @@ dependencies {
     implementation rootProject.ext.support.media_compat
     implementation rootProject.ext.support.recyclerview
     implementation rootProject.ext.support.constraint_layout
+    implementation rootProject.ext.support.grid
 
     // 图片加载
     implementation rootProject.ext.glide.glide
@@ -94,6 +95,12 @@ dependencies {
     implementation rootProject.ext.multidex
 
     implementation rootProject.ext.mmkv
+
+    // 选择器
+    implementation rootProject.ext.picker
+
+    // material switch
+    implementation rootProject.ext.switch_button
 
     // UI基础库
     implementation project(':uilibrary')
