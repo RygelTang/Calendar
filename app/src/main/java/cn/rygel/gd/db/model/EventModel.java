@@ -137,6 +137,10 @@ public class EventModel {
         return flag;
     }
 
+    public List<User> getUser(){
+        return mUserBox.query().build().find();
+    }
+
     public Query<User> queryUser(String userName){
         return mUserBox.query().equal(User_.mUserName,userName).build();
     }

@@ -1,5 +1,7 @@
 package rygel.cn.uilibrary.mvp;
 
+import android.support.annotation.StringRes;
+
 import com.trello.rxlifecycle2.LifecycleProvider;
 
 public interface IView {
@@ -8,6 +10,7 @@ public interface IView {
 
     void refresh();
     void showToast(String str);
+    void showToast(@StringRes int strRes);
     void onLoading();
     void onLoadFinish();
 

@@ -10,6 +10,7 @@
     <string name="event_empty_click_to_add">没有日程，点击添加日程</string>
 
     <!--创建活动-->
+    <string name="save">保存</string>
     <string name="create_event">创建活动</string>
     <string name="type_in_event_name">请输入活动名称</string>
     <string name="all_day">全天</string>
@@ -24,6 +25,7 @@
     <string name="alert_after_event">活动结束是否提醒</string>
 
     <!--新建任务-->
+    <string name="do_not_select_time_before_start">请不要选择开始时间之前的时间!</string>
     <string name="deadline">截止时间</string>
     <string name="task_name">任务名称</string>
 

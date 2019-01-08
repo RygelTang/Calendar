@@ -88,6 +88,11 @@ public class TimePicker {
         Logger.i("onTimeSelectListener is null,please check has called setTimeSelectListener");
     }
 
+    public void setSelectTime(int hour, int minute){
+        mHourPicker.setCurrentIndex(hour);
+        mMinutePicker.setCurrentIndex(minute);
+    }
+
     public void show(){
         if(mDialog != null) {
             mDialog.show();

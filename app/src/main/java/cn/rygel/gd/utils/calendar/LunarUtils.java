@@ -18,8 +18,15 @@ public class LunarUtils {
     /**
      * 用于保存中文的月份
      */
-    private final static String CHINESE_NUMBER[] = {"一", "二", "三", "四", "五",
+    private final static String LUNAR_MONTHS[] = {"一", "二", "三", "四", "五",
             "六", "七", "八", "九", "十", "十一", "腊"};
+
+    private static final String[] LUNAR_DAYS = {
+            "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
+            "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "廿十",
+            "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "卅十"
+    };
+
     /**
      * 用来表示1900年到2099年间农历年份的相关信息，共24位bit的16进制表示，其中：
      * 1. 前4位表示该年闰哪个月；
@@ -151,7 +158,7 @@ public class LunarUtils {
      * @param lunatDay
      * @return
      */
-    public static String getLunarDayString(int solarYear, int solarMonth, int solarDay, int lunatYear, int lunatMonth, int lunatDay, boolean isLeap) {
+    public static String getLunarDayString(int lunatMonth, int lunatDay, boolean isLeap) {
 
         String chineseTen[] = {"初", "十", "廿", "卅"};
         int n = lunatDay % 10 == 0 ? 9 : lunatDay % 10 - 1;
@@ -161,15 +168,15 @@ public class LunarUtils {
         if (lunatDay == 10)
             result = "初十";
         else
-            result = chineseTen[lunatDay / 10] + CHINESE_NUMBER[n];
+            result = chineseTen[lunatDay / 10] + LUNAR_MONTHS[n];
 
 
         if (result.equals("初一") && isLeap) {
-            result = "闰" + CHINESE_NUMBER[lunatMonth - 1] + "月";
+            result = "闰" + LUNAR_MONTHS[lunatMonth - 1] + "月";
         }
 
         if (result.equals("初一") && !isLeap) {
-            result = CHINESE_NUMBER[lunatMonth - 1] + "月";
+            result = LUNAR_MONTHS[lunatMonth - 1] + "月";
         }
 
         return result;
@@ -475,6 +482,19 @@ public class LunarUtils {
             message = "国庆节";
         }
         return message;
+    }
+
+    public static String getLunarString(Lunar lunar) {
+        return lunar.lunarYear + "年" +
+                (lunar.isLeap ? "闰" : "") +
+                LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" +
+                LUNAR_DAYS[lunar.lunarDay - 1];
+    }
+
+    public static String getSolarString(Solar solar) {
+        return solar.solarYear + "年" +
+                 solar.solarMonth + "月" +
+                solar.solarDay + "日";
     }
 
 

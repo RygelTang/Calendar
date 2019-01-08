@@ -1,6 +1,7 @@
 package cn.rygel.gd.dialog;
 
 import android.content.Context;
+import android.content.Entity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -96,48 +97,22 @@ public class DatePicker {
 
     private OnDateSelectListener mOnDateSelectListener = null;
 
-    private OnWheelChangedListener mSolarYearListener = new OnWheelChangedListener() {
+    private OnWheelChangedListener mYearChangeListener = new OnWheelChangedListener() {
         @Override
         public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            mSelectSolar.solarYear = BASE_YEAR + newIndex;
-            onSolarMonthChanged();
+            onYearIndexChange(newIndex);
         }
     };
-    private OnWheelChangedListener mSolarMonthListener = new OnWheelChangedListener() {
+    private OnWheelChangedListener mMonthChangeListener = new OnWheelChangedListener() {
         @Override
         public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            mSelectSolar.solarMonth = newIndex + 1;
-            onSolarMonthChanged();
+            onMonthIndexChange(newIndex);
         }
     };
-    private OnWheelChangedListener mSolarDayListener = new OnWheelChangedListener() {
+    private OnWheelChangedListener mDayChangeListener = new OnWheelChangedListener() {
         @Override
         public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            mSelectSolar.solarDay = newIndex + 1;
-        }
-    };
-
-    private OnWheelChangedListener mLunarYearListener = new OnWheelChangedListener() {
-        @Override
-        public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            mSelectLunar.lunarYear = newIndex + BASE_YEAR;
-            onLunarYearChanged();
-        }
-    };
-    private OnWheelChangedListener mLunarMonthListener = new OnWheelChangedListener() {
-        @Override
-        public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            int leap = LunarUtils.leapMonth(mSelectLunar.lunarYear);
-            int leapMonthOffset = leap >= newIndex ? 1 : 0;
-            mSelectLunar.isLeap = leap > 0 && leap == newIndex;
-            mSelectLunar.lunarMonth = newIndex + 1 - leapMonthOffset;
-            onLunarMonthChanged();
-        }
-    };
-    private OnWheelChangedListener mLunarDayListener = new OnWheelChangedListener() {
-        @Override
-        public void onChanged(WheelView view, int oldIndex, int newIndex) {
-            mSelectLunar.lunarDay = newIndex + 1;
+            onDayIndexChange(newIndex);
         }
     };
 
@@ -154,9 +129,13 @@ public class DatePicker {
     private void initContent(){
         mContent = LayoutInflater.from(mContext).inflate(R.layout.layout_date_picker,null);
         ButterKnife.bind(this,mContent);
+        mWheelYear.setOnWheelChangedListener(mYearChangeListener);
+        mWheelMonth.setOnWheelChangedListener(mMonthChangeListener);
+        mWheelDay.setOnWheelChangedListener(mDayChangeListener);
         mWheelYear.setEntries(YEAR);
         mWheelMonth.setEntries(SOLAR_MONTH);
-        mWheelDay.setEntries(SOLAR_DAY);
+        mWheelDay.setEntries(getSolarDayEntries(mSelectSolar.solarYear,mSelectSolar.solarMonth));
+        switchToSolarMode();
         setSelectSolar(mSelectSolar);
     }
 
@@ -164,11 +143,11 @@ public class DatePicker {
     protected void onModeChange(boolean mode){
         mIsLunarMode = mode;
         if(mIsLunarMode) {
+            mSelectLunar = LunarUtils.solarToLunar(mSelectSolar);
             switchToLunarMode();
-            setSelectLunar(LunarUtils.solarToLunar(mSelectSolar));
         } else {
+            mSelectSolar = LunarUtils.lunarToSolar(mSelectLunar);
             switchToSolarMode();
-            setSelectSolar(LunarUtils.lunarToSolar(mSelectLunar));
         }
     }
 
@@ -192,82 +171,100 @@ public class DatePicker {
                 .build();
     }
 
-    private void onLunarYearChanged() {
-        List<String> month = new ArrayList<>();
-        Collections.addAll(month,LUNAR_MONTHS);
-        int leapMonth = LunarUtils.leapMonth(mSelectLunar.lunarYear);
-        if(leapMonth > 0){
-            month.add(leapMonth,"闰" + LUNAR_MONTHS[leapMonth - 1]);
+    private void onYearIndexChange(int index) {
+        int year = index + BASE_YEAR;
+        int monthIndex = mWheelMonth.getCurrentIndex();
+        if(mIsLunarMode) {
+            mSelectLunar.lunarYear = year;
+            mWheelMonth.setEntries(getLunarMonthEntries(year));
+            mWheelMonth.setCurrentIndex(monthIndex);
+        } else {
+            mSelectSolar.solarYear = year;
         }
-        int currentMonth = mSelectLunar.lunarMonth;
-        mWheelMonth.setEntries(month);
-        mWheelMonth.setCurrentIndex(currentMonth - 1);
     }
 
-    private void onLunarMonthChanged() {
-        List<String> days = new ArrayList<>();
-        int daysInMonth =  LunarUtils.daysInMonth(mSelectLunar.lunarYear,mSelectLunar.lunarMonth,mSelectLunar.isLeap) - 1;
-        for(int i = 0;i < daysInMonth;i++){
-            days.add(LUNAR_DAYS[i]);
+    private void onMonthIndexChange(int index) {
+        int month = index + 1;
+        int dayIndex = mWheelDay.getCurrentIndex();
+        if(mIsLunarMode) {
+            int leap = LunarUtils.leapMonth(mSelectLunar.lunarYear);
+            int leapOffset = month > leap ? 1 : 0;
+            mSelectLunar.isLeap = leap + 1 == month;
+            mSelectLunar.lunarMonth = month - leapOffset;
+            mWheelDay.setEntries(getLunarDayEntries(mSelectLunar.lunarYear,mSelectLunar.lunarMonth,leap == month - 1));
+            mWheelDay.setCurrentIndex(dayIndex);
+        } else {
+            mSelectSolar.solarMonth = month;
+            mWheelDay.setEntries(getSolarDayEntries(mSelectSolar.solarYear,mSelectSolar.solarMonth));
+            mWheelDay.setCurrentIndex(dayIndex);
         }
-        int currentDay = mSelectLunar.lunarDay;
-        mWheelDay.setEntries(days);
-        mWheelDay.setCurrentIndex(currentDay - 1);
+
     }
 
-    private void onSolarMonthChanged() {
-        List<String> days = SOLAR_DAY.subList(0,CalendarUtils.getMonthDay(mSelectSolar.solarYear,mSelectSolar.solarMonth));
-        int currentDay = mSelectSolar.solarDay;
-        mWheelDay.setEntries(days);
-        mWheelDay.setCurrentIndex(currentDay - 1);
+    private void onDayIndexChange(int index) {
+        int day = index + 1;
+        if(mIsLunarMode) {
+            mSelectLunar.lunarDay = day;
+        } else {
+            mSelectSolar.solarDay = day;
+        }
     }
 
     private void switchToLunarMode(){
-        mWheelYear.setOnWheelChangedListener(mLunarYearListener);
-        mWheelMonth.setOnWheelChangedListener(mLunarMonthListener);
-        mWheelDay.setOnWheelChangedListener(mLunarDayListener);
-        int currentMonth = mSelectLunar.lunarMonth;
-        int currentDay = mSelectLunar.lunarDay;
-        mWheelMonth.setEntries(LUNAR_MONTHS);
-        mWheelMonth.setCurrentIndex(currentMonth - 1);
-        mWheelDay.setEntries(LUNAR_DAYS);
-        mWheelDay.setCurrentIndex(currentDay - 1);
-        mSelectLunar = LunarUtils.solarToLunar(mSelectSolar);
+        final LunarUtils.Lunar lunar = CalendarUtils.clone(mSelectLunar);
+        final int leap = LunarUtils.leapMonth(lunar.lunarYear);
+        final int leapOffset = leap > 0 && (leap > lunar.lunarMonth || lunar.isLeap) ? 1 : 0;
+        mWheelYear.setCurrentIndex(lunar.lunarYear - BASE_YEAR);
+        mWheelMonth.setEntries(getLunarMonthEntries(lunar.lunarYear));
+        mWheelMonth.setCurrentIndex(lunar.lunarMonth - 1 + leapOffset);
+        mWheelDay.setEntries(getLunarDayEntries(lunar.lunarYear,lunar.lunarMonth,lunar.isLeap));
+        mWheelDay.setCurrentIndex(lunar.lunarDay - 1);
+        mSelectLunar = lunar;
     }
 
     private void switchToSolarMode(){
-        mWheelYear.setOnWheelChangedListener(mSolarYearListener);
-        mWheelMonth.setOnWheelChangedListener(mSolarMonthListener);
-        mWheelDay.setOnWheelChangedListener(mSolarDayListener);
-        int currentMonth = mSelectSolar.solarMonth;
-        int currentDay = mSelectSolar.solarDay;
+        LunarUtils.Solar solar = CalendarUtils.clone(mSelectSolar);
+        mWheelYear.setCurrentIndex(solar.solarYear - BASE_YEAR);
         mWheelMonth.setEntries(SOLAR_MONTH);
-        mWheelMonth.setCurrentIndex(currentMonth - 1);
-        mWheelDay.setEntries(SOLAR_DAY);
-        mWheelDay.setCurrentIndex(currentDay - 1);
-        mSelectSolar = LunarUtils.lunarToSolar(mSelectLunar);
+        mWheelMonth.setCurrentIndex(solar.solarMonth - 1);
+        mWheelDay.setEntries(getSolarDayEntries(solar.solarYear,solar.solarMonth));
+        mWheelDay.setCurrentIndex(solar.solarDay - 1);
+        mSelectSolar = solar;
     }
 
     public void setSelectLunar(LunarUtils.Lunar lunar){
         mSelectLunar = CalendarUtils.clone(lunar);
-        if(mIsLunarMode) {
-            mWheelYear.setCurrentIndex(lunar.lunarYear - BASE_YEAR);
-            mWheelMonth.setCurrentIndex(lunar.lunarMonth - 1);
-            mWheelDay.setCurrentIndex(lunar.lunarDay - 1);
-        } else {
-            mSwitchLunarMode.setChecked(true);
-        }
+        mSelectSolar = LunarUtils.lunarToSolar(lunar);
+        switchToLunarMode();
     }
 
     public void setSelectSolar(LunarUtils.Solar solar){
         mSelectSolar = CalendarUtils.clone(solar);
-        if(mIsLunarMode) {
-            mSwitchLunarMode.setChecked(false);
-        } else {
-            mWheelYear.setCurrentIndex(solar.solarYear - BASE_YEAR);
-            mWheelMonth.setCurrentIndex(solar.solarMonth - 1);
-            mWheelDay.setCurrentIndex(solar.solarDay - 1);
+        mSelectLunar = LunarUtils.solarToLunar(solar);
+        switchToSolarMode();
+    }
+
+    private static List<String> getLunarMonthEntries(int year){
+        List<String> months = new ArrayList<>();
+        Collections.addAll(months,LUNAR_MONTHS);
+        int leapMonth = LunarUtils.leapMonth(year);
+        if(leapMonth > 0){
+            months.add(leapMonth,"闰" + LUNAR_MONTHS[leapMonth - 1]);
         }
+        return months;
+    }
+
+    private static List<String> getLunarDayEntries(int year,int month,boolean isLeap) {
+        List<String> days = new ArrayList<>();
+        int daysInMonth =  LunarUtils.daysInMonth(year,month,isLeap) - 1;
+        for(int i = 0;i < daysInMonth;i++){
+            days.add(LUNAR_DAYS[i]);
+        }
+        return days;
+    }
+
+    private static List<String> getSolarDayEntries(int year,int month){
+        return SOLAR_DAY.subList(0,CalendarUtils.getMonthDay(year, month));
     }
 
     public void setOnDateSelectListener(OnDateSelectListener onDateSelectListener) {
