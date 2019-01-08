@@ -7,7 +7,7 @@
     <Button
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:id="@+id/btn_event_empty"
-        android:padding="@dimen/padding_xxl"
+        android:padding="@dimen/padding_m"
         android:gravity="start"
         android:textSize="@dimen/text_m"
         android:text="@string/event_empty_click_to_add"
