@@ -55,10 +55,11 @@
     <dimen name="calendar_view_height">960mm</dimen>
     <dimen name="calendar_View_week_bar_height">42mm</dimen>
     <dimen name="calendar_view_child_padding">6mm</dimen>
-    
+    <dimen name="time_line_date_width">160mm</dimen>
+
     <!--event list-->
-    <dimen name="time_line_item_min_height">240mm</dimen>
-    <dimen name="item_indicator">64mm</dimen>
+    <dimen name="time_line_item_min_height">200mm</dimen>
+    <dimen name="item_indicator">48mm</dimen>
     <dimen name="time_line_width">3mm</dimen>
 
     <!--创建日程-->

@@ -9,6 +9,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/tv_date"
+        android:padding="@dimen/padding_xs"
+        android:textColor="@color/black"
+        android:text="@string/dd"
+        android:textSize="@dimen/text_l"
+        android:gravity="end"
+        android:layout_width="@dimen/time_line_date_width"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
@@ -34,16 +44,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_margin="@dimen/margin_s"
-            android:padding="@dimen/padding_xs"
-            android:textColor="@color/black"
-            android:text="@string/dd"
-            android:textSize="@dimen/text_l"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <include
             layout="@layout/item_date_detail"
