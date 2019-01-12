@@ -51,6 +51,7 @@
     <dimen name="tool_bar_icon_width">100mm</dimen>
 
     <!--主界面-->
+    <dimen name="drawer_width">420mm</dimen>
     <!--calendar view-->
     <dimen name="calendar_view_height">960mm</dimen>
     <dimen name="calendar_View_week_bar_height">42mm</dimen>

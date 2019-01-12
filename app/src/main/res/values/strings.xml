@@ -35,6 +35,8 @@
     <string name="task">任务</string>
     <string name="event">活动</string>
     <string name="settings">设置</string>
+    <string name="create_local_user">创建本地用户</string>
+    <string name="about">关于</string>
 
     <!--默认提供的事件类型-->
     <string name="type_default">默认</string>
