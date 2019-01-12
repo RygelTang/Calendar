@@ -27,11 +27,17 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        // 初始化Logger
         initLogger();
+        // 初始化BoxStore
         initBoxStore();
+        // 初始化内存泄漏工具
         initLeakCanary();
+        // 初始化换肤框架
         initScoop();
+        // 初始化屏幕适配规则
         initAutoSize();
+        // 初始化MMKV
         initMMKV();
     }
 
@@ -109,7 +115,7 @@ public class APP extends Application {
 
     /**
      * 获取APP的实例
-     * @return
+     * @return 返回Application的实例
      */
     public static APP getInstance(){
         return sInstance;
