@@ -13,6 +13,14 @@ public class LocationEvent extends DefaultEvent {
         mLocation = in.readString();
     }
 
+    public String getLocation() {
+        return mLocation;
+    }
+
+    public void setLocation(String location) {
+        mLocation = location;
+    }
+
     public long getDuration() {
         return mDuration;
     }
