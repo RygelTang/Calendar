@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/action_calendar"
+        android:icon="@drawable/ic_date_range_white_24dp"
+        android:title="@string/calendar" />
+    <item android:id="@+id/action_create_local_user"
+        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:title="@string/create_local_user"/>
+    <item android:id="@+id/action_setting"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="@string/settings"/>
+    <item android:id="@+id/action_about"
+        android:icon="@drawable/ic_info_outline_white_24dp"
+        android:title="@string/about"/>
+
+</menu>
