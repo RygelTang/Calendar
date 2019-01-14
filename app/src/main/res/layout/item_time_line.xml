@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:background="@color/white"
+    android:background="@drawable/bg_ripple"
     android:minHeight="@dimen/time_line_item_min_height"
     android:paddingLeft="@dimen/padding_m"
     android:paddingRight="@dimen/padding_m"
