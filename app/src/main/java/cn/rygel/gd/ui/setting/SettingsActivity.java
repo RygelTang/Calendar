@@ -59,17 +59,17 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         mWeekDays =  Arrays.asList(UIUtils.getStringArray(this,R.array.weekdays));
         BaseQuickAdapter<String,BaseViewHolder> adapter = new BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_weekday, mWeekDays) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
+            protected void convert(final BaseViewHolder helper, String item) {
                 helper.setText(R.id.tv_weekday,item);
+                helper.getView(R.id.tv_weekday).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onWeekItemSelect(helper.getAdapterPosition());
+                    }
+                });
             }
 
         };
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                onWeekItemSelect(position);
-            }
-        });
         mWeekDaySelector = new MaterialDialog.Builder(this)
                 .adapter(adapter,new LinearLayoutManager(this))
                 .build();
