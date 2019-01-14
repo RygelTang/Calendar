@@ -2,7 +2,6 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -35,11 +34,11 @@
             app:child_padding_right="@dimen/calendar_view_child_padding"
             app:child_padding_top="@dimen/calendar_view_child_padding"
             app:date_text_size="@dimen/text_l"
-            app:holiday_text_size="@dimen/text_s"
-            app:lunar_text_size="@dimen/text_s"
+            app:holiday_text_size="@dimen/text_xs"
+            app:lunar_text_size="@dimen/text_xs"
             app:primary_color="@color/colorPrimary"
             app:week_bar_height="@dimen/calendar_View_week_bar_height"
-            app:week_day_text_size="@dimen/text_s" />
+            app:week_day_text_size="@dimen/text_xs" />
 
         <cn.rygel.gd.widget.timeline.TimeLineView
             android:id="@+id/tl_calendar"
@@ -56,7 +55,7 @@
         android:clickable="true"
         app:layout_behavior="cn.rygel.gd.widget.behavior.ScrollAwareFABBehavior"
         app:fabSize="auto"
-        android:src="@drawable/ic_add_white_24dp"
+        app:srcCompat="@drawable/ic_add_white_24dp"
         android:layout_gravity="right|bottom"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_width="wrap_content"

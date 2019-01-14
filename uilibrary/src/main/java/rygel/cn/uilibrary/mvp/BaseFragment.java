@@ -3,6 +3,7 @@ package rygel.cn.uilibrary.mvp;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,12 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
     public void showToast(String str) {
         Logger.i("show toast -------------------------> \n\t" + str);
         Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showToast(@StringRes int strRes) {
+        Logger.i("show string res toast -------------------------> \n\t" + strRes);
+        Toast.makeText(getContext(),strRes,Toast.LENGTH_SHORT).show();
     }
 
     @Override

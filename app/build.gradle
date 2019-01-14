@@ -24,6 +24,7 @@ android {
         versionName rootProject.ext.versionName
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -44,10 +45,13 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.support.app_compat
     implementation rootProject.ext.support.v4
+    implementation rootProject.ext.support.v7
     implementation rootProject.ext.support.design
     implementation rootProject.ext.support.media_compat
     implementation rootProject.ext.support.recyclerview
     implementation rootProject.ext.support.constraint_layout
+    implementation rootProject.ext.support.vector_drawable
+    implementation rootProject.ext.support.grid
 
     // 图片加载
     implementation rootProject.ext.glide.glide
@@ -87,13 +91,20 @@ dependencies {
     // 屏幕适配
     implementation rootProject.ext.auto_size
 
-    // 垂直ViewPager
-    implementation rootProject.ext.vertical_view_pager
-
     // multi dex
     implementation rootProject.ext.multidex
 
+    // mmkv 用于替换 sp
     implementation rootProject.ext.mmkv
+
+    // 选择器
+    implementation rootProject.ext.picker
+
+    // material switch
+    implementation rootProject.ext.switch_button
+
+    // 图片选择框架
+    implementation rootProject.ext.matisse
 
     // UI基础库
     implementation project(':uilibrary')

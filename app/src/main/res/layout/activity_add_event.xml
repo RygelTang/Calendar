@@ -33,7 +33,7 @@
                 <ImageView
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/margin_s"
-                    android:src="@drawable/ic_turned_in_not_black_24dp"
+                    app:srcCompat="@drawable/ic_turned_in_not_black_24dp"
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_width" />
 
@@ -62,7 +62,7 @@
                 <ImageView
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/margin_s"
-                    android:src="@drawable/ic_date_range_black_24dp"
+                    app:srcCompat="@drawable/ic_date_range_black_24dp"
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_width" />
 
@@ -93,7 +93,7 @@
                     <ImageView
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/margin_s"
-                        android:src="@drawable/ic_alarm_black_24dp"
+                        app:srcCompat="@drawable/ic_alarm_black_24dp"
                         android:layout_width="@dimen/icon_width"
                         android:layout_height="@dimen/icon_width" />
 
@@ -105,8 +105,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
 
-                    <Switch
+                    <com.kyleduo.switchbutton.SwitchButton
                         android:id="@+id/switch_all_day"
+                        app:kswThumbMargin="-3dp"
+                        app:kswTintColor="@color/colorPrimary"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -149,7 +151,7 @@
                 <ImageView
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/margin_s"
-                    android:src="@drawable/ic_portrait_black_24dp"
+                    app:srcCompat="@drawable/ic_portrait_black_24dp"
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_width" />
 
@@ -175,7 +177,7 @@
                 <ImageView
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/margin_s"
-                    android:src="@drawable/ic_event_note_black_24dp"
+                    app:srcCompat="@drawable/ic_event_note_black_24dp"
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_width" />
 

@@ -2,6 +2,8 @@ package cn.rygel.gd.app;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.ftinc.scoop.Scoop;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -19,7 +21,7 @@ import io.objectbox.android.AndroidObjectBrowser;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.unit.Subunits;
 
-public class APP extends Application {
+public class APP extends MultiDexApplication {
 
     private static APP sInstance = null;
 
@@ -39,18 +41,21 @@ public class APP extends Application {
         initAutoSize();
         // 初始化MMKV
         initMMKV();
+        initMultiDex();
     }
 
     /**
      * 初始化Logger
      */
     private void initLogger(){
-        FormatStrategy strategy = PrettyFormatStrategy
-                .newBuilder()
-                .methodCount(5)
-                .tag("Rygel")
-                .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(strategy));
+        Logger.addLogAdapter(
+                new AndroidLogAdapter(
+                        PrettyFormatStrategy.newBuilder()
+                                .methodCount(5)
+                                .tag("Rygel")
+                                .build()
+                )
+        );
     }
 
     /**
@@ -111,6 +116,13 @@ public class APP extends Application {
                 .setSupportDP(false)
                 .setSupportSP(false)
                 .setSupportSubunits(Subunits.MM);
+    }
+
+    /**
+     * 初始化MultiDex，避免在5.0以下机型崩溃
+     */
+    private void initMultiDex(){
+        MultiDex.install(this);
     }
 
     /**

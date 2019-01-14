@@ -14,10 +14,10 @@
 
     <dimen name="divide_width">1mm</dimen>
 
-    <dimen name="text_xxs">18mm</dimen>
-    <dimen name="text_xs">22mm</dimen>
-    <dimen name="text_s">26mm</dimen>
-    <dimen name="text_m">36mm</dimen>
+    <dimen name="text_xxs">22mm</dimen>
+    <dimen name="text_xs">26mm</dimen>
+    <dimen name="text_s">36mm</dimen>
+    <dimen name="text_m">42mm</dimen>
     <dimen name="text_l">48mm</dimen>
     <dimen name="text_xl">60mm</dimen>
     <dimen name="text_xxl">72mm</dimen>
@@ -51,17 +51,24 @@
     <dimen name="tool_bar_icon_width">100mm</dimen>
 
     <!--主界面-->
+    <dimen name="drawer_width">720mm</dimen>
+    <dimen name="drawer_head_height">480mm</dimen>
     <!--calendar view-->
     <dimen name="calendar_view_height">960mm</dimen>
     <dimen name="calendar_View_week_bar_height">42mm</dimen>
     <dimen name="calendar_view_child_padding">6mm</dimen>
-    
+    <dimen name="time_line_date_width">160mm</dimen>
+
     <!--event list-->
-    <dimen name="time_line_item_min_height">240mm</dimen>
-    <dimen name="item_indicator">64mm</dimen>
+    <dimen name="time_line_item_min_height">200mm</dimen>
+    <dimen name="item_indicator">48mm</dimen>
     <dimen name="time_line_width">3mm</dimen>
 
     <!--创建日程-->
     <dimen name="icon_width">64mm</dimen>
+
+    <!--时间及日期选择-->
+    <dimen name="looper_width">240mm</dimen>
+    <dimen name="looper_height">540mm</dimen>
 
 </resources>

@@ -5,12 +5,15 @@ import android.view.View;
 
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.widget.timeline.TimeLineView;
 import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
@@ -42,6 +45,9 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     @Override
     protected void initView(View view) {
         ButterKnife.bind(this,view);
+        mToolbar.setNavigationOnClickListener(l -> {
+            EventBus.getDefault().post(new OnDrawerStateChangeEvent(true));
+        });
         initCalendarView();
         initTimeLine();
     }

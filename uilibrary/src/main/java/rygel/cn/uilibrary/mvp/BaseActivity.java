@@ -2,6 +2,7 @@ package rygel.cn.uilibrary.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -82,6 +83,12 @@ public abstract class BaseActivity<P extends IPresenter> extends rygel.cn.uilibr
     public void showToast(String str) {
         Logger.i("show toast -------------------------> \n\t" + str);
         Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showToast(@StringRes int strRes) {
+        Logger.i("show res toast -------------------------> \n\t" + strRes);
+        Toast.makeText(this,strRes,Toast.LENGTH_SHORT).show();
     }
 
     @Override

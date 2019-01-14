@@ -205,4 +205,8 @@ public class CalendarUtils {
         return new LunarUtils.Solar(solar.solarYear,solar.solarMonth,solar.solarDay);
     }
 
+    public static LunarUtils.Lunar clone(LunarUtils.Lunar lunar){
+        return new LunarUtils.Lunar(lunar.isLeap,lunar.lunarYear,lunar.lunarMonth,lunar.lunarDay);
+    }
+
 }

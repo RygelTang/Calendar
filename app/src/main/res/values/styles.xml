@@ -1,17 +1,58 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TitleText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">@dimen/padding_m</item>
+        <item name="android:textSize">@dimen/text_l</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="ContentText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">@dimen/padding_m</item>
+        <item name="android:textSize">@dimen/text_m</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
+
     <style name="BaseToolBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Matisse" parent="Matisse.Zhihu">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="toolbar">@style/Toolbar.Zhihu</item>
+        <item name="album.dropdown.title.color">@color/colorPrimaryText</item>
+        <item name="album.dropdown.count.color">@color/colorSecondaryText</item>
+        <item name="album.element.color">@android:color/white</item>
+        <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</item>
+        <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
+        <item name="album.emptyView.textColor">@color/colorPrimaryText</item>
+        <item name="item.placeholder">@color/white</item>
+        <item name="item.checkCircle.backgroundColor">@color/colorPrimary</item>
+        <item name="item.checkCircle.borderColor">@color/white</item>
+        <item name="page.bg">@color/white</item>
+        <item name="bottomToolbar.bg">@color/white</item>
+        <item name="bottomToolbar.preview.textColor">@color/colorPrimaryText</item>
+        <item name="bottomToolbar.apply.textColor">@color/colorPrimary</item>
+        <item name="preview.bottomToolbar.back.textColor">@color/white</item>
+        <item name="preview.bottomToolbar.apply.textColor">@color/colorPrimaryDark</item>
+        <item name="listPopupWindowStyle">@style/Popup.Zhihu</item>
+        <item name="capture.textColor">@color/colorSecondaryText</item>
     </style>
 
 </resources>

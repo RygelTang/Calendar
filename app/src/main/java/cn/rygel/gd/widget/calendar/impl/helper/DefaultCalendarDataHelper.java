@@ -60,7 +60,7 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
         String[] result = new String[getDaysOfMonth(year, month)];
         for(int i = 1;i < result.length + 1;i++){
             LunarUtils.Lunar lunar = LunarUtils.solarToLunar(new LunarUtils.Solar(year,month,i));
-            result[i - 1] = LunarUtils.getLunarDayString(year,month,i,lunar.lunarYear,lunar.lunarMonth,lunar.lunarDay,lunar.isLeap);
+            result[i - 1] = LunarUtils.getLunarDayString(lunar.lunarMonth,lunar.lunarDay,lunar.isLeap);
         }
         return result;
     }

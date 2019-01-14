@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.event.impl.AddEventActivity" />
+        <activity android:name=".ui.setting.SettingsActivity"/>
+
         <meta-data
             android:name="design_width_in_dp"
             android:value="1080" />
@@ -26,7 +29,6 @@
             android:name="design_height_in_dp"
             android:value="1920" />
 
-        <activity android:name=".ui.event.impl.AddEventActivity"></activity>
     </application>
 
 </manifest>

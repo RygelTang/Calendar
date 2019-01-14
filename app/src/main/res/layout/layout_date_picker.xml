@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_m"
+    android:background="@drawable/bg_round_corner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/colorSecondaryText"
+            android:text="@string/use_lunar_mode"
+            android:padding="@dimen/padding_m"
+            android:textSize="@dimen/text_l"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/switch_open_lunar_mode"
+            app:kswThumbMargin="-3dp"
+            app:kswTintColor="@color/colorPrimary"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_m"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.cncoderx.wheelview.Wheel3DView
+            android:id="@+id/lv_year"
+            app:cyclic="true"
+            app:visibleItems="5"
+            app:divider="@color/white"
+            app:lineSpace="@dimen/margin_s"
+            app:selectedColor="@color/colorPrimary"
+            app:unselectedColor="@color/colorSecondaryText"
+            app:entries="@array/hours"
+            app:textSize="@dimen/text_xl"
+            android:layout_width="@dimen/looper_width"
+            android:layout_height="@dimen/looper_height" />
+
+        <com.cncoderx.wheelview.Wheel3DView
+            android:id="@+id/lv_month"
+            app:textSize="@dimen/text_xl"
+            app:entries="@array/minutes"
+            app:divider="@color/white"
+            app:cyclic="true"
+            app:lineSpace="@dimen/margin_s"
+            app:selectedColor="@color/colorPrimary"
+            app:unselectedColor="@color/colorSecondaryText"
+            app:visibleItems="5"
+            android:layout_width="@dimen/looper_width"
+            android:layout_height="@dimen/looper_height" />
+
+
+        <com.cncoderx.wheelview.Wheel3DView
+            android:id="@+id/lv_day"
+            app:textSize="@dimen/text_xl"
+            app:entries="@array/minutes"
+            app:divider="@color/white"
+            app:cyclic="true"
+            app:lineSpace="@dimen/margin_s"
+            app:selectedColor="@color/colorPrimary"
+            app:unselectedColor="@color/colorSecondaryText"
+            app:visibleItems="5"
+            android:layout_width="@dimen/looper_width"
+            android:layout_height="@dimen/looper_height" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_m"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:id="@+id/btn_ok"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/ok"
+            android:padding="@dimen/padding_m"
+            android:textSize="@dimen/text_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

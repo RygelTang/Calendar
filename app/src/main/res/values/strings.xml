@@ -1,15 +1,16 @@
 <resources>
-    <string name="app_name">GD</string>
+    <string name="app_name">A日历</string>
     <!--起始页-->
     <string name="back_to_today">返回今天</string>
     <string name="yyyy_MM">%d年%d月</string>
     <string name="yyyy_MM_dd">%d年%d月%d日</string>
     <string name="dd">%d日</string>
-    <string name="default_time">12:00</string>
+    <string name="default_time">00:00</string>
     <string name="temperature">%d℃</string>
     <string name="event_empty_click_to_add">没有日程，点击添加日程</string>
 
     <!--创建活动-->
+    <string name="save">保存</string>
     <string name="create_event">创建活动</string>
     <string name="type_in_event_name">请输入活动名称</string>
     <string name="all_day">全天</string>
@@ -24,6 +25,7 @@
     <string name="alert_after_event">活动结束是否提醒</string>
 
     <!--新建任务-->
+    <string name="do_not_select_time_before_start">请不要选择开始时间之前的时间!</string>
     <string name="deadline">截止时间</string>
     <string name="task_name">任务名称</string>
 
@@ -35,6 +37,15 @@
     <string name="task">任务</string>
     <string name="event">活动</string>
     <string name="settings">设置</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="time_separator">:</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="create_local_user">创建本地用户</string>
+    <string name="about">关于</string>
+    <string name="save_fail">保存失败</string>
 
     <!--默认提供的事件类型-->
     <string name="type_default">默认</string>
@@ -42,4 +53,122 @@
     <string name="type_meeting">会议</string>
     <string name="type_appointment">约会</string>
     <string name="type_memorial">纪念日</string>
+
+    <!--设置页面-->
+    <string name="option_first_weekday">一周的起始日</string>
+    <string name="option_theme">主题</string>
+    <string name="option_group">用户群</string>
+    <string name="option_account">账户</string>
+    <string name="option_about">关于</string>
+    <string name="option_keep_alive">保留后台</string>
+    <string name="summary_keep_alive">如果设备无法正常接收到通知提醒，请打开此选项。</string>
+    <string name="default_first_weekday">星期日</string>
+    <string name="base_setting">基础设置</string>
+    <string name="other_setting">其他设置</string>
+
+    <!--星期选择器-->
+    <string-array name="weekdays">
+        <item>星期日</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+
+    <!--日期选择器-->
+    <string name="use_lunar_mode">使用农历日期</string>
+
+    <!--时间选择-->
+    <string-array name="hours">
+        <item>00</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+
+    <string-array name="minutes">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+    </string-array>
+
 </resources>
