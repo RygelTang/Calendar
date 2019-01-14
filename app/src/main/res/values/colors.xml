@@ -17,4 +17,10 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#AAAAAA</color>
     <color name="black">#313335</color>
+
+    <color name="color_default">#f24336</color>
+    <color name="color_meeting">#336699</color>
+    <color name="color_appointment">#607d8a</color>
+    <color name="color_birthday">#4cae50</color>
+    <color name="color_memorial">#fc5722</color>
 </resources>

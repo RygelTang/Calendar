@@ -66,6 +66,10 @@
     <string name="base_setting">基础设置</string>
     <string name="other_setting">其他设置</string>
 
+    <!--时间轴-->
+    <string name="event_location">地点：</string>
+    <string name="event_time">时间：</string>
+
     <!--星期选择器-->
     <string-array name="weekdays">
         <item>星期日</item>
