@@ -24,6 +24,7 @@ android {
         versionName rootProject.ext.versionName
         testInstrumentationRunner rootProject.ext.testInstrumentationRunner
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -44,10 +45,12 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.support.app_compat
     implementation rootProject.ext.support.v4
+    implementation rootProject.ext.support.v7
     implementation rootProject.ext.support.design
     implementation rootProject.ext.support.media_compat
     implementation rootProject.ext.support.recyclerview
     implementation rootProject.ext.support.constraint_layout
+    implementation rootProject.ext.support.vector_drawable
     implementation rootProject.ext.support.grid
 
     // 图片加载

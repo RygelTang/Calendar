@@ -35,8 +35,10 @@ ext {
     ]
 
     support = [
+            vector_drawable     : "com.android.support:support-vector-drawable:${versions.support}",
             design              : "com.android.support:design:${versions.support}",
             v4                  : "com.android.support:support-v4:${versions.support}",
+            v7                  : "com.android.support:appcompat-v7:${versions.support}",
             support_compat      : "com.android.support:support-compat:${versions.support}",
             app_compat          : "com.android.support:appcompat-v7:${versions.support}",
             animated_vector_drawable        : "com.android.support:animated-vector-drawable:${versions.support}",

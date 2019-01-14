@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GD</string>
+    <string name="app_name">A日历</string>
     <!--起始页-->
     <string name="back_to_today">返回今天</string>
     <string name="yyyy_MM">%d年%d月</string>
@@ -45,6 +45,7 @@
     <string name="cancel">取消</string>
     <string name="create_local_user">创建本地用户</string>
     <string name="about">关于</string>
+    <string name="save_fail">保存失败</string>
 
     <!--默认提供的事件类型-->
     <string name="type_default">默认</string>
@@ -52,6 +53,32 @@
     <string name="type_meeting">会议</string>
     <string name="type_appointment">约会</string>
     <string name="type_memorial">纪念日</string>
+
+    <!--设置页面-->
+    <string name="option_first_weekday">一周的起始日</string>
+    <string name="option_theme">主题</string>
+    <string name="option_group">用户群</string>
+    <string name="option_account">账户</string>
+    <string name="option_about">关于</string>
+    <string name="option_keep_alive">保留后台</string>
+    <string name="summary_keep_alive">如果设备无法正常接收到通知提醒，请打开此选项。</string>
+    <string name="default_first_weekday">星期日</string>
+    <string name="base_setting">基础设置</string>
+    <string name="other_setting">其他设置</string>
+
+    <!--星期选择器-->
+    <string-array name="weekdays">
+        <item>星期日</item>
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+    </string-array>
+
+    <!--日期选择器-->
+    <string name="use_lunar_mode">使用农历日期</string>
 
     <!--时间选择-->
     <string-array name="hours">
@@ -80,6 +107,7 @@
         <item>22</item>
         <item>23</item>
     </string-array>
+
     <string-array name="minutes">
         <item>00</item>
         <item>01</item>
@@ -143,6 +171,4 @@
         <item>59</item>
     </string-array>
 
-    <!--日期选择器-->
-    <string name="use_lunar_mode">使用农历日期</string>
 </resources>

@@ -14,10 +14,10 @@
 
     <dimen name="divide_width">1mm</dimen>
 
-    <dimen name="text_xxs">18mm</dimen>
-    <dimen name="text_xs">22mm</dimen>
-    <dimen name="text_s">26mm</dimen>
-    <dimen name="text_m">36mm</dimen>
+    <dimen name="text_xxs">22mm</dimen>
+    <dimen name="text_xs">26mm</dimen>
+    <dimen name="text_s">36mm</dimen>
+    <dimen name="text_m">42mm</dimen>
     <dimen name="text_l">48mm</dimen>
     <dimen name="text_xl">60mm</dimen>
     <dimen name="text_xxl">72mm</dimen>
