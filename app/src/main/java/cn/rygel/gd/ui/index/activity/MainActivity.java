@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
+import cn.rygel.gd.ui.setting.SettingsActivity;
 import rygel.cn.uilibrary.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,7 +82,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 // TODO: 2019/1/12 跳转创建本地用户界面
                 break;
             case R.id.action_setting:
-                // TODO: 2019/1/12 跳转设置界面
+                SettingsActivity.start(MainActivity.this);
                 break;
             default:
                 break;
