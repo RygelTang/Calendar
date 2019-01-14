@@ -10,7 +10,6 @@ import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
-import cn.rygel.gd.utils.calendar.LunarUtils;
 
 public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHolder> {
 
