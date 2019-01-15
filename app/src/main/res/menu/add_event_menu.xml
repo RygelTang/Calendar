@@ -7,4 +7,17 @@
         android:title="@string/save"
         app:showAsAction="always"/>
 
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/action_default_event"
+            android:title="@string/type_default"/>
+        <item android:id="@+id/action_birthday_event"
+            android:title="@string/type_birthday"/>
+        <item android:id="@+id/action_appointment_event"
+            android:title="@string/type_appointment"/>
+        <item android:id="@+id/action_meeting_event"
+            android:title="@string/type_meeting"/>
+        <item android:id="@+id/action_memorial_event"
+            android:title="@string/type_memorial"/>
+    </group>
+
 </menu>
