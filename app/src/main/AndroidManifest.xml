@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.rygel.gd">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".app.APP"
         android:allowBackup="true"
@@ -28,6 +30,13 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="1920" />
+
+        <!--重启服务-->
+        <service android:name=".service.RestartService"/>
+        <!--双进程保活-->
+        <service android:name=".service.LocalService" />
+        <service android:name=".service.RemoteService"
+            android:process=":remote" />
 
     </application>
 
