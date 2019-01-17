@@ -165,7 +165,7 @@ public class EventModel {
         }
         long eventId = mEventBox.put(format2Event(baseEvent));
         flag = eventId >= 0;
-        Logger.i("object box put",mGson.toJson(baseEvent),flag ? "success" : "fail");
+        Logger.i("object box put " + baseEvent.getName() + (flag ? " success" : " fail"));
         return flag;
     }
 
@@ -231,7 +231,12 @@ public class EventModel {
             event.getLocation().setTarget(location);
         }
         event.getDescription().setTarget(formatDescription(baseEvent));
-        event.getUser().add(queryUser(baseEvent.getUser()).findUnique());
+        User user = queryUser(baseEvent.getUser()).findUnique();
+        if(user == null) {
+            putUser(baseEvent.getUser());
+            user = queryUser(baseEvent.getUser()).findUnique();
+        }
+        event.getUser().add(user);
         return event;
     }
 
