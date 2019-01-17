@@ -37,6 +37,7 @@ public class AddEventPresenter extends BasePresenter<IAddEventView> {
                 try {
                     emitter.onNext(mEventModel.putEvent(event));
                 } catch (Exception e){
+                    e.printStackTrace(System.err);
                     emitter.onError(e);
                 }
                 emitter.onComplete();
