@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -22,9 +22,13 @@ public class AboutActivity extends BaseActivity {
     @BindView(R.id.tv_version)
     TextView mTvVersion;
 
+    @BindView(R.id.tb_about)
+    Toolbar mToolbar;
+
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        mToolbar.setNavigationOnClickListener(l -> finish());
     }
 
     @Override

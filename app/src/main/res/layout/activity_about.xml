@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.Toolbar
         style="@style/BaseToolBar"
-        android:id="@+id/tb_event"
+        android:id="@+id/tb_about"
         android:elevation="@dimen/elevation_m"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
