@@ -226,7 +226,8 @@ public class TimeLineView extends RecyclerView {
             final List<TimeLineItem> items = mTimeLineAdapter.getData();
             int index = mLayoutManager.findFirstCompletelyVisibleItemPosition();
             if(index < 0){
-                index = mLayoutManager.findFirstVisibleItemPosition();
+                // 当没有完全展示的日期时，使用最后一个展示的日期作为选中的日期
+                index = mLayoutManager.findLastVisibleItemPosition();
             }
             if(index >= 0 && items.size() > index){
                 return items.get(index);
