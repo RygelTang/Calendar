@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
 
 import cn.rygel.gd.IRemoteService;
+import cn.rygel.gd.bean.event.base.BaseEvent;
+import rygel.cn.uilibrary.utils.WeakHandler;
 
 public class LocalService extends Service {
 
@@ -24,6 +27,7 @@ public class LocalService extends Service {
     public void onCreate() {
         super.onCreate();
         init();
+        initEvents();
     }
 
     private void init() {
@@ -39,6 +43,10 @@ public class LocalService extends Service {
         intents.setClass(this, RemoteService.class);
         bindService(intents, conn, Context.BIND_IMPORTANT);
         return START_STICKY;
+    }
+
+    private void initEvents() {
+        // TODO: 2019/1/23 从数据库中读取数据，并且通过Handler延时发送，实现定时推送
     }
 
     class MyService extends IRemoteService.Stub {
@@ -64,6 +72,30 @@ public class LocalService extends Service {
 
         }
 
+    }
+
+    private void pushNotification(BaseEvent event) {
+        // TODO: 2019/1/23 推送通知的具体逻辑
+    }
+
+    protected static class PushHandler extends WeakHandler<LocalService> {
+
+        private static final int MESSAGE_PUSH_EVENT = 0;
+
+        public PushHandler(LocalService localService) {
+            super(localService);
+        }
+
+        @Override
+        protected void handleMessage(LocalService localService, Message message) {
+            switch (message.what) {
+                case MESSAGE_PUSH_EVENT:
+                    if(message.obj instanceof BaseEvent) {
+                        localService.pushNotification((BaseEvent) message.obj);
+                    }
+                    break;
+            }
+        }
     }
 
 }
