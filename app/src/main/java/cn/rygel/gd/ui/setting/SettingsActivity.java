@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kyleduo.switchbutton.SwitchButton;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 
@@ -111,6 +114,7 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
             showToast(R.string.save_fail);
             return;
         }
+        EventBus.getDefault().post(new OnWeekDayOffsetSelectEvent(index));
         mTvWeekDay.setText(mWeekDays.get(index));
     }
 
