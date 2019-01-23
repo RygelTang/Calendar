@@ -17,6 +17,8 @@ import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
+import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
+import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.widget.timeline.TimeLineView;
 import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
@@ -75,6 +77,15 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             }
         });
         mCalendarView.setSelect(CalendarUtils.today());
+        mCalendarView.setCalendarOptions(
+                mCalendarView
+                        .getCalendarOptions()
+                        .setDateOffset(
+                                Settings
+                                        .getInstance()
+                                        .getWeekdayOffset()
+                        )
+        );
     }
 
     private void initTimeLine(){
@@ -145,8 +156,21 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDrawerStateChanged(OnEventAddedEvent event) {
+        // 重新加载数据
         reloadData();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDrawerStateChanged(OnWeekDayOffsetSelectEvent event) {
+        mCalendarView.setCalendarOptions(
+                mCalendarView
+                        .getCalendarOptions()
+                        .setDateOffset(
+                                event.getOffset()
+                        )
+        );
+    }
+
 
     @Override
     public void onDestroy() {
