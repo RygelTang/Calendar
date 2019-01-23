@@ -36,7 +36,8 @@ public class CalendarView extends ViewPager implements ICalendar {
         super(context,attrs);
         setAdapter(mCalendarPageAdapter);
         obtainAttrs(attrs);
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        // 硬件加速
+        // setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     private void obtainAttrs(AttributeSet attrs){
