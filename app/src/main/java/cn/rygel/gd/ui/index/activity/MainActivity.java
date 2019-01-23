@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
+import cn.rygel.gd.dialog.AddUserDialog;
 import cn.rygel.gd.service.LocalService;
 import cn.rygel.gd.service.RemoteService;
 import cn.rygel.gd.service.RestartService;
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 AboutActivity.start(this);
             break;
             case R.id.action_create_local_user:
-                // TODO: 2019/1/12 跳转创建本地用户界面
+                new AddUserDialog(this).show();
                 break;
             case R.id.action_setting:
                 SettingsActivity.start(MainActivity.this);
