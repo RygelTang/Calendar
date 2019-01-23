@@ -2,21 +2,17 @@ package cn.rygel.gd.ui.event.impl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -32,10 +28,16 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
+import butterknife.OnTextChanged;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.event.AppointmentEvent;
+import cn.rygel.gd.bean.event.BirthdayEvent;
+import cn.rygel.gd.bean.event.MeetingEvent;
+import cn.rygel.gd.bean.event.MemorialEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
+import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.dialog.DatePicker;
 import cn.rygel.gd.dialog.TimePicker;
 import cn.rygel.gd.ui.event.IAddEventView;
@@ -49,8 +51,6 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     private static final String KEY_EVENT_DATE = "KEY_EVENT_DATE";
     private static final String KEY_EVENT_TYPE = "KEY_EVENT_TYPE";
     private static final String KEY_EVENT_USER = "KEY_EVENT_USER";
-
-    private DefaultEvent mEvent = new DefaultEvent();
 
     @BindView(R.id.tb_event)
     Toolbar mToolbar;
@@ -76,9 +76,39 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @BindView(R.id.btn_user)
     Button mBtnUser;
 
+    @BindView(R.id.layout_option_duration)
+    View mLayoutDuration;
+
+    @BindView(R.id.layout_option_location)
+    View mLayoutLocation;
+
+    @BindView(R.id.layout_option_time)
+    View mLayoutTime;
+
     private DatePicker mDatePicker = null;
     private TimePicker mStartTimePicker = null;
     private TimePicker mEndTimePicker = null;
+
+    private LunarUtils.Solar mSolar = null;
+    private LunarUtils.Lunar mLunar = null;
+
+    private boolean mIsLunar = false;
+
+    private long mStart = 0L;
+    private long mDuration = 0L;
+
+    private String mEventName = null;
+
+    private String mDescription = null;
+
+    private String mLocation = null;
+
+    private boolean mIsShowNotification = false;
+
+    private String mUser = Global.DEFAULT_USER;
+
+    private EventType mEventType = EventType.EVENT_TYPE_SUPPORT.get(EventType.TYPE_DEFAULT);
+    private int mEventTypeIndex = EventType.TYPE_DEFAULT;
 
     @Override
     protected void initView() {
@@ -94,17 +124,62 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                getPresenter().saveEvent(mEvent);
+                switch (menuItem.getItemId()) {
+                    case R.id.action_save:
+                        onEventSave();
+                        break;
+                    case R.id.action_appointment_event:
+                        onEventTypeSelected(EventType.TYPE_APPOINTMENT);
+                        break;
+                    case R.id.action_birthday_event:
+                        onEventTypeSelected(EventType.TYPE_BIRTHDAY);
+                        break;
+                    case R.id.action_default_event:
+                        onEventTypeSelected(EventType.TYPE_DEFAULT);
+                        break;
+                    case R.id.action_meeting_event:
+                        onEventTypeSelected(EventType.TYPE_MEETING);
+                        break;
+                    case R.id.action_memorial_event:
+                        onEventTypeSelected(EventType.TYPE_MEMORIAL);
+                        break;
+                    default:
+                        break;
+                }
                 return true;
             }
         });
         initPickers();
+        onDefaultTypeSelect();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_event_menu,menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        int typeID = R.id.action_default_event;
+        switch (mEventTypeIndex) {
+            case EventType.TYPE_APPOINTMENT:
+                typeID = R.id.action_appointment_event;
+                break;
+            case EventType.TYPE_BIRTHDAY:
+                typeID = R.id.action_birthday_event;
+                break;
+            case EventType.TYPE_MEETING:
+                typeID = R.id.action_meeting_event;
+                break;
+            case EventType.TYPE_MEMORIAL:
+                typeID = R.id.action_memorial_event;
+                break;
+            default:
+                break;
+        }
+        menu.findItem(typeID).setChecked(true);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void initPickers(){
@@ -139,7 +214,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @Override
     protected void loadData() {
         loadIntentData();
-        mBtnUser.setText(mEvent.getUser());
+        mBtnUser.setText(mUser);
         onStartTimeSelect(0,0);
         onStartTimeSelect(0,0);
     }
@@ -150,11 +225,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
             String userName = intent.getStringExtra(KEY_EVENT_USER);
             onUserSelect(userName != null ? userName : UIUtils.getString(this,R.string.default_user));
             EventType eventType = intent.getParcelableExtra(KEY_EVENT_TYPE);
-            if(eventType != null){
-                selectEventType(eventType);
-            } else {
-                selectEventType(EventType.EVENT_TYPE_SUPPORT.get(EventType.TYPE_DEFAULT));
-            }
+            int index = EventType.EVENT_TYPE_SUPPORT.indexOf(eventType);
+            index = index >= 0 ? index : EventType.TYPE_DEFAULT;
+            onEventTypeSelected(index);
             LunarUtils.Solar solar = intent.getParcelableExtra(KEY_EVENT_DATE);
             if(solar == null){
                 solar = CalendarUtils.today();
@@ -163,22 +236,19 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         }
     }
 
-    @OnEditorAction(R.id.et_event_name)
-    protected boolean setEventName(Editable eventName){
-        if(eventName == null){
-            return false;
-        }
-        mEvent.setName(eventName.toString());
-        return false;
+    @OnTextChanged(value = R.id.et_event_name, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void setEventName(Editable eventName){
+        mEventName = eventName.toString();
     }
 
-    @OnEditorAction(R.id.et_event_description)
-    protected boolean setEventDescription(Editable description){
-        if(description == null){
-            return false;
-        }
-        mEvent.setDescription(description.toString());
-        return false;
+    @OnTextChanged(value = R.id.et_event_description, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void setEventDescription(Editable description){
+        mDescription = description.toString();
+    }
+
+    @OnTextChanged(value = R.id.et_event_location, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void setEventLocation(Editable location) {
+        mLocation = location.toString();
     }
 
     @OnClick(R.id.btn_user)
@@ -201,6 +271,11 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mEndTimePicker.show();
     }
 
+    @OnClick({R.id.btn_time})
+    protected void selectEventTime() {
+        mStartTimePicker.show();
+    }
+
     @OnCheckedChanged(R.id.switch_all_day)
     protected void selectAllDay(boolean isChecked){
         if(isChecked){
@@ -212,6 +287,11 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         } else {
             showTimeSelect();
         }
+    }
+
+    @OnCheckedChanged(R.id.switch_alert)
+    protected void selectShowNotification(boolean isChecked) {
+        mIsShowNotification = isChecked;
     }
 
     @Override
@@ -239,51 +319,261 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         dialog.show();
     }
 
+    /**
+     * 当事件类型改变的时候的回调
+     * @param index 选中的事件类型的index
+     */
+    private void onEventTypeSelected(int index) {
+        mEventTypeIndex = index;
+        mEventType = EventType.EVENT_TYPE_SUPPORT.get(mEventTypeIndex);
+        switch (mEventTypeIndex) {
+            case EventType.TYPE_DEFAULT:
+                onDefaultTypeSelect();
+                break;
+            case EventType.TYPE_APPOINTMENT:
+                onAppointmentTypeSelect();
+                break;
+            case EventType.TYPE_BIRTHDAY:
+                onBirthdayTypeSelect();
+                break;
+            case EventType.TYPE_MEETING:
+                onMeetingTypeSelect();
+                break;
+            case EventType.TYPE_MEMORIAL:
+                onMemorialTypeSelect();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 选择约会类型的回调
+     */
+    private void onAppointmentTypeSelect() {
+        showLocationLayout();
+        showDurationLayout();
+        hideTimeLayout();
+    }
+
+    /**
+     * 选择生日类型的回调
+     */
+    private void onBirthdayTypeSelect() {
+        showTimeLayout();
+        hideLocationLayout();
+        hideDurationLayout();
+    }
+
+    /**
+     * 选择会议类型的回调
+     */
+    private void onMeetingTypeSelect() {
+        showLocationLayout();
+        showDurationLayout();
+        hideTimeLayout();
+    }
+
+    /**
+     * 选择纪念日类型的回调
+     */
+    private void onMemorialTypeSelect() {
+        showTimeLayout();
+        hideLocationLayout();
+        hideDurationLayout();
+    }
+
+    /**
+     * 选择默认类型的回调
+     */
+    private void onDefaultTypeSelect() {
+        showDurationLayout();
+        hideLocationLayout();
+        hideTimeLayout();
+    }
+
+    /**
+     * 保存事件
+     */
+    private void onEventSave() {
+        BaseEvent event2Save = null;
+        if(mEventName == null) {
+            showToast(R.string.event_name_can_not_be_null);
+            return;
+        }
+        switch (mEventTypeIndex) {
+            case EventType.TYPE_DEFAULT:
+                DefaultEvent defaultEvent = new DefaultEvent();
+                defaultEvent.setDuration(mDuration);
+                defaultEvent.setName(mEventName);
+                defaultEvent.setEventSolarDate(mSolar);
+                defaultEvent.setLunarEvent(mIsLunar);
+                defaultEvent.setEventLunarDate(mLunar);
+                defaultEvent.setDescription(mDescription);
+                defaultEvent.setShowNotification(mIsShowNotification);
+                defaultEvent.setUser(mUser);
+                event2Save = defaultEvent;
+                break;
+            case EventType.TYPE_APPOINTMENT:
+                AppointmentEvent appointmentEvent = new AppointmentEvent();
+                appointmentEvent.setDuration(mDuration);
+                appointmentEvent.setName(mEventName);
+                appointmentEvent.setEventSolarDate(mSolar);
+                appointmentEvent.setLunarEvent(mIsLunar);
+                appointmentEvent.setEventLunarDate(mLunar);
+                appointmentEvent.setDescription(mDescription);
+                appointmentEvent.setShowNotification(mIsShowNotification);
+                appointmentEvent.setLocation(mLocation);
+                appointmentEvent.setUser(mUser);
+                event2Save = appointmentEvent;
+                break;
+            case EventType.TYPE_BIRTHDAY:
+                BirthdayEvent birthdayEvent = new BirthdayEvent();
+                birthdayEvent.setName(mEventName);
+                birthdayEvent.setEventSolarDate(mSolar);
+                birthdayEvent.setLunarEvent(mIsLunar);
+                birthdayEvent.setEventLunarDate(mLunar);
+                birthdayEvent.setDescription(mDescription);
+                birthdayEvent.setShowNotification(mIsShowNotification);
+                birthdayEvent.setUser(mUser);
+                event2Save = birthdayEvent;
+                break;
+            case EventType.TYPE_MEETING:
+                MeetingEvent meetingEvent = new MeetingEvent();
+                meetingEvent.setDuration(mDuration);
+                meetingEvent.setName(mEventName);
+                meetingEvent.setEventSolarDate(mSolar);
+                meetingEvent.setLunarEvent(mIsLunar);
+                meetingEvent.setEventLunarDate(mLunar);
+                meetingEvent.setDescription(mDescription);
+                meetingEvent.setShowNotification(mIsShowNotification);
+                meetingEvent.setLocation(mLocation);
+                meetingEvent.setUser(mUser);
+                event2Save = meetingEvent;
+                break;
+            case EventType.TYPE_MEMORIAL:
+                MemorialEvent memorialEvent = new MemorialEvent();
+                memorialEvent.setName(mEventName);
+                memorialEvent.setEventSolarDate(mSolar);
+                memorialEvent.setLunarEvent(mIsLunar);
+                memorialEvent.setEventLunarDate(mLunar);
+                memorialEvent.setDescription(mDescription);
+                memorialEvent.setShowNotification(mIsShowNotification);
+                memorialEvent.setUser(mUser);
+                event2Save = memorialEvent;
+                break;
+            default:
+                break;
+        }
+        event2Save.setEventType(mEventType);
+        getPresenter().saveEvent(event2Save);
+    }
+
+    /**
+     * 当日期选中时的回调，solar和lunar都会返回，通过isLunar判断是否是农历日期
+     * @param solar 选中的阳历
+     * @param lunar 选中的农历
+     * @param isLunar 是否选中农历日期
+     */
     private void onDateSelect(LunarUtils.Solar solar, LunarUtils.Lunar lunar,boolean isLunar){
-        mEvent.setEventSolarDate(CalendarUtils.clone(solar));
-        mEvent.setEventLunarDate(CalendarUtils.clone(lunar));
-        mEvent.setLunarEvent(isLunar);
+        mSolar = solar;
+        mLunar = lunar;
+        mIsLunar = isLunar;
         mBtnEventDate.setText(isLunar ? LunarUtils.getLunarString(lunar) : LunarUtils.getSolarString(solar));
     }
 
+    /**
+     * 选择时间间隔时的开始时间选择的回调
+     * @param hour 小时
+     * @param minute 分钟
+     */
     private void onStartTimeSelect(int hour,int minute){
         mBtnStartTime.setText(formatTime(hour, minute));
-        mEvent.setStart(hour * 60 + minute);
+        mStart = hour * 60 + minute;
         mEndTimePicker.setSelectTime(hour, minute);
         onEndTimeSelect(hour, minute);
     }
 
+    /**
+     * 选择时间间隔时的结束时间选择的回调
+     * @param hour 小时
+     * @param minute 分钟
+     */
     private void onEndTimeSelect(int hour,int minute){
-        long duration = hour * 60 + minute - mEvent.getStart();
+        long duration = hour * 60 + minute - mStart;
         if(duration < 0){
             showSnackBar(mBtnEndTime,R.string.do_not_select_time_before_start);
             return;
         }
-        mEvent.setDuration(duration);
+        mDuration = duration;
         mBtnEndTime.setText(formatTime(hour, minute));
     }
 
+    /**
+     * 当成功选择了用户的情况下的回调
+     * @param user
+     */
     private void onUserSelect(String user){
-        mEvent.setUser(user);
+        mUser = user;
         mBtnUser.setText(user);
     }
 
+    /**
+     * 隐藏时间间隔选择的布局
+     */
     private void hideTimeSelect(){
         mBtnEndTime.setVisibility(View.GONE);
         mBtnStartTime.setVisibility(View.GONE);
     }
 
+    /**
+     * 显示时间间隔选择的布局
+     */
     private void showTimeSelect(){
         mBtnEndTime.setVisibility(View.VISIBLE);
         mBtnStartTime.setVisibility(View.VISIBLE);
     }
 
     /**
-     * 对不同的EventType展示不同的设置项
-     * @param eventType
+     * 隐藏选择时间相关的布局
      */
-    private void selectEventType(EventType eventType){
-        mEvent.setEventType(eventType);
+    private void hideTimeLayout() {
+        mLayoutTime.setVisibility(View.GONE);
+    }
+
+    /**
+     * 隐藏所有时间间隔相关的布局
+     */
+    private void hideDurationLayout() {
+        mLayoutDuration.setVisibility(View.GONE);
+    }
+
+    /**
+     * 隐藏位置设置相关的布局
+     */
+    private void hideLocationLayout() {
+        mLayoutLocation.setVisibility(View.GONE);
+    }
+
+    /**
+     * 显示选择时间相关的布局
+     */
+    private void showTimeLayout() {
+        mLayoutTime.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 显示所有时间间隔相关的布局
+     */
+    private void showDurationLayout() {
+        mLayoutDuration.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 显示位置设置相关的布局
+     */
+    private void showLocationLayout() {
+        mLayoutLocation.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -293,12 +583,12 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
 
     @Override
     public void saveSuccess() {
-
+        showToast(R.string.save_success);
     }
 
     @Override
     public void saveFail() {
-
+        showToast(R.string.save_fail);
     }
 
     @Override

@@ -11,6 +11,8 @@
         style="@style/BaseToolBar"
         android:id="@+id/tb_event"
         android:elevation="@dimen/elevation_m"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/create_event"
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/md_nav_back"/>
@@ -80,6 +82,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_option_duration"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_m"
                 android:layout_width="match_parent"
@@ -143,6 +146,64 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_option_time"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_alarm_black_24dp"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <Button
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/btn_time"
+                    android:gravity="left|center_vertical"
+                    android:textColor="@color/colorSecondaryText"
+                    android:text="@string/default_time"
+                    android:padding="@dimen/padding_m"
+                    android:textSize="@dimen/text_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_notifications_black_24dp"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/alert"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/switch_alert"
+                    app:kswThumbMargin="-3dp"
+                    app:kswTintColor="@color/colorPrimary"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:orientation="horizontal"
                 android:padding="@dimen/padding_m"
                 android:layout_width="match_parent"
@@ -165,6 +226,36 @@
                     android:textSize="@dimen/text_m"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_option_location"
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_location_on_black_24dp"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_event_location"
+                        android:padding="@dimen/padding_m"
+                        android:hint="@string/type_in_location"
+                        android:textSize="@dimen/text_m"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 

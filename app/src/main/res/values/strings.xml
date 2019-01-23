@@ -16,6 +16,7 @@
     <string name="all_day">全天</string>
     <string name="select_event_type">选择活动类别</string>
     <string name="type_in_description">备注</string>
+    <string name="type_in_location">位置</string>
     <string name="start_and_end">起始时间</string>
     <string name="location">位置</string>
     <string name="add_alert">添加提醒</string>
@@ -25,6 +26,7 @@
     <string name="alert_after_event">活动结束是否提醒</string>
 
     <!--新建任务-->
+    <string name="event_name_can_not_be_null">事件名称不可为空!</string>
     <string name="do_not_select_time_before_start">请不要选择开始时间之前的时间!</string>
     <string name="deadline">截止时间</string>
     <string name="task_name">任务名称</string>
@@ -46,9 +48,10 @@
     <string name="create_local_user">创建本地用户</string>
     <string name="about">关于</string>
     <string name="save_fail">保存失败</string>
+    <string name="save_success">保存成功</string>
 
     <!--默认提供的事件类型-->
-    <string name="type_default">默认</string>
+    <string name="type_default">默认事件</string>
     <string name="type_birthday">生日</string>
     <string name="type_meeting">会议</string>
     <string name="type_appointment">约会</string>

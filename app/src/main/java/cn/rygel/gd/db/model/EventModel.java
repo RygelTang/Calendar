@@ -7,12 +7,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import cn.rygel.gd.bean.event.AppointmentEvent;
+import cn.rygel.gd.bean.event.BirthdayEvent;
+import cn.rygel.gd.bean.event.MeetingEvent;
+import cn.rygel.gd.bean.event.MemorialEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
+import cn.rygel.gd.bean.event.base.LocationEvent;
+import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.Alert;
 import cn.rygel.gd.db.entity.Description;
 import cn.rygel.gd.db.entity.Event;
+import cn.rygel.gd.db.entity.Location;
 import cn.rygel.gd.db.entity.Time;
 import cn.rygel.gd.db.entity.Time_;
 import cn.rygel.gd.db.entity.User;
@@ -158,7 +165,7 @@ public class EventModel {
         }
         long eventId = mEventBox.put(format2Event(baseEvent));
         flag = eventId >= 0;
-        Logger.i("object box put",mGson.toJson(baseEvent),flag ? "success" : "fail");
+        Logger.i("object box put " + baseEvent.getName() + (flag ? " success" : " fail"));
         return flag;
     }
 
@@ -168,9 +175,35 @@ public class EventModel {
         }
         Time time = event.getTime().getTarget();
         Alert alert = time.getAlert().getTarget();
-        BaseEvent baseEvent = time.getDuration() > 0 ? new DefaultEvent() : new BaseEvent();
-        if(time.getDuration() > 0){
-            ((DefaultEvent) baseEvent).setDuration(time.getDuration());
+        int eventTypeIndex = EventType.EVENT_TYPE_SUPPORT.indexOf(event.getEventType());
+        BaseEvent baseEvent = null;
+        switch (eventTypeIndex) {
+            case EventType.TYPE_APPOINTMENT:
+                AppointmentEvent appointmentEvent = new AppointmentEvent();
+                appointmentEvent.setDuration(time.getDuration());
+                appointmentEvent.setLocation(event.getLocation().getTarget().getLocation());
+                baseEvent = appointmentEvent;
+                break;
+            case EventType.TYPE_BIRTHDAY:
+                baseEvent = new BirthdayEvent();
+                break;
+            case EventType.TYPE_DEFAULT:
+                DefaultEvent defaultEvent = new DefaultEvent();
+                defaultEvent.setDuration(time.getDuration());
+                baseEvent = defaultEvent;
+                break;
+            case EventType.TYPE_MEETING:
+                MeetingEvent meetingEvent = new MeetingEvent();
+                meetingEvent.setDuration(time.getDuration());
+                meetingEvent.setLocation(event.getLocation().getTarget().getLocation());
+                baseEvent = meetingEvent;
+                break;
+            case EventType.TYPE_MEMORIAL:
+                baseEvent = new MemorialEvent();
+                break;
+            default:
+                baseEvent = new BaseEvent();
+                break;
         }
         baseEvent.setShowNotification(event.isShowNotification());
         baseEvent.setEventType(event.getEventType());
@@ -188,28 +221,60 @@ public class EventModel {
     }
 
     private Event format2Event(BaseEvent baseEvent){
-        Alert alert = new Alert()
-                .setAdvanceTime(baseEvent.getAdvanceTime())
-                .setDelayTime(baseEvent.getDelayTime());
         Event event = new Event()
                 .setEventType(baseEvent.getEventType())
                 .setName(baseEvent.getName())
                 .setShowNotification(baseEvent.isShowNotification());
-        Description description = new Description()
-                .setDescription(baseEvent.getDescription());
-        Time time = new Time()
-                .setLunar(baseEvent.isLunarEvent())
-                .setRepeatType(baseEvent.getEventType().mRepeatType)
-                .setSolar(baseEvent.getEventSolarDate())
-                .setLunar(baseEvent.getEventLunarDate())
-                .setStart(baseEvent.getStart())
-                .setTimeZone(baseEvent.getTimeZone())
-                .setDuration(baseEvent instanceof DefaultEvent ? ((DefaultEvent) baseEvent).getDuration() : -1);
-        time.getAlert().setTarget(alert);
-        event.getTime().setTarget(time);
-        event.getDescription().setTarget(description);
-        event.getUser().add(queryUser(baseEvent.getUser()).findUnique());
+        event.getTime().setTarget(formatTime(baseEvent));
+        Location location = formatLocation(baseEvent);
+        if(location != null) {
+            event.getLocation().setTarget(location);
+        }
+        event.getDescription().setTarget(formatDescription(baseEvent));
+        User user = queryUser(baseEvent.getUser()).findUnique();
+        if(user == null) {
+            putUser(baseEvent.getUser());
+            user = queryUser(baseEvent.getUser()).findUnique();
+        }
+        event.getUser().add(user);
         return event;
+    }
+
+    private static Time formatTime(BaseEvent event) {
+        Time time = new Time().setLunar(event.isLunarEvent())
+                .setRepeatType(event.getEventType().mRepeatType)
+                .setSolar(event.getEventSolarDate())
+                .setLunar(event.getEventLunarDate())
+                .setStart(event.getStart())
+                .setTimeZone(event.getTimeZone());
+        time.getAlert().setTarget(formatAlert(event));
+        int eventTypeIndex = EventType.EVENT_TYPE_SUPPORT.indexOf(event.getEventType());
+        switch (eventTypeIndex) {
+            case EventType.TYPE_MEETING:
+            case EventType.TYPE_APPOINTMENT:
+            case EventType.TYPE_DEFAULT:
+                DefaultEvent e = (DefaultEvent) event;
+                time.setDuration(e.getDuration());
+                break;
+        }
+        return time;
+    }
+
+    private static Description formatDescription(BaseEvent event) {
+        return new Description().setDescription(event.getDescription());
+    }
+
+    private static Location formatLocation(BaseEvent event) {
+        if(event instanceof LocationEvent) {
+            return new Location().setLocation(((LocationEvent) event).getLocation());
+        }
+        return null;
+    }
+
+    private static Alert formatAlert(BaseEvent event) {
+        return new Alert()
+                .setAdvanceTime(event.getAdvanceTime())
+                .setDelayTime(event.getDelayTime());
     }
 
     private static class Instance {

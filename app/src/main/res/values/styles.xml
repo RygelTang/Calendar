@@ -26,10 +26,11 @@
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
-    <style name="BaseToolBar">
+    <style name="BaseToolBar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="Matisse" parent="Matisse.Zhihu">

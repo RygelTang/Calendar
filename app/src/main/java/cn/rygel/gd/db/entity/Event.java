@@ -18,6 +18,7 @@ public class Event {
 
     ToOne<Description> mDescription;
     ToOne<Time> mTime;
+    ToOne<Location> mLocation;
 
     @Convert(converter = EventTypeConverter.class,dbType = Integer.class)
     EventType mEventType;
@@ -58,6 +59,14 @@ public class Event {
 
     public void setTime(ToOne<Time> time) {
         mTime = time;
+    }
+
+    public ToOne<Location> getLocation() {
+        return mLocation;
+    }
+
+    public void setLocation(ToOne<Location> location) {
+        mLocation = location;
     }
 
     public EventType getEventType() {
