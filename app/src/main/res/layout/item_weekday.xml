@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/tv_weekday"
+        android:gravity="center"
         android:textColor="@color/colorPrimaryText"
         android:padding="@dimen/padding_m"
         android:textSize="@dimen/text_m"
