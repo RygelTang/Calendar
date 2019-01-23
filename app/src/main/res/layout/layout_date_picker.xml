@@ -64,7 +64,6 @@
             android:layout_width="@dimen/looper_width"
             android:layout_height="@dimen/looper_height" />
 
-
         <com.cncoderx.wheelview.Wheel3DView
             android:id="@+id/lv_day"
             app:textSize="@dimen/text_xl"

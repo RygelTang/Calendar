@@ -78,11 +78,11 @@ public class DatePicker {
     private MaterialDialog mDialog;
 
     @BindView(R.id.lv_year)
-    Wheel3DView mWheelYear;
+    WheelView mWheelYear;
     @BindView(R.id.lv_month)
-    Wheel3DView mWheelMonth;
+    WheelView mWheelMonth;
     @BindView(R.id.lv_day)
-    Wheel3DView mWheelDay;
+    WheelView mWheelDay;
 
     @BindView(R.id.switch_open_lunar_mode)
     SwitchButton mSwitchLunarMode;
@@ -188,10 +188,10 @@ public class DatePicker {
         int dayIndex = mWheelDay.getCurrentIndex();
         if(mIsLunarMode) {
             int leap = LunarUtils.leapMonth(mSelectLunar.lunarYear);
-            int leapOffset = month > leap ? 1 : 0;
-            mSelectLunar.isLeap = leap + 1 == month;
+            int leapOffset = (leap != 0 && month > leap) ? 1 : 0;
+            mSelectLunar.isLeap = (leap != 0 && leap + 1 == month);
             mSelectLunar.lunarMonth = month - leapOffset;
-            mWheelDay.setEntries(getLunarDayEntries(mSelectLunar.lunarYear,mSelectLunar.lunarMonth,leap == month - 1));
+            mWheelDay.setEntries(getLunarDayEntries(mSelectLunar.lunarYear,mSelectLunar.lunarMonth,mSelectLunar.isLeap));
             mWheelDay.setCurrentIndex(dayIndex);
         } else {
             mSelectSolar.solarMonth = month;
