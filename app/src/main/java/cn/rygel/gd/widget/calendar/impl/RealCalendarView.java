@@ -12,7 +12,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.bean.CalendarData;
-import cn.rygel.gd.widget.calendar.bean.ParamBean;
+import cn.rygel.gd.widget.calendar.bean.CalendarOptions;
 import cn.rygel.gd.widget.calendar.helper.CustomCalendarItem;
 import cn.rygel.gd.widget.calendar.helper.CustomCalendarWeekItem;
 import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarItem;
@@ -73,7 +73,7 @@ public class RealCalendarView extends View {
 
     /**
      * 构造函数
-     * @param context
+     * @options context
      */
     public RealCalendarView(Context context){
         this(context,null);
@@ -81,8 +81,8 @@ public class RealCalendarView extends View {
 
     /**
      * 构造函数
-     * @param context
-     * @param attrs
+     * @options context
+     * @options attrs
      */
     public RealCalendarView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -202,21 +202,21 @@ public class RealCalendarView extends View {
         return mChildBound;
     }
 
-    public void setParam(ParamBean param){
-        setWeekBarHeight(param.getWeekBarHeight());
-        setWeekDayTextSize(param.getWeekDayTextSize());
-        setWeekDayTextColor(param.getWeekDayTextColor());
-        setSelectTextColor(param.getSelectTextColor());
-        setDateTextSize(param.getDateTextSize());
-        setLunarTextSize(param.getLunarTextSize());
-        setHolidayTextSize(param.getHolidayTextSize());
-        setPrimaryColor(param.getPrimaryColor());
-        setAccentColor(param.getAccentColor());
-        setTextColor(param.getTextColor());
-        setChildPaddingLeft(param.getChildPaddingLeft());
-        setChildPaddingRight(param.getChildPaddingRight());
-        setChildPaddingTop(param.getChildPaddingTop());
-        setChildPaddingBottom(param.getChildPaddingBottom());
+    public void setCalendarOptions(CalendarOptions options){
+        setWeekBarHeight(options.getWeekBarHeight());
+        setWeekDayTextSize(options.getWeekDayTextSize());
+        setWeekDayTextColor(options.getWeekDayTextColor());
+        setSelectTextColor(options.getSelectTextColor());
+        setDateTextSize(options.getDateTextSize());
+        setLunarTextSize(options.getLunarTextSize());
+        setHolidayTextSize(options.getHolidayTextSize());
+        setPrimaryColor(options.getPrimaryColor());
+        setAccentColor(options.getAccentColor());
+        setTextColor(options.getTextColor());
+        setChildPaddingLeft(options.getChildPaddingLeft());
+        setChildPaddingRight(options.getChildPaddingRight());
+        setChildPaddingTop(options.getChildPaddingTop());
+        setChildPaddingBottom(options.getChildPaddingBottom());
     }
 
     public void setSelectIndex(int selectIndex) {

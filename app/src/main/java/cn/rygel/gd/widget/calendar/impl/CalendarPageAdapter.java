@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.rygel.gd.utils.calendar.LunarUtils;
-import cn.rygel.gd.widget.calendar.bean.ParamBean;
+import cn.rygel.gd.widget.calendar.bean.CalendarOptions;
 import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
 import cn.rygel.gd.widget.calendar.impl.helper.DefaultCalendarDataHelper;
 import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
@@ -22,7 +22,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private CalendarDataHelper mCalendarDataHelper = new DefaultCalendarDataHelper();
 
-    private ParamBean mParam = new ParamBean();
+    private CalendarOptions mOptions = new CalendarOptions();
 
     private OnDateSelectedListener mOnDateSelectedListener = null;
 
@@ -74,7 +74,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         RealCalendarView calendar = mCachedCalendarViews.get(position);
         if(calendar == null){
             calendar = new RealCalendarView(container.getContext());
-            calendar.setParam(mParam);
+            calendar.setCalendarOptions(mOptions);
             calendar.setOnDateSelectedListener(new OnDateSelectedListener() {
                 @Override
                 public void onDateSelect(LunarUtils.Solar date) {
@@ -172,16 +172,16 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     protected void setCalendarDataHelper(CalendarDataHelper calendarDataHelper) {
-        if(calendarDataHelper != null && mParam != null){
-            calendarDataHelper.setDateOffset(mParam.getDateOffset());
+        if(calendarDataHelper != null && mOptions != null){
+            calendarDataHelper.setDateOffset(mOptions.getDateOffset());
         }
         mCalendarDataHelper = calendarDataHelper;
     }
 
-    protected void setParam(ParamBean param) {
-        mParam = param;
-        if(mCalendarDataHelper != null && mParam != null){
-            mCalendarDataHelper.setDateOffset(mParam.getDateOffset());
+    protected void setCalendarOptions(CalendarOptions options) {
+        mOptions = options;
+        if(mCalendarDataHelper != null && mOptions != null){
+            mCalendarDataHelper.setDateOffset(mOptions.getDateOffset());
             mCalendarPager.invalidate();
         }
         mCachedCalendarViews.clear();

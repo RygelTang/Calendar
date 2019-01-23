@@ -4,12 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.View;
 
 import cn.rygel.gd.R;
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.ICalendar;
-import cn.rygel.gd.widget.calendar.bean.ParamBean;
+import cn.rygel.gd.widget.calendar.bean.CalendarOptions;
 import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
 import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
 import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
@@ -18,6 +17,8 @@ import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
 public class CalendarView extends ViewPager implements ICalendar {
 
     private CalendarPageAdapter mCalendarPageAdapter = new CalendarPageAdapter(this);
+
+    private CalendarOptions mOptions = new CalendarOptions();
 
     /**
      * 构造方法
@@ -42,27 +43,35 @@ public class CalendarView extends ViewPager implements ICalendar {
 
     private void obtainAttrs(AttributeSet attrs){
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
-        ParamBean param = new ParamBean();
-        param.setDateOffset(ta.getInteger(R.styleable.CalendarView_date_offset,param.getDateOffset()));
-        param.setAccentColor(ta.getColor(R.styleable.CalendarView_accent_color,param.getAccentColor()));
-        param.setPrimaryColor(ta.getColor(R.styleable.CalendarView_primary_color,param.getPrimaryColor()));
-        param.setTextColor(ta.getColor(R.styleable.CalendarView_text_color,param.getTextColor()));
-        param.setSelectTextColor(ta.getColor(R.styleable.CalendarView_select_text_color,param.getSelectTextColor()));
-        param.setWeekDayTextColor(ta.getColor(R.styleable.CalendarView_week_day_text_color,param.getWeekDayTextColor()));
-        param.setWeekBarHeight(ta.getDimensionPixelSize(R.styleable.CalendarView_week_bar_height,param.getWeekBarHeight()));
-        param.setWeekDayTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_week_day_text_size,param.getWeekDayTextSize()));
-        param.setDateTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_date_text_size,param.getDateTextSize()));
-        param.setLunarTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_lunar_text_size,param.getLunarTextSize()));
-        param.setHolidayTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_holiday_text_size,param.getHolidayTextSize()));
-        param.setChildPaddingLeft(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_left,param.getChildPaddingLeft()));
-        param.setChildPaddingRight(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_right,param.getChildPaddingRight()));
-        param.setChildPaddingTop(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_top,param.getChildPaddingTop()));
-        param.setChildPaddingBottom(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_bottom,param.getChildPaddingBottom()));
+        mOptions.setDateOffset(ta.getInteger(R.styleable.CalendarView_date_offset,mOptions.getDateOffset()));
+        mOptions.setAccentColor(ta.getColor(R.styleable.CalendarView_accent_color,mOptions.getAccentColor()));
+        mOptions.setPrimaryColor(ta.getColor(R.styleable.CalendarView_primary_color,mOptions.getPrimaryColor()));
+        mOptions.setTextColor(ta.getColor(R.styleable.CalendarView_text_color,mOptions.getTextColor()));
+        mOptions.setSelectTextColor(ta.getColor(R.styleable.CalendarView_select_text_color,mOptions.getSelectTextColor()));
+        mOptions.setWeekDayTextColor(ta.getColor(R.styleable.CalendarView_week_day_text_color,mOptions.getWeekDayTextColor()));
+        mOptions.setWeekBarHeight(ta.getDimensionPixelSize(R.styleable.CalendarView_week_bar_height,mOptions.getWeekBarHeight()));
+        mOptions.setWeekDayTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_week_day_text_size,mOptions.getWeekDayTextSize()));
+        mOptions.setDateTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_date_text_size,mOptions.getDateTextSize()));
+        mOptions.setLunarTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_lunar_text_size,mOptions.getLunarTextSize()));
+        mOptions.setHolidayTextSize(ta.getDimensionPixelSize(R.styleable.CalendarView_holiday_text_size,mOptions.getHolidayTextSize()));
+        mOptions.setChildPaddingLeft(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_left,mOptions.getChildPaddingLeft()));
+        mOptions.setChildPaddingRight(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_right,mOptions.getChildPaddingRight()));
+        mOptions.setChildPaddingTop(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_top,mOptions.getChildPaddingTop()));
+        mOptions.setChildPaddingBottom(ta.getDimensionPixelSize(R.styleable.CalendarView_child_padding_bottom,mOptions.getChildPaddingBottom()));
         ta.recycle();
-        mCalendarPageAdapter.setParam(param);
+        setCalendarOptions(mOptions);
     }
 
     /******************************************* 对外暴露方法 *********************************************/
+    public CalendarOptions getCalendarOptions(){
+        return mOptions;
+    }
+
+    public void setCalendarOptions(CalendarOptions options) {
+        mOptions = options;
+        mCalendarPageAdapter.setCalendarOptions(options);
+    }
+
     @Override
     public void setSelect(LunarUtils.Solar solar) {
         mCalendarPageAdapter.select(solar);

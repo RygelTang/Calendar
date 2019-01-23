@@ -2,7 +2,7 @@ package cn.rygel.gd.widget.calendar.bean;
 
 import android.graphics.Color;
 
-public class ParamBean {
+public class CalendarOptions {
 
     private int mDateOffset = 0;
     private int mWeekBarHeight = 120;
@@ -24,119 +24,134 @@ public class ParamBean {
         return mDateOffset;
     }
 
-    public void setDateOffset(int dateOffset) {
+    public CalendarOptions setDateOffset(int dateOffset) {
         mDateOffset = dateOffset;
+        return this;
     }
 
     public int getWeekBarHeight() {
         return mWeekBarHeight;
     }
 
-    public void setWeekBarHeight(int weekBarHeight) {
+    public CalendarOptions setWeekBarHeight(int weekBarHeight) {
         mWeekBarHeight = weekBarHeight;
+        return this;
     }
 
     public int getWeekDayTextSize() {
         return mWeekDayTextSize;
     }
 
-    public void setWeekDayTextSize(int weekDayTextSize) {
+    public CalendarOptions setWeekDayTextSize(int weekDayTextSize) {
         mWeekDayTextSize = weekDayTextSize;
+        return this;
     }
 
     public int getWeekDayTextColor() {
         return mWeekDayTextColor;
     }
 
-    public void setWeekDayTextColor(int weekDayTextColor) {
+    public CalendarOptions setWeekDayTextColor(int weekDayTextColor) {
         mWeekDayTextColor = weekDayTextColor;
+        return this;
     }
 
     public int getSelectTextColor() {
         return mSelectTextColor;
     }
 
-    public void setSelectTextColor(int selectTextColor) {
+    public CalendarOptions setSelectTextColor(int selectTextColor) {
         mSelectTextColor = selectTextColor;
+        return this;
     }
 
     public int getDateTextSize() {
         return mDateTextSize;
     }
 
-    public void setDateTextSize(int dateTextSize) {
+    public CalendarOptions setDateTextSize(int dateTextSize) {
         mDateTextSize = dateTextSize;
+        return this;
     }
 
     public int getLunarTextSize() {
         return mLunarTextSize;
     }
 
-    public void setLunarTextSize(int lunarTextSize) {
+    public CalendarOptions setLunarTextSize(int lunarTextSize) {
         mLunarTextSize = lunarTextSize;
+        return this;
     }
 
     public int getHolidayTextSize() {
         return mHolidayTextSize;
     }
 
-    public void setHolidayTextSize(int holidayTextSize) {
+    public CalendarOptions setHolidayTextSize(int holidayTextSize) {
         mHolidayTextSize = holidayTextSize;
+        return this;
     }
 
     public int getPrimaryColor() {
         return mPrimaryColor;
     }
 
-    public void setPrimaryColor(int primaryColor) {
+    public CalendarOptions setPrimaryColor(int primaryColor) {
         mPrimaryColor = primaryColor;
+        return this;
     }
 
     public int getAccentColor() {
         return mAccentColor;
     }
 
-    public void setAccentColor(int accentColor) {
+    public CalendarOptions setAccentColor(int accentColor) {
         mAccentColor = accentColor;
+        return this;
     }
 
     public int getTextColor() {
         return mTextColor;
     }
 
-    public void setTextColor(int textColor) {
+    public CalendarOptions setTextColor(int textColor) {
         mTextColor = textColor;
+        return this;
     }
 
     public int getChildPaddingLeft() {
         return mChildPaddingLeft;
     }
 
-    public void setChildPaddingLeft(int childPaddingLeft) {
+    public CalendarOptions setChildPaddingLeft(int childPaddingLeft) {
         mChildPaddingLeft = childPaddingLeft;
+        return this;
     }
 
     public int getChildPaddingRight() {
         return mChildPaddingRight;
     }
 
-    public void setChildPaddingRight(int childPaddingRight) {
+    public CalendarOptions setChildPaddingRight(int childPaddingRight) {
         mChildPaddingRight = childPaddingRight;
+        return this;
     }
 
     public int getChildPaddingTop() {
         return mChildPaddingTop;
     }
 
-    public void setChildPaddingTop(int childPaddingTop) {
+    public CalendarOptions setChildPaddingTop(int childPaddingTop) {
         mChildPaddingTop = childPaddingTop;
+        return this;
     }
 
     public int getChildPaddingBottom() {
         return mChildPaddingBottom;
     }
 
-    public void setChildPaddingBottom(int childPaddingBottom) {
+    public CalendarOptions setChildPaddingBottom(int childPaddingBottom) {
         mChildPaddingBottom = childPaddingBottom;
+        return this;
     }
 }
