@@ -25,4 +25,7 @@
     <color name="color_appointment">#607d8a</color>
     <color name="color_birthday">#4cae50</color>
     <color name="color_memorial">#fc5722</color>
+
+    <color name="divider_color">#80CCCCCC</color>
+
 </resources>

@@ -27,6 +27,7 @@ import cn.rygel.gd.service.LocalService;
 import cn.rygel.gd.service.RemoteService;
 import cn.rygel.gd.service.RestartService;
 import cn.rygel.gd.setting.Settings;
+import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
 import cn.rygel.gd.ui.setting.SettingsActivity;
 import rygel.cn.uilibrary.base.BaseActivity;
@@ -96,8 +97,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 loadFragment(new CalendarFragment());
                 break;
             case R.id.action_about:
-                // TODO: 2019/1/12 跳转关于界面
-                break;
+                AboutActivity.start(this);
+            break;
             case R.id.action_create_local_user:
                 // TODO: 2019/1/12 跳转创建本地用户界面
                 break;

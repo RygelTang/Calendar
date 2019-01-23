@@ -73,6 +73,14 @@
     <string name="event_location">地点：</string>
     <string name="event_time">时间：</string>
 
+    <!--关于界面-->
+    <string name="version">版本号</string>
+    <string name="email">邮箱</string>
+    <string name="m_email">rygel.tang@gmail.com</string>
+    <string name="qq">QQ</string>
+    <string name="m_qq">1066340496</string>
+    <string name="author">开发者</string>
+
     <!--星期选择器-->
     <string-array name="weekdays">
         <item>星期日</item>

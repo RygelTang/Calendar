@@ -2,6 +2,8 @@
 <resources>
 
     <!--通用尺寸-->
+    <dimen name="icon_width">64mm</dimen>
+
     <dimen name="round_corner_radius_s">10mm</dimen>
     <dimen name="round_corner_radius_m">20mm</dimen>
     <dimen name="round_corner_radius_l">30mm</dimen>
@@ -65,10 +67,12 @@
     <dimen name="time_line_width">3mm</dimen>
 
     <!--创建日程-->
-    <dimen name="icon_width">64mm</dimen>
 
     <!--时间及日期选择-->
     <dimen name="looper_width">240mm</dimen>
     <dimen name="looper_height">540mm</dimen>
+
+    <!--关于界面-->
+    <dimen name="about_icon_width">120mm</dimen>
 
 </resources>

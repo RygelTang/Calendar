@@ -23,6 +23,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
+import cn.rygel.gd.ui.about.AboutActivity;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 
@@ -98,7 +99,7 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
 
     @OnClick(R.id.btn_about)
     protected void onClickAbout() {
-        // TODO: 2019/1/14 跳转到关于界面
+        AboutActivity.start(this);
     }
 
     @OnClick(R.id.btn_select_first_weekday)

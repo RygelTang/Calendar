@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".app.APP"
@@ -23,9 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.event.impl.AddEventActivity" />
-        <activity android:name=".ui.setting.SettingsActivity"/>
+        <activity android:name=".ui.setting.SettingsActivity" />
 
         <meta-data
             android:name="design_width_in_dp"
@@ -34,14 +33,17 @@
             android:name="design_height_in_dp"
             android:value="1920" />
 
-        <!--重启服务-->
-        <service android:name=".service.RestartService"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <!--双进程保活-->
+        <!-- 重启服务 -->
+        <service
+            android:name=".service.RestartService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 双进程保活 -->
         <service android:name=".service.LocalService" />
-        <service android:name=".service.RemoteService"
+        <service
+            android:name=".service.RemoteService"
             android:process=":remote" />
 
+        <activity android:name=".ui.about.AboutActivity"></activity>
     </application>
 
 </manifest>
