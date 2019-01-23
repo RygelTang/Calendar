@@ -85,7 +85,10 @@ public class EventModel {
                 .build()
                 .find();
         for(Time time : times){
-            events.add(format2BaseEvent(time.getEvent().getTarget()));
+            Event event = time.getEvent().getTarget();
+            if(event != null) {
+                events.add(format2BaseEvent(event));
+            }
         }
         return events;
     }
@@ -165,7 +168,7 @@ public class EventModel {
         }
         long eventId = mEventBox.put(format2Event(baseEvent));
         flag = eventId >= 0;
-        Logger.i("object box put " + baseEvent.getName() + (flag ? " success" : " fail"));
+        Logger.i("object box put " + baseEvent.getName() + (flag ? " success" : " fail") + " id : " + eventId);
         return flag;
     }
 
@@ -225,7 +228,9 @@ public class EventModel {
                 .setEventType(baseEvent.getEventType())
                 .setName(baseEvent.getName())
                 .setShowNotification(baseEvent.isShowNotification());
-        event.getTime().setTarget(formatTime(baseEvent));
+        Time time = formatTime(baseEvent);
+        time.getEvent().setTarget(event);
+        event.getTime().setTarget(time);
         Location location = formatLocation(baseEvent);
         if(location != null) {
             event.getLocation().setTarget(location);
@@ -235,6 +240,9 @@ public class EventModel {
         if(user == null) {
             putUser(baseEvent.getUser());
             user = queryUser(baseEvent.getUser()).findUnique();
+            if(user != null) {
+                user.getEvents().add(event);
+            }
         }
         event.getUser().add(user);
         return event;

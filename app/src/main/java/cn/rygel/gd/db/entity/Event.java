@@ -2,6 +2,7 @@ package cn.rygel.gd.db.entity;
 
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.db.converter.EventTypeConverter;
+import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -17,6 +18,7 @@ public class Event {
     ToMany<User> mUser;
 
     ToOne<Description> mDescription;
+    @Backlink(to = "mEvent")
     ToOne<Time> mTime;
     ToOne<Location> mLocation;
 

@@ -469,6 +469,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
                 break;
         }
         event2Save.setEventType(mEventType);
+        event2Save.setStart(mStart);
         getPresenter().saveEvent(event2Save);
     }
 
