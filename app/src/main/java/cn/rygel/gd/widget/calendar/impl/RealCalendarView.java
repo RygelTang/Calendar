@@ -224,7 +224,7 @@ public class RealCalendarView extends View {
             return;
         }
         mSelectIndex = selectIndex;
-        if(selectIndex == -1){
+        if(selectIndex < 0){
             return;
         }
         if(mClickAnimator.isRunning()){
