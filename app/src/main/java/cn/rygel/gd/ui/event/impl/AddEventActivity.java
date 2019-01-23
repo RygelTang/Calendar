@@ -52,6 +52,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     private static final String KEY_EVENT_TYPE = "KEY_EVENT_TYPE";
     private static final String KEY_EVENT_USER = "KEY_EVENT_USER";
 
+    @BindView(R.id.btn_time)
+    Button mBtnTime;
+
     @BindView(R.id.tb_event)
     Toolbar mToolbar;
 
@@ -489,6 +492,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
      */
     private void onStartTimeSelect(int hour,int minute){
         mBtnStartTime.setText(formatTime(hour, minute));
+        mBtnTime.setText(formatTime(hour, minute));
         mStart = hour * 60 + minute;
         mEndTimePicker.setSelectTime(hour, minute);
         onEndTimeSelect(hour, minute);
