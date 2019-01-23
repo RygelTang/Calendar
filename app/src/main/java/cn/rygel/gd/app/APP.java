@@ -1,13 +1,11 @@
 package cn.rygel.gd.app;
 
-import android.app.Application;
 import android.preference.PreferenceManager;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.ftinc.scoop.Scoop;
 import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
@@ -68,9 +66,11 @@ public class APP extends MultiDexApplication {
                         .build()
                 );
         if(BuildConfig.DEBUG){
-            new AndroidObjectBrowser(BoxStoreHolder.getInstance()
-                    .getBoxStore())
-                    .start(this);
+            new AndroidObjectBrowser(
+                    BoxStoreHolder
+                            .getInstance()
+                            .getBoxStore()
+            ).start(this);
         }
     }
 

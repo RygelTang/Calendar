@@ -64,6 +64,11 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
                         getView().showEvents(events,isStart);
                     }
 
+                    @Override
+                    public void onFail(Throwable t) {
+                        super.onFail(t);
+                        t.printStackTrace(System.err);
+                    }
                 });
     }
 

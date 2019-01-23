@@ -24,6 +24,8 @@ public class TimeLineAdapter extends BaseQuickAdapter<TimeLineItem,BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, final TimeLineItem events) {
         RecyclerView rvEvents = helper.getView(R.id.rv_date_detail);
+        // 减少滑动卡顿
+        rvEvents.setNestedScrollingEnabled(false);
         Button btnEmpty = helper.getView(R.id.btn_event_empty);
         btnEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
