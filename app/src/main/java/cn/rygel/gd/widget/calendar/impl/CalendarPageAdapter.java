@@ -34,6 +34,8 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private int mLastItem = -1;
 
+    private int mChildCount = 0;
+
     public CalendarPageAdapter(ViewPager calendarPager) {
         mCalendarPager = calendarPager;
         mCalendarPager.setOffscreenPageLimit(0);
@@ -63,6 +65,21 @@ public class CalendarPageAdapter extends PagerAdapter {
 
             }
         });
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        if (mChildCount > 0) {
+            mChildCount --;
+            return POSITION_NONE;
+        }
+        return super.getItemPosition(object);
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        mChildCount = getCount();
+        super.notifyDataSetChanged();
     }
 
     @NonNull
@@ -182,8 +199,8 @@ public class CalendarPageAdapter extends PagerAdapter {
         mOptions = options;
         if(mCalendarDataHelper != null && mOptions != null){
             mCalendarDataHelper.setDateOffset(mOptions.getDateOffset());
-            mCalendarPager.invalidate();
         }
+        notifyDataSetChanged();
         mCachedCalendarViews.clear();
     }
 
