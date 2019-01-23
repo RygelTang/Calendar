@@ -21,6 +21,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +32,7 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.event.AppointmentEvent;
 import cn.rygel.gd.bean.event.BirthdayEvent;
 import cn.rygel.gd.bean.event.MeetingEvent;
@@ -589,6 +592,8 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @Override
     public void saveSuccess() {
         showToast(R.string.save_success);
+        EventBus.getDefault().post(new OnEventAddedEvent());
+        finish();
     }
 
     @Override
