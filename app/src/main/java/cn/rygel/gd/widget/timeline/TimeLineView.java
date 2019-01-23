@@ -224,7 +224,10 @@ public class TimeLineView extends RecyclerView {
     public TimeLineItem getFirstVisibleItem(){
         if(mTimeLineAdapter != null && mLayoutManager != null){
             final List<TimeLineItem> items = mTimeLineAdapter.getData();
-            final int index = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+            int index = mLayoutManager.findFirstCompletelyVisibleItemPosition();
+            if(index < 0){
+                index = mLayoutManager.findFirstVisibleItemPosition();
+            }
             if(index >= 0 && items.size() > index){
                 return items.get(index);
             }
