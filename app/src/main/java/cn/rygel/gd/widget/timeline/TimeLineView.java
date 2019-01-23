@@ -211,6 +211,10 @@ public class TimeLineView extends RecyclerView {
         mDateSelectListener = dateSelectListener;
     }
 
+    public void clear() {
+        mTimeLineAdapter.setNewData(new ArrayList<>());
+    }
+
     @Override
     public void smoothScrollToPosition(int position) {
         Logger.i("smooth move to position : " + position);

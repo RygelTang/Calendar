@@ -6,6 +6,8 @@ import android.view.View;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
+import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.widget.timeline.TimeLineView;
 import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
@@ -44,6 +47,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     @Override
     protected void initView(View view) {
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this,view);
         mToolbar.setNavigationOnClickListener(l -> {
             EventBus.getDefault().post(new OnDrawerStateChangeEvent(true));
@@ -101,6 +105,15 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         getPresenter().loadEventItemsInRange(start,CalendarUtils.getMonthDay(start.solarYear,start.solarMonth) - 1,true);
     }
 
+    private void reloadData() {
+        if(mTimeLine.getData() != null && mTimeLine.getData().size() > 0){
+            TimeLineItem start = mTimeLine.getData().get(0);
+            TimeLineItem end = mTimeLine.getData().get(mTimeLine.getData().size() - 1);
+            mTimeLine.clear();
+            getPresenter().loadEventItemsInRange(start.getDate(),CalendarUtils.getIntervalDays(start.getDate(),end.getDate()),true);
+        }
+    }
+
     @Override
     public void showEvents(List<TimeLineItem> items, boolean isStart) {
         if(isStart) {
@@ -130,4 +143,14 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDrawerStateChanged(OnEventAddedEvent event) {
+        reloadData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

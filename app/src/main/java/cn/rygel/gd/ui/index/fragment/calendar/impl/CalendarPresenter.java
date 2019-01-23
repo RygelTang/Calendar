@@ -32,7 +32,7 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
         final String subscribeTag = TAG + "#" + method;
         mSubscribeTags.add(subscribeTag);
         BaseObserver.cancel(subscribeTag);
-        final LunarUtils.Solar solarStart = new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarDay);
+        final LunarUtils.Solar solarStart = CalendarUtils.clone(start);
         final LunarUtils.Solar solarEnd = CalendarUtils.getDayByInterval(start,interval);
         Observable.create(new ObservableOnSubscribe<List<BaseEvent>>() {
 
