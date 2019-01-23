@@ -12,6 +12,8 @@
     <color name="colorText">#FFFFFF</color>
     <color name="colorIcon">#FFFFFF</color>
 
+    <color name="color_transparent">#00FFFFFF</color>
+
     <color name="colorTimeLine">#444444</color>
 
     <color name="white">#FFFFFF</color>
