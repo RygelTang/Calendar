@@ -36,6 +36,46 @@
 
             <LinearLayout
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:id="@+id/btn_hide_status"
+                android:padding="@dimen/padding_l"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:padding="@dimen/padding_xs"
+                        android:textSize="@dimen/text_s"
+                        android:textColor="@color/colorPrimaryText"
+                        android:text="@string/option_hide_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textSize="@dimen/text_s"
+                        android:textColor="@color/colorSecondaryText"
+                        android:text="@string/summary_hide_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/switch_hide_status"
+                    app:kswThumbMargin="-3dp"
+                    app:kswTintColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:id="@+id/btn_select_first_weekday"
                 android:padding="@dimen/padding_l"
                 android:orientation="vertical"
@@ -59,11 +99,6 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-
-            <View
-                android:background="@color/colorDivider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divide_width"/>
 
             <RelativeLayout
                 style="@style/Base.Widget.AppCompat.Button.Borderless"

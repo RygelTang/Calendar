@@ -8,9 +8,14 @@ public class Settings {
 
     private static final String KEY_KEEP_ALIVE = "KEY_KEEP_ALIVE";
     private static final String KEY_WEEKDAY_OFFSET = "KEY_WEEKDAY_OFFSET";
+    private static final String KEY_HIDE_STATUS = "KEY_HIDE_STATUS";
 
     public boolean putKeepAlive(boolean state) {
         return mKV.encode(KEY_KEEP_ALIVE, state);
+    }
+
+    public boolean putHideStatus(boolean state) {
+        return mKV.encode(KEY_HIDE_STATUS, state);
     }
 
     public boolean putWeekDayOffset(int offset) {
@@ -23,6 +28,10 @@ public class Settings {
 
     public int getWeekdayOffset() {
         return mKV.decodeInt(KEY_WEEKDAY_OFFSET,0);
+    }
+
+    public boolean isHideStatus() {
+        return mKV.decodeBool(KEY_HIDE_STATUS, false);
     }
 
     public static Settings getInstance(){

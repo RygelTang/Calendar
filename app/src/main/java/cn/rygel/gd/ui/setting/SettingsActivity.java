@@ -42,6 +42,9 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @BindView(R.id.tv_summary_weekday)
     TextView mTvWeekDay;
 
+    @BindView(R.id.switch_hide_status)
+    SwitchButton mSwitchHideStatus;
+
     @Override
     protected SettingPresenter createPresenter() {
         return new SettingPresenter();
@@ -92,6 +95,13 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         }
     }
 
+    @OnCheckedChanged(R.id.switch_hide_status)
+    protected void onHideStatusChanged(boolean state) {
+        if(!getPresenter().putHideStatus(state)) {
+            showToast(R.string.save_fail);
+        }
+    }
+
     @OnClick(R.id.btn_keep_alive)
     protected void onClickKeepAlive() {
         mSwitchKeepAlive.setChecked(!mSwitchKeepAlive.isChecked());
@@ -105,6 +115,11 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @OnClick(R.id.btn_select_first_weekday)
     protected void onClickSelectFirstWeekday() {
         mWeekDaySelector.show();
+    }
+
+    @OnClick(R.id.btn_hide_status)
+    protected void onClickHideStatus() {
+        mSwitchHideStatus.setChecked(!mSwitchHideStatus.isChecked());
     }
 
     protected void onWeekItemSelect(int index) {

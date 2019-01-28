@@ -13,12 +13,20 @@ public class SettingPresenter extends BasePresenter<ISettingView> {
         return Settings.getInstance().putWeekDayOffset(offset);
     }
 
+    boolean putHideStatus(boolean isHideStatus) {
+        return Settings.getInstance().putHideStatus(isHideStatus);
+    }
+
     boolean isKeepAlive() {
         return Settings.getInstance().isKeepAlive();
     }
 
     int getWeekdayOffset() {
         return Settings.getInstance().getWeekdayOffset();
+    }
+
+    boolean isHideStatus() {
+        return Settings.getInstance().isHideStatus();
     }
 
 }

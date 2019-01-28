@@ -60,12 +60,14 @@
 
     <!--设置页面-->
     <string name="option_first_weekday">一周的起始日</string>
+    <string name="option_hide_status">沉浸状态栏</string>
     <string name="option_theme">主题</string>
     <string name="option_group">用户群</string>
     <string name="option_account">账户</string>
     <string name="option_about">关于</string>
     <string name="option_keep_alive">保留后台</string>
     <string name="summary_keep_alive">如果设备无法正常接收到通知提醒，请打开此选项。</string>
+    <string name="summary_hide_status">Android 5.0 以上沉浸式状态栏。</string>
     <string name="default_first_weekday">星期日</string>
     <string name="base_setting">基础设置</string>
     <string name="other_setting">其他设置</string>
