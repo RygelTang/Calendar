@@ -60,7 +60,6 @@ public class LocalService extends Service {
         init();
         initEvents();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            Logger.i("notification channel created");
             createNotificationChannel();
         }
     }
@@ -190,6 +189,7 @@ public class LocalService extends Service {
 
     @TargetApi(value = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
+        Logger.i("notification channel created");
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = UIUtils.getString(this,R.string.app_name);
         String channelName = UIUtils.getString(this,R.string.event_notification);
@@ -213,7 +213,7 @@ public class LocalService extends Service {
             builder = new Notification.Builder(context);
         }
         return builder.setContentTitle(event.getEventType().getDescription() + " " + event.getName())
-                .setContentText(event instanceof LocationEvent ? "地点" + ((LocationEvent) event).getLocation() : "备注：" + event.getDescription())
+                .setContentText(event instanceof LocationEvent ? "地点: " + ((LocationEvent) event).getLocation() : "备注：" + event.getDescription())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
                 .build();
