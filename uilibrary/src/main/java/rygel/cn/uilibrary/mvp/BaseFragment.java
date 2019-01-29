@@ -39,7 +39,7 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
                 .progress(true,0)
                 .cancelable(false)
                 .build();
-        Logger.i("create loading dialog success?" + (mLoadingDialog == null));
+        Logger.i("create loading dialog success?" + (mLoadingDialog != null));
     }
 
     /**
@@ -47,7 +47,7 @@ public abstract class BaseFragment<P extends IPresenter> extends rygel.cn.uilibr
      */
     private void initPresenter(){
         mPresenter = createPresenter();
-        Logger.i("create presenter success? " + (mPresenter == null));
+        Logger.i("create presenter success? " + (mPresenter != null));
         if(mPresenter != null){
             Logger.i("presenter bind view.");
             mPresenter.bindView(this);
