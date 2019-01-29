@@ -26,6 +26,7 @@ import java.util.List;
 
 import cn.rygel.gd.IRemoteService;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnDateChangedEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
@@ -88,6 +89,11 @@ public class LocalService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventAdded(OnEventAddedEvent event) {
         // 重新加载数据
+        initEvents();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDateChanged(OnDateChangedEvent event) {
         initEvents();
     }
 
