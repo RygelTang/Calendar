@@ -37,7 +37,7 @@ public class RestartService extends JobService {
                 //If something goes wrong
                 Logger.e("something goes wrong,restart service create fail");
             } else {
-                Logger.e("restart service create success");
+                Logger.i("restart service create success");
             }
         }
         return START_STICKY;

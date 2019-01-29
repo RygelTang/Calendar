@@ -49,6 +49,8 @@
     <string name="about">关于</string>
     <string name="save_fail">保存失败</string>
     <string name="save_success">保存成功</string>
+    <string name="event_notification">事件提醒</string>
+    <string name="event_notification_channel_description">该渠道用于推送用户保存的提醒，避免用户错过提醒！\nIMPORTANT！！！\nIMPORTANT！！！！！！\nIMPORTANT</string>
 
     <!--默认提供的事件类型-->
     <string name="type_default">默认事件</string>
