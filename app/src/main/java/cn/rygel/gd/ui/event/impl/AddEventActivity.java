@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnEventAddedEvent;
@@ -126,7 +124,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
                 finish();
             }
         });
-        mToolbar.inflateMenu(R.menu.add_event_menu);
+        mToolbar.inflateMenu(R.menu.menu_add_event);
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -161,7 +159,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_event_menu,menu);
+        getMenuInflater().inflate(R.menu.menu_add_event,menu);
         return true;
     }
 
