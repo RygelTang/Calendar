@@ -50,6 +50,8 @@
     <string name="about">关于</string>
     <string name="save_fail">保存失败</string>
     <string name="save_success">保存成功</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
 
     <!--默认提供的事件类型-->
     <string name="type_default">默认事件</string>
