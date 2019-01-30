@@ -73,9 +73,11 @@ public class LocalService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent intents = new Intent();
-        intents.setClass(this, RemoteService.class);
-        bindService(intents, mConn, Context.BIND_IMPORTANT);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Intent intents = new Intent();
+            intents.setClass(this, RemoteService.class);
+            bindService(intents, mConn, Context.BIND_IMPORTANT);
+        }
         return START_STICKY;
     }
 
@@ -153,15 +155,18 @@ public class LocalService extends Service {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            LocalService.this.startService(new Intent(LocalService.this,
-                    RemoteService.class));
-            LocalService.this.bindService(new Intent(LocalService.this,
-                    RemoteService.class), mConn, Context.BIND_IMPORTANT);
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                LocalService.this.startService(new Intent(LocalService.this,
+                        RemoteService.class));
+                LocalService.this.bindService(new Intent(LocalService.this,
+                        RemoteService.class), mConn, Context.BIND_IMPORTANT);
+            }
         }
 
     }
 
     protected static class PushHandler extends WeakHandler<LocalService> {
+                    RemoteService.class), conn, Context.BIND_IMPORTANT);
 
         private static final int MESSAGE_PUSH_EVENT = 0;
 

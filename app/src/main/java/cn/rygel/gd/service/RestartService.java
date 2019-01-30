@@ -56,7 +56,6 @@ public class RestartService extends JobService {
         if (!isServiceRunning(this, "cn.rygel.gd.service.LocalService") ||
                 !isServiceRunning(this, "cn.rygel.gd.service.RemoteService")) {
             startService(new Intent(this, LocalService.class));
-            startService(new Intent(this, RemoteService.class));
         }
         return false;
     }

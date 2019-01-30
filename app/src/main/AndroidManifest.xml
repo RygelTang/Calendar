@@ -35,13 +35,11 @@
             android:value="1920" />
 
         <!-- 重启服务 -->
-        <service
-            android:name=".service.RestartService"
+        <service android:name=".service.RestartService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 双进程保活 -->
         <service android:name=".service.LocalService" />
-        <service
-            android:name=".service.RemoteService"
+        <service android:name=".service.RemoteService"
             android:process=":remote" />
 
         <receiver android:name=".receiver.DateChangeBroadcastReceiver"
