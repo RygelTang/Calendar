@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ui.event.impl.AddEventActivity" />
         <activity android:name=".ui.setting.SettingsActivity" />
+        <activity android:name=".ui.about.AboutActivity"/>
 
         <meta-data
             android:name="design_width_in_dp"
@@ -43,7 +44,14 @@
             android:name=".service.RemoteService"
             android:process=":remote" />
 
-        <activity android:name=".ui.about.AboutActivity"></activity>
+        <receiver android:name=".receiver.DateChangeBroadcastReceiver"
+            android:label="DateChangeBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

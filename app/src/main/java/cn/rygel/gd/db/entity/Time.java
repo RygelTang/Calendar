@@ -36,7 +36,7 @@ public class Time {
     long mStart;
     long mDuration;
 
-    int mTimeZone;
+    long mTimeZone;
 
     public long getId() {
         return mId;
@@ -110,11 +110,11 @@ public class Time {
         return this;
     }
 
-    public int getTimeZone() {
+    public long getTimeZone() {
         return mTimeZone;
     }
 
-    public Time setTimeZone(int timeZone) {
+    public Time setTimeZone(long timeZone) {
         mTimeZone = timeZone;
         return this;
     }

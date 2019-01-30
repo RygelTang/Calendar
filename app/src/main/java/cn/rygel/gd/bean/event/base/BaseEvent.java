@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.util.TimeZone;
+
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.utils.calendar.LunarUtils;
 
@@ -15,7 +17,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
     protected String mName = "";
     protected String mDescription = "";
     protected String mUser = "";
-    protected int mTimeZone = 8;
+    protected long mTimeZone = TimeZone.getDefault().getRawOffset();
     protected boolean mShowNotification = true;
     protected boolean mIsLunarEvent = false;
     protected long mStart = 0;
@@ -42,7 +44,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         setName(in.readString());
         setDescription(in.readString());
         setUser(in.readString());
-        setTimeZone(in.readInt());
+        setTimeZone(in.readLong());
         setShowNotification(in.readByte() == 1);
         setLunarEvent(in.readByte() == 1);
         setStart(in.readLong());
@@ -91,11 +93,11 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         mUser = user;
     }
 
-    public int getTimeZone() {
+    public long getTimeZone() {
         return mTimeZone;
     }
 
-    public void setTimeZone(int timeZone) {
+    public void setTimeZone(long timeZone) {
         mTimeZone = timeZone;
     }
 
@@ -175,7 +177,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         dest.writeString(getName());
         dest.writeString(getDescription());
         dest.writeString(getUser());
-        dest.writeInt(getTimeZone());
+        dest.writeLong(getTimeZone());
         dest.writeByte((byte) (isShowNotification() ? 1 : 0));
         dest.writeByte((byte) (isLunarEvent() ? 1 : 0));
         dest.writeLong(getStart());

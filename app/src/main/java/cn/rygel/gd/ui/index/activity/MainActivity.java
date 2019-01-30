@@ -74,11 +74,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 5.0以上使用JobScheduler保活方案
             startService(new Intent(this, RestartService.class));
-        } else {
-            // 5.0以下使用双进程守护保活方案
-            startService(new Intent(this, LocalService.class));
-            startService(new Intent(this, RemoteService.class));
         }
+        // 5.0以下使用双进程守护保活方案
+        startService(new Intent(this, LocalService.class));
+        startService(new Intent(this, RemoteService.class));
     }
 
     @Override

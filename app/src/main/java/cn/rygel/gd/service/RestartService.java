@@ -37,7 +37,7 @@ public class RestartService extends JobService {
                 //If something goes wrong
                 Logger.e("something goes wrong,restart service create fail");
             } else {
-                Logger.e("restart service create success");
+                Logger.i("restart service create success");
             }
         }
         return START_STICKY;
@@ -64,7 +64,7 @@ public class RestartService extends JobService {
     // 服务是否运行
     public boolean isServiceRunning(Context context, String serviceName) {
         boolean isRunning = false;
-        ActivityManager am = (ActivityManager) this
+        ActivityManager am = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> lists = am.getRunningAppProcesses();
 
