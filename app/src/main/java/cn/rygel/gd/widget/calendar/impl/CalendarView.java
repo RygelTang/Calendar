@@ -44,7 +44,9 @@ public class CalendarView extends ViewPager implements ICalendar {
     private void obtainAttrs(AttributeSet attrs){
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
         mOptions.setDateOffset(ta.getInteger(R.styleable.CalendarView_date_offset,mOptions.getDateOffset()));
-        mOptions.setAccentColor(ta.getColor(R.styleable.CalendarView_accent_color,mOptions.getAccentColor()));
+        mOptions.setHolidayTextColor(ta.getColor(R.styleable.CalendarView_holiday_text_color,mOptions.getHolidayTextColor()));
+        mOptions.setHolidayBreakTextColor(ta.getColor(R.styleable.CalendarView_holiday_break_text_color,mOptions.getHolidayBreakTextColor()));
+        mOptions.setSolarTermsTextColor(ta.getColor(R.styleable.CalendarView_solar_terms_text_color,mOptions.getSolarTermsTextColor()));
         mOptions.setPrimaryColor(ta.getColor(R.styleable.CalendarView_primary_color,mOptions.getPrimaryColor()));
         mOptions.setTextColor(ta.getColor(R.styleable.CalendarView_text_color,mOptions.getTextColor()));
         mOptions.setSelectTextColor(ta.getColor(R.styleable.CalendarView_select_text_color,mOptions.getSelectTextColor()));

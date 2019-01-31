@@ -16,6 +16,9 @@
 
     <color name="colorTimeLine">#444444</color>
 
+    <color name="green">#4CAF50</color>
+    <color name="red">#f38282</color>
+    <color name="blue">#6699cc</color>
     <color name="white">#FFFFFF</color>
     <color name="gray">#AAAAAA</color>
     <color name="black">#313335</color>

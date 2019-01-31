@@ -8,11 +8,15 @@ public class CalendarItemPaintHolder {
 
     private int mPrimaryColor = Color.BLACK;
 
-    private int mAccentColor = Color.BLACK;
-
     private int mTextColor = Color.BLACK;
 
     private int mSelectTextColor = Color.BLACK;
+
+    private int mHolidayTextColor = Color.BLACK;
+
+    private int mHolidayBreakTextColor = Color.BLACK;
+
+    private int mSolarTermsTextColor = Color.BLACK;
 
     private TextPaint mDatePaint = new TextPaint();
 
@@ -43,18 +47,24 @@ public class CalendarItemPaintHolder {
 
     public void setPrimaryColor(int primaryColor) {
         mPrimaryColor = primaryColor;
-        mHolidayPaint.setColor(primaryColor);
-    }
-
-    public void setAccentColor(int accentColor) {
-        mAccentColor = accentColor;
-        mOfficialHolidayPaint.setColor(accentColor);
     }
 
     public void setTextColor(int textColor) {
         mTextColor = textColor;
         mDatePaint.setColor(textColor);
         mLunarPaint.setColor(textColor);
+    }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        mHolidayTextColor = holidayTextColor;
+    }
+
+    public void setHolidayBreakTextColor(int holidayBreakTextColor) {
+        mHolidayBreakTextColor = holidayBreakTextColor;
+    }
+
+    public void setSolarTermsTextColor(int solarTermsTextColor) {
+        mSolarTermsTextColor = solarTermsTextColor;
     }
 
     public TextPaint getDatePaint(boolean mode) {
@@ -81,7 +91,17 @@ public class CalendarItemPaintHolder {
         if(mode){
             mOfficialHolidayPaint.setColor(mSelectTextColor);
         } else {
-            mOfficialHolidayPaint.setColor(mAccentColor);
+            mOfficialHolidayPaint.setColor(mHolidayTextColor);
+        }
+        mOfficialHolidayPaint.setTextAlign(Paint.Align.RIGHT);
+        return mOfficialHolidayPaint;
+    }
+
+    public TextPaint getOfficialBreakPaint(boolean mode) {
+        if(mode){
+            mOfficialHolidayPaint.setColor(mSelectTextColor);
+        } else {
+            mOfficialHolidayPaint.setColor(mHolidayBreakTextColor);
         }
         mOfficialHolidayPaint.setTextAlign(Paint.Align.RIGHT);
         return mOfficialHolidayPaint;
@@ -91,7 +111,7 @@ public class CalendarItemPaintHolder {
         if(mode){
             mHolidayPaint.setColor(mSelectTextColor);
         } else {
-            mHolidayPaint.setColor(mPrimaryColor);
+            mHolidayPaint.setColor(mHolidayTextColor);
         }
         mHolidayPaint.setTextAlign(Paint.Align.CENTER);
         return mHolidayPaint;

@@ -72,6 +72,24 @@ public interface CalendarDataHelper {
     int getIndicatorsInfo(int year, int month);
 
     /**
+     * 返回补班信息，格式和下标指示一致
+     * {@link CalendarDataHelper#getIndicatorsInfo(int, int)}
+     * @param year
+     * @param month
+     * @return
+     */
+    int getLegalBreakInfo(int year, int month);
+
+    /**
+     * 返回法定节假日信息，格式和下标指示一致
+     * {@link CalendarDataHelper#getIndicatorsInfo(int, int)}
+     * @param year
+     * @param month
+     * @return
+     */
+    int getLegalHolidayInfo(int year, int month);
+
+    /**
      * 返回相应的下标的颜色
      * @param year
      * @param month

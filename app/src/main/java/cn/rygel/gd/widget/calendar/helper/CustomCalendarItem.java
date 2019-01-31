@@ -23,8 +23,13 @@ public interface CustomCalendarItem {
 
     void setPrimaryColor(int primaryColor);
 
-    void setAccentColor(int accentColor);
-
     void setTextColor(int textColor);
+
+    void setHolidayTextColor(int holidayTextColor);
+
+    void setHolidayBreakTextColor(int holidayBreakTextColor);
+
+    void setSolarTermsTextColor(int solarTermsTextColor) ;
+
 
 }

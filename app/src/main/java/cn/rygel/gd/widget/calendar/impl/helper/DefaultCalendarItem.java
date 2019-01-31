@@ -21,7 +21,8 @@ public class DefaultCalendarItem implements CustomCalendarItem {
     public void drawDateItem(Canvas canvas, Rect bound, CalendarData data, int index) {
         drawDate(canvas,bound,data,index,false);
         drawLunarOrHoliday(canvas,bound,data,index,false);
-        // TODO: 2018/12/4 法定节假日显示,下标绘制
+        drawCorner(canvas,bound,data,index,false);
+        // TODO: 2018/12/4 下标绘制
     }
 
     @Override
@@ -29,7 +30,8 @@ public class DefaultCalendarItem implements CustomCalendarItem {
         drawBackground(canvas,bound,true);
         drawDate(canvas,bound,data,index,true);
         drawLunarOrHoliday(canvas,bound,data,index,true);
-        // TODO: 2018/12/4 法定节假日显示,下标绘制
+        drawCorner(canvas,bound,data,index,true);
+        // TODO: 2018/12/4 下标绘制
     }
 
     @Override
@@ -37,7 +39,8 @@ public class DefaultCalendarItem implements CustomCalendarItem {
         drawBackground(canvas,bound,false);
         drawDate(canvas,bound,data,data.mTodayIndex,false);
         drawLunarOrHoliday(canvas,bound,data,data.mTodayIndex,false);
-        // TODO: 2018/12/4 法定节假日显示,下标绘制
+        drawCorner(canvas,bound,data,data.mTodayIndex,false);
+        // TODO: 2018/12/4 下标绘制
     }
 
     private void drawLunarOrHoliday(Canvas canvas, Rect bound, CalendarData data, int index, boolean mode){
@@ -75,15 +78,29 @@ public class DefaultCalendarItem implements CustomCalendarItem {
         );
     }
 
-    private void drawOfficialHoliday(Canvas canvas, Rect bound, boolean mode){
-        final TextPaint officialHolidayPaint = mCalendarItemPaintHolder.getOfficialHolidayPaint(mode);
+    private void drawCorner(Canvas canvas, Rect bound, CalendarData data, int index, boolean mode){
+        TextPaint textPaint = null;
         final String officialHoliday = "休";
+        final String officialBreak = "班";
+        String str = null;
+        if(((data.getLegalHolidayInfo() >> index) & 1) == 1) {
+            str = officialHoliday;
+            textPaint = mCalendarItemPaintHolder.getOfficialHolidayPaint(mode);
+        } else {
+            if(((data.getLegalBreakInfo() >> index) & 1) == 1) {
+                str = officialBreak;
+                textPaint = mCalendarItemPaintHolder.getOfficialBreakPaint(mode);
+            }
+        }
+        if(str == null) {
+            return;
+        }
         Rect textBound = new Rect();
-        officialHolidayPaint.getTextBounds(officialHoliday,0,officialHoliday.length(),textBound);
-        canvas.drawText(officialHoliday,
+        textPaint.getTextBounds(str,0,str.length(),textBound);
+        canvas.drawText(str,
                 bound.right - mOfficialHolidayPadding,
                 bound.top + textBound.height() + mOfficialHolidayPadding,
-                officialHolidayPaint
+                textPaint
         );
     }
 
@@ -126,8 +143,18 @@ public class DefaultCalendarItem implements CustomCalendarItem {
     }
 
     @Override
-    public void setAccentColor(int accentColor) {
-        mCalendarItemPaintHolder.setAccentColor(accentColor);
+    public void setHolidayTextColor(int holidayTextColor) {
+        mCalendarItemPaintHolder.setHolidayTextColor(holidayTextColor);
+    }
+
+    @Override
+    public void setHolidayBreakTextColor(int holidayBreakTextColor) {
+        mCalendarItemPaintHolder.setHolidayBreakTextColor(holidayBreakTextColor);
+    }
+
+    @Override
+    public void setSolarTermsTextColor(int solarTermsTextColor) {
+        mCalendarItemPaintHolder.setSolarTermsTextColor(solarTermsTextColor);
     }
 
     @Override

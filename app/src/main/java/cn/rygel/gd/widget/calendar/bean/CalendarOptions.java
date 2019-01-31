@@ -17,8 +17,10 @@ public class CalendarOptions {
     private int mWeekDayTextColor = Color.BLACK;
     private int mSelectTextColor = Color.WHITE;
     private int mPrimaryColor = Color.BLUE;
-    private int mAccentColor = Color.GREEN;
     private int mTextColor = Color.BLACK;
+    private int mHolidayTextColor = Color.BLACK;
+    private int mHolidayBreakTextColor = Color.BLACK;
+    private int mSolarTermsTextColor = Color.BLACK;
 
     public int getDateOffset() {
         return mDateOffset;
@@ -101,15 +103,6 @@ public class CalendarOptions {
         return this;
     }
 
-    public int getAccentColor() {
-        return mAccentColor;
-    }
-
-    public CalendarOptions setAccentColor(int accentColor) {
-        mAccentColor = accentColor;
-        return this;
-    }
-
     public int getTextColor() {
         return mTextColor;
     }
@@ -153,5 +146,29 @@ public class CalendarOptions {
     public CalendarOptions setChildPaddingBottom(int childPaddingBottom) {
         mChildPaddingBottom = childPaddingBottom;
         return this;
+    }
+
+    public int getHolidayTextColor() {
+        return mHolidayTextColor;
+    }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        mHolidayTextColor = holidayTextColor;
+    }
+
+    public int getHolidayBreakTextColor() {
+        return mHolidayBreakTextColor;
+    }
+
+    public void setHolidayBreakTextColor(int holidayBreakTextColor) {
+        mHolidayBreakTextColor = holidayBreakTextColor;
+    }
+
+    public int getSolarTermsTextColor() {
+        return mSolarTermsTextColor;
+    }
+
+    public void setSolarTermsTextColor(int solarTermsTextColor) {
+        mSolarTermsTextColor = solarTermsTextColor;
     }
 }

@@ -211,7 +211,9 @@ public class RealCalendarView extends View {
         setLunarTextSize(options.getLunarTextSize());
         setHolidayTextSize(options.getHolidayTextSize());
         setPrimaryColor(options.getPrimaryColor());
-        setAccentColor(options.getAccentColor());
+        setHolidayTextColor(options.getHolidayTextColor());
+        setHolidayBreakTextColor(options.getHolidayBreakTextColor());
+        setSolarTermsTextColor(options.getSolarTermsTextColor());
         setTextColor(options.getTextColor());
         setChildPaddingLeft(options.getChildPaddingLeft());
         setChildPaddingRight(options.getChildPaddingRight());
@@ -280,8 +282,18 @@ public class RealCalendarView extends View {
         postInvalidate();
     }
 
-    public void setAccentColor(int accentColor) {
-        mCustomCalendarItem.setAccentColor(accentColor);
+    public void setHolidayTextColor(int holidayTextColor) {
+        mCustomCalendarItem.setHolidayTextColor(holidayTextColor);
+        postInvalidate();
+    }
+
+    public void setHolidayBreakTextColor(int holidayBreakTextColor) {
+        mCustomCalendarItem.setHolidayBreakTextColor(holidayBreakTextColor);
+        postInvalidate();
+    }
+
+    public void setSolarTermsTextColor(int solarTermsTextColor) {
+        mCustomCalendarItem.setSolarTermsTextColor(solarTermsTextColor);
         postInvalidate();
     }
 

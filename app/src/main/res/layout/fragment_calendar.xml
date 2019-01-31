@@ -28,7 +28,6 @@
             android:layout_height="@dimen/calendar_view_height"
             android:background="@color/white"
             android:elevation="@dimen/elevation_s"
-            app:accent_color="@color/colorAccent"
             app:child_padding_bottom="@dimen/calendar_view_child_padding"
             app:child_padding_left="@dimen/calendar_view_child_padding"
             app:child_padding_right="@dimen/calendar_view_child_padding"
@@ -37,6 +36,9 @@
             app:holiday_text_size="@dimen/text_xs"
             app:lunar_text_size="@dimen/text_xs"
             app:primary_color="@color/colorPrimary"
+            app:holiday_text_color="@color/red"
+            app:holiday_break_text_color="@color/blue"
+            app:solar_terms_text_color="@color/green"
             app:week_bar_height="@dimen/calendar_View_week_bar_height"
             app:week_day_text_size="@dimen/text_xs" />
 

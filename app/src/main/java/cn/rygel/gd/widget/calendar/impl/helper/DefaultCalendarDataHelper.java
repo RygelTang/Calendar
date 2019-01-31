@@ -6,6 +6,7 @@ import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.widget.calendar.bean.CalendarData;
 import cn.rygel.gd.widget.calendar.helper.CalendarDataHelper;
+import rygel.cn.uilibrary.utils.UIUtils;
 
 // TODO: 2018/11/25 实现下标数据获取
 public class DefaultCalendarDataHelper implements CalendarDataHelper {
@@ -90,7 +91,76 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
         return (today.solarYear == year && today.solarMonth == month) ? today.solarDay - 1 : -1;
     }
 
-    public String getHolidayString(LunarUtils.Solar solar){
+    @Override
+    public int getLegalBreakInfo(int year, int month) {
+        int res = 0;
+        if(year == 2019) {
+            switch (month) {
+                case 2:
+                    res |= 1 << 1;
+                    res |= 1 << 2;
+                    break;
+                case 9:
+                    res |= 1 << 28;
+                    break;
+                case 10:
+                    res |= 1 << 11;
+                    break;
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public int getLegalHolidayInfo(int year, int month) {
+        int res = 0;
+        if(year == 2019) {
+            switch (month) {
+                case 1:
+                    res |= 1;
+                    break;
+                case 2:
+                    res |= 1 << 3;
+                    res |= 1 << 4;
+                    res |= 1 << 5;
+                    res |= 1 << 6;
+                    res |= 1 << 7;
+                    res |= 1 << 8;
+                    res |= 1 << 9;
+                    break;
+                case 4:
+                    res |= 1 << 4;
+                    res |= 1 << 5;
+                    res |= 1 << 6;
+                    break;
+                case 5:
+                    res |= 1;
+                    break;
+                case 6:
+                    res |= 1 << 6;
+                    res |= 1 << 7;
+                    res |= 1 << 8;
+                    break;
+                case 9:
+                    res |= 1 << 12;
+                    res |= 1 << 13;
+                    res |= 1 << 14;
+                    break;
+                case 10:
+                    res |= 1;
+                    res |= 1 << 1;
+                    res |= 1 << 2;
+                    res |= 1 << 3;
+                    res |= 1 << 4;
+                    res |= 1 << 5;
+                    res |= 1 << 6;
+                    break;
+            }
+        }
+        return res;
+    }
+
+    private static String getHolidayString(LunarUtils.Solar solar){
         LunarUtils.Lunar lunar = LunarUtils.solarToLunar(solar);
         String lunarHoliday = LunarUtils.getLunarHoliday(lunar.lunarYear, lunar.lunarMonth, lunar.lunarDay);
         if (!TextUtils.isEmpty(lunarHoliday)) {
@@ -119,6 +189,8 @@ public class DefaultCalendarDataHelper implements CalendarDataHelper {
         data.setStartIndex(getStartIndex(year, month));
         data.setWeekDayInfo(getWeekDayInfo());
         data.setTodayIndex(getTodayIndex(year, month));
+        data.setLegalHolidayInfo(getLegalHolidayInfo(year, month));
+        data.setLegalBreakInfo(getLegalBreakInfo(year, month));
         return data;
     }
 }

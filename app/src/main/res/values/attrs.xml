@@ -13,10 +13,12 @@
         <attr name="child_padding_right" format="dimension"/>
         <attr name="child_padding_top" format="dimension"/>
         <attr name="child_padding_bottom" format="dimension"/>
+        <attr name="holiday_text_color" format="color"/>
+        <attr name="holiday_break_text_color" format="color"/>
+        <attr name="solar_terms_text_color" format="color"/>
         <attr name="week_day_text_color" format="color"/>
         <attr name="select_text_color" format="color"/>
         <attr name="primary_color" format="color"/>
-        <attr name="accent_color" format="color"/>
         <attr name="text_color" format="color"/>
 
     </declare-styleable>
