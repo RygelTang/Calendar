@@ -60,6 +60,12 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     private void initCalendarView(){
+        mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(int year, int month) {
+                CalendarFragment.this.onMonthChanged(year, month);
+            }
+        });
         mCalendarView.setSelect(CalendarUtils.today());
         mCalendarView.setCalendarOptions(
                 mCalendarView
@@ -79,12 +85,6 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             @Override
             public void onDateLongClick(LunarUtils.Solar date) {
                 mTimeLine.setDate(date,true);
-            }
-        });
-        mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(int year, int month) {
-                CalendarFragment.this.onMonthChanged(year, month);
             }
         });
     }

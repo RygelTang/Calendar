@@ -131,3 +131,8 @@
 
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+# Matisse
+-dontwarn com.squareup.picasso.**
+-dontwarn com.bumptech.glide.**
+-dontwarn com.zhihu.matisse.**
