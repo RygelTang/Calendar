@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">A日历</string>
+    <string name="app_name">日历</string>
     <!--起始页-->
     <string name="back_to_today">返回今天</string>
     <string name="yyyy_MM">%d年%d月</string>
