@@ -55,7 +55,7 @@ public class EventType implements Parcelable {
         dest.writeInt(EVENT_TYPE_SUPPORT.indexOf(this));
     }
 
-    private static final Creator<EventType> CREATOR = new Creator<EventType>() {
+    public static final Creator<EventType> CREATOR = new Creator<EventType>() {
         @Override
         public EventType createFromParcel(Parcel source) {
             return EVENT_TYPE_SUPPORT.get(source.readInt());

@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnDateEventDeleteAllEvent;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
@@ -59,23 +60,6 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     private void initCalendarView(){
-        mCalendarView.setOnDateSelectListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelect(LunarUtils.Solar date) {
-                mTimeLine.setDate(date);
-            }
-
-            @Override
-            public void onDateLongClick(LunarUtils.Solar date) {
-                mTimeLine.setDate(date);
-            }
-        });
-        mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(int year, int month) {
-                CalendarFragment.this.onMonthChanged(year, month);
-            }
-        });
         mCalendarView.setSelect(CalendarUtils.today());
         mCalendarView.setCalendarOptions(
                 mCalendarView
@@ -86,6 +70,23 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
                                         .getWeekdayOffset()
                         )
         );
+        mCalendarView.setOnDateSelectListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelect(LunarUtils.Solar date) {
+                mTimeLine.setDate(date,true);
+            }
+
+            @Override
+            public void onDateLongClick(LunarUtils.Solar date) {
+                mTimeLine.setDate(date,true);
+            }
+        });
+        mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(int year, int month) {
+                CalendarFragment.this.onMonthChanged(year, month);
+            }
+        });
     }
 
     private void initTimeLine(){
@@ -110,8 +111,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     @Override
     protected void loadData() {
-        LunarUtils.Solar today = CalendarUtils.today();
-        LunarUtils.Solar start = CalendarUtils.clone(today);
+        LunarUtils.Solar start = CalendarUtils.today();
         start.solarDay = 1;
         getPresenter().loadEventItemsInRange(start,CalendarUtils.getMonthDay(start.solarYear,start.solarMonth) - 1,true);
     }
@@ -171,6 +171,10 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         );
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventDelete(OnDateEventDeleteAllEvent event) {
+        reloadData();
+    }
 
     @Override
     public void onDestroy() {

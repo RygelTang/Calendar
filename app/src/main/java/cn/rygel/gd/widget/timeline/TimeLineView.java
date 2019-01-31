@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;
@@ -120,7 +122,6 @@ public class TimeLineView extends RecyclerView {
         });
         mTimeLineAdapter.setStartUpFetchPosition(15);
         mTimeLineAdapter.setPreLoadNumber(15);
-        mTimeLineAdapter.openLoadAnimation();
     }
 
     public void addEvents(List<TimeLineItem> items){
@@ -134,6 +135,10 @@ public class TimeLineView extends RecyclerView {
                     }
                     mTimeLineAdapter.addData(items);
                     mTimeLineAdapter.loadMoreComplete();
+                    TimeLineItem firstVisible = getFirstVisibleItem();
+                    if(!mScrolling && firstVisible != null && !mSelectDate.equals(firstVisible.getDate())){
+                        setDate(CalendarUtils.clone(mSelectDate),false);
+                    }
                     Logger.i("load complete");
                 }
 
@@ -153,8 +158,9 @@ public class TimeLineView extends RecyclerView {
             }
             TimeLineItem firstVisible = getFirstVisibleItem();
             if(!mScrolling && firstVisible != null && !mSelectDate.equals(firstVisible.getDate())){
-                smoothScrollToPosition(getItemLocation(mSelectDate));
+                setDate(CalendarUtils.clone(mSelectDate),false);
             }
+            Logger.i("load complete");
         }
     }
 
@@ -187,7 +193,7 @@ public class TimeLineView extends RecyclerView {
         dispatchOnLoadMore(start,interval ,isStart);
     }
 
-    public void setDate(LunarUtils.Solar solar){
+    public void setDate(LunarUtils.Solar solar, boolean showAnimation){
         mSelectDate = CalendarUtils.clone(solar);
         if(!checkOutOfRange(solar)){
             mTimeLineAdapter.getData().clear();
@@ -197,8 +203,17 @@ public class TimeLineView extends RecyclerView {
             final TimeLineItem firstItem = getFirstVisibleItem();
             if(firstItem != null && !firstItem.getDate().equals(solar)) {
                 final int index = getItemLocation(solar);
-                mShouldTaskRunDelay = index <= 15                                                                                                                                                                           ;
-                smoothScrollToPosition(index);
+                mShouldTaskRunDelay = index <= 15;
+                if(showAnimation) {
+                    // 带滑动动画的选中日期
+                    smoothScrollToPosition(index);
+                } else {
+                    // 不显示动画
+                    if (index > -1) {
+                        scrollToPosition(index);
+                        mLayoutManager.scrollToPositionWithOffset(index, 0);
+                    }
+                }
             }
         }
     }
@@ -249,6 +264,15 @@ public class TimeLineView extends RecyclerView {
             return null;
         }
         return mTimeLineAdapter.getData();
+    }
+
+    public void onDateEventChanged(LunarUtils.Solar solar) {
+        if(mTimeLineAdapter != null && getData() != null && getData().size() > 0) {
+            int index = CalendarUtils.getIntervalDays(getData().get(0).getDate(),solar);
+            if(index < getData().size() && index >= 0) {
+                mTimeLineAdapter.notifyItemChanged(index);
+            }
+        }
     }
 
     private boolean checkOutOfRange(LunarUtils.Solar solar){

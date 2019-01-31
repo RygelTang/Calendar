@@ -1,20 +1,36 @@
 package cn.rygel.gd.widget.timeline.adapter;
 
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnDateEventDeleteAllEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
+import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.ui.edit.impl.EditEventActivity;
+import cn.rygel.gd.utils.calendar.CalendarUtils;
+import cn.rygel.gd.utils.calendar.LunarUtils;
+import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 
 public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHolder> {
 
-    public EventAdapter(List<BaseEvent> data) {
-        super(data);
+    private LunarUtils.Solar mDate = null;
+
+    public EventAdapter(TimeLineItem item) {
+        super(item.getEvents());
+        mDate = CalendarUtils.clone(item.getDate());
         addItemType(EventType.TYPE_DEFAULT,R.layout.item_event_type_default);
         addItemType(EventType.TYPE_BIRTHDAY,R.layout.item_event_type_birthday);
         addItemType(EventType.TYPE_APPOINTMENT,R.layout.item_event_type_appointment);
@@ -23,7 +39,30 @@ public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHo
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BaseEvent item) {
+    protected void convert(BaseViewHolder helper, final BaseEvent item) {
+        helper.getView(R.id.layout_content).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.menu_click_event,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.action_edit:
+                                onEditItem(item);
+                                break;
+                            case R.id.action_delete:
+                                onDeleteItem(item);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         helper.setText(R.id.tv_event_name,item.getName());
         switch (helper.getItemViewType()) {
             case EventType.TYPE_MEMORIAL:
@@ -42,6 +81,22 @@ public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHo
                     helper.setText(R.id.tv_event_time,formatTimeString(start, start + duration));
                 }
                 break;
+        }
+    }
+
+    private void onEditItem(BaseEvent event) {
+        EditEventActivity.start(mContext,event);
+    }
+
+    private void onDeleteItem(BaseEvent event) {
+        EventModel.getInstance().delete(event);
+        if(mData.contains(event)) {
+            int index = mData.indexOf(event);
+            mData.remove(event);
+            notifyItemRemoved(index);
+        }
+        if(mData.size() == 0) {
+            EventBus.getDefault().post(new OnDateEventDeleteAllEvent());
         }
     }
 

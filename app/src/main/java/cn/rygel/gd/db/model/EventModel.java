@@ -19,6 +19,7 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.Alert;
 import cn.rygel.gd.db.entity.Description;
 import cn.rygel.gd.db.entity.Event;
+import cn.rygel.gd.db.entity.Event_;
 import cn.rygel.gd.db.entity.Location;
 import cn.rygel.gd.db.entity.Time;
 import cn.rygel.gd.db.entity.Time_;
@@ -98,23 +99,36 @@ public class EventModel {
      * @param event
      */
     public void delete(BaseEvent event){
-        Logger.i("object delete event, event id : " + event.getId());
-        if(event.getId() >= 0){
-            mEventBox.remove(event.getId());
-        }
+        deleteEventByID(event.getId());
     }
 
     /**
      * 删除用户
      * @param userName
      */
-    public void delete(String userName){
+    public void delete(String userName) {
         Logger.i("object delete user : " + userName);
         User user = queryUser(userName).findUnique();
         Logger.i("user found is null? " + (user == null));
-        if(user != null){
+        if (user != null) {
             mUserBox.remove(user);
         }
+    }
+
+    /**
+     * 根据id删除Event
+     * @param id
+     */
+    public void deleteEventByID(long id) {
+        Logger.i("object delete event, event id : " + id);
+        if(id >= 0){
+            mEventBox.remove(id);
+        }
+    }
+
+    public boolean update(BaseEvent event) {
+        deleteEventByID(event.getId());
+        return putEvent(event);
     }
 
     /**
@@ -208,6 +222,7 @@ public class EventModel {
                 baseEvent = new BaseEvent();
                 break;
         }
+        baseEvent.setId(event.getId());
         baseEvent.setShowNotification(event.isShowNotification());
         baseEvent.setEventType(event.getEventType());
         baseEvent.setName(event.getName());

@@ -19,6 +19,8 @@ import io.objectbox.android.AndroidObjectBrowser;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.unit.Subunits;
 
+// TODO: 2019/1/29 编辑事件以及删除事件
+// TODO: 2019/1/29 修改图标
 public class APP extends MultiDexApplication {
 
     private static APP sInstance = null;

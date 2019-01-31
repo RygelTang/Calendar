@@ -166,7 +166,6 @@ public class LocalService extends Service {
     }
 
     protected static class PushHandler extends WeakHandler<LocalService> {
-                    RemoteService.class), conn, Context.BIND_IMPORTANT);
 
         private static final int MESSAGE_PUSH_EVENT = 0;
 
