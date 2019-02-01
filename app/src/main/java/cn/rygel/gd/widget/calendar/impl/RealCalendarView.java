@@ -184,7 +184,7 @@ public class RealCalendarView extends View {
                     mCustomCalendarItem.drawSelectItem(canvas, select, mCalendarData, i);
                 }
             }
-            if (mCalendarData.mTodayIndex > 0 && mSelectIndex != mCalendarData.mTodayIndex) {
+            if (mCalendarData.mTodayIndex >= 0 && mSelectIndex != mCalendarData.mTodayIndex) {
                 mCustomCalendarItem.drawTodayItem(canvas, getChildBound(mCalendarData.mTodayIndex + mCalendarData.mStartIndex, maxWeek), mCalendarData);
             }
         }
