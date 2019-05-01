@@ -20,17 +20,11 @@ import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.ui.edit.impl.EditEventActivity;
-import cn.rygel.gd.utils.calendar.CalendarUtils;
-import cn.rygel.gd.utils.calendar.LunarUtils;
-import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 
 public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHolder> {
 
-    private LunarUtils.Solar mDate = null;
-
-    public EventAdapter(TimeLineItem item) {
-        super(item.getEvents());
-        mDate = CalendarUtils.clone(item.getDate());
+    public EventAdapter(List<BaseEvent> events)  {
+        super(events);
         addItemType(EventType.TYPE_DEFAULT,R.layout.item_event_type_default);
         addItemType(EventType.TYPE_BIRTHDAY,R.layout.item_event_type_birthday);
         addItemType(EventType.TYPE_APPOINTMENT,R.layout.item_event_type_appointment);

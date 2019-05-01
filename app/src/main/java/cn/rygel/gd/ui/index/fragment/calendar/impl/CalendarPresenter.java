@@ -1,67 +1,53 @@
 package cn.rygel.gd.ui.index.fragment.calendar.impl;
 
-import java.util.ArrayList;
+import com.orhanobut.logger.Logger;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
-import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
-import cn.rygel.gd.utils.calendar.LunarUtils;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.functions.Function;
+import rygel.cn.calendarview.bean.Solar;
 import rygel.cn.uilibrary.mvp.BasePresenter;
 
 public class CalendarPresenter extends BasePresenter<ICalendarView> {
 
     private static final String TAG = "CalendarPresenter";
 
-    private EventModel mEventModel = EventModel.getInstance();
-
     private Set<String> mSubscribeTags = new HashSet<>();
 
-    public void loadEventItemsInRange(LunarUtils.Solar start, int interval, final boolean isStart) {
-        final String method = "loadEventItemsInRange";
+    public void loadEventsOf(final Solar date) {
+        final String method = "loadEventsOf";
         final String subscribeTag = TAG + "#" + method;
         mSubscribeTags.add(subscribeTag);
         BaseObserver.cancel(subscribeTag);
-        final LunarUtils.Solar solarStart = CalendarUtils.clone(start);
-        final LunarUtils.Solar solarEnd = CalendarUtils.getDayByInterval(start,interval);
-        Observable.create(new ObservableOnSubscribe<List<BaseEvent>>() {
-
-            @Override
-            public void subscribe(ObservableEmitter<List<BaseEvent>> emitter) throws Exception {
-                try {
-                    emitter.onNext(mEventModel.queryInRange(solarStart, solarEnd));
-                } catch (Exception e){
-                    emitter.onError(e);
-                }
-                emitter.onComplete();
-            }
-        }).compose(getView().getLifecycleProvider().bindToLifecycle())
+        Observable.just(EventModel.getInstance().queryInDay(new Solar(date.solarYear,date.solarMonth,date.solarDay)))
                 .compose(new AsyncTransformer<List<BaseEvent>>())
-                .map(new Function<List<BaseEvent>,List<TimeLineItem>>() {
-                    @Override
-                    public List<TimeLineItem> apply(List<BaseEvent> events) throws Exception {
-                        return formatEvents(solarStart, solarEnd, events);
-                    }
-                })
-                .subscribe(new BaseObserver<List<TimeLineItem>>(){
+                .compose(getView().getLifecycleProvider().bindToLifecycle())
+                .subscribe(new BaseObserver<List<BaseEvent>>() {
                     @Override
                     public Object getTag() {
                         return subscribeTag;
                     }
 
                     @Override
-                    public void onSuccess(List<TimeLineItem> events) {
-                        getView().showEvents(events,isStart);
+                    public void onSuccess(List<BaseEvent> events) {
+                        Logger.i("query success, size : " + events.size());
+                        // 对数据进行排序
+                        Collections.sort(events, new Comparator<BaseEvent>() {
+                            @Override
+                            public int compare(BaseEvent o1, BaseEvent o2) {
+                                return (int) (o1.getStart() - o2.getStart());
+                            }
+                        });
+                        getView().showEvents(events);
                     }
 
                     @Override
@@ -70,52 +56,6 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
                         t.printStackTrace(System.err);
                     }
                 });
-    }
-
-    private static List<TimeLineItem> formatEvents(LunarUtils.Solar start, LunarUtils.Solar end, List<BaseEvent> events){
-        final List<TimeLineItem> items = new ArrayList<>();
-        final int interval = CalendarUtils.getIntervalDays(start, end);
-        int index = 0;
-        while(index <= interval){
-            List<BaseEvent> eventList = new ArrayList<>();
-            for(BaseEvent event : events){
-                if(needShow(start,event)){
-                    eventList.add(event);
-                }
-            }
-            TimeLineItem item = new TimeLineItem();
-            item.setDate(new LunarUtils.Solar(start.solarYear,start.solarMonth,start.solarDay));
-            item.setEvents(eventList);
-            items.add(item);
-            start = CalendarUtils.tomorrow(start);
-            index++;
-        }
-        return items;
-    }
-
-    private static boolean needShow(LunarUtils.Solar date,BaseEvent event){
-        switch (event.getEventType().mRepeatType) {
-            case EVERY_DAY:
-                return true;
-            case EVERY_YEAR:
-                if(event.isLunarEvent()){
-                    final LunarUtils.Lunar lunar = LunarUtils.solarToLunar(date);
-                    final LunarUtils.Lunar eventLeapLunar = new LunarUtils.Lunar(true,event.getEventLunarDate().lunarYear,event.getEventLunarDate().lunarMonth,event.getEventLunarDate().lunarDay);
-                    final LunarUtils.Lunar eventCommonLunar = new LunarUtils.Lunar(false,event.getEventLunarDate().lunarYear,event.getEventLunarDate().lunarMonth,event.getEventLunarDate().lunarDay);
-                    return eventLeapLunar.equals(lunar) || eventCommonLunar.equals(lunar);
-                } else {
-                    final LunarUtils.Solar solar = event.getEventSolarDate();
-                    return date.equals(solar);
-                }
-            case EVERY_WEEK:
-                return CalendarUtils.getIntervalDays(date,event.getEventSolarDate()) % 7 == 0;
-            case NO_REPEAT:
-                return date.equals(event.getEventSolarDate());
-            case EVERY_MONTH:
-                return date.solarDay == event.getEventSolarDate().solarDay;
-            default:
-                return false;
-        }
     }
 
     @Override

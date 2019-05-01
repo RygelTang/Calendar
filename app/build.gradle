@@ -107,6 +107,9 @@ dependencies {
     // 图片选择框架
     implementation rootProject.ext.matisse
 
+    // 日历
+    implementation rootProject.ext.calendar
+
     // UI基础库
     implementation project(':uilibrary')
 
