@@ -30,7 +30,7 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.exception.UniqueViolationException;
 import io.objectbox.query.Query;
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Solar;
 
 public class EventModel {
 

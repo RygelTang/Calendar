@@ -39,11 +39,11 @@ import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.constants.Global;
-import cn.rygel.gd.dialog.DatePicker;
 import cn.rygel.gd.dialog.TimePicker;
 import cn.rygel.gd.ui.event.IAddEventView;
-import cn.rygel.gd.utils.calendar.CalendarUtils;
-import cn.rygel.gd.utils.calendar.LunarUtils;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.LunarUtils;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 
@@ -93,8 +93,8 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     private TimePicker mStartTimePicker = null;
     private TimePicker mEndTimePicker = null;
 
-    private LunarUtils.Solar mSolar = null;
-    private LunarUtils.Lunar mLunar = null;
+    private Solar mSolar = null;
+    private Lunar mLunar = null;
 
     private boolean mIsLunar = false;
 
@@ -190,7 +190,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mDatePicker = new DatePicker(this);
         mStartTimePicker = new TimePicker(this);
         mEndTimePicker = new TimePicker(this);
-        mDatePicker.setOnDateSelectListener(new DatePicker.OnDateSelectListener() {
+        mDatePicker.setOnDateChangedListener(new DatePicker.OnDateSelectListener() {
             @Override
             public void onSelectSolar(LunarUtils.Solar solar) {
                 onDateSelect(solar,LunarUtils.solarToLunar(solar),false);
@@ -232,11 +232,11 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
             int index = EventType.EVENT_TYPE_SUPPORT.indexOf(eventType);
             index = index >= 0 ? index : EventType.TYPE_DEFAULT;
             onEventTypeSelected(index);
-            LunarUtils.Solar solar = intent.getParcelableExtra(KEY_EVENT_DATE);
+            Solar solar = intent.getParcelableExtra(KEY_EVENT_DATE);
             if(solar == null){
                 solar = CalendarUtils.today();
             }
-            onDateSelect(solar,LunarUtils.solarToLunar(solar),false);
+            onDateSelect(solar,solar.toLunar(),false);
         }
     }
 
@@ -480,7 +480,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
      * @param lunar 选中的农历
      * @param isLunar 是否选中农历日期
      */
-    private void onDateSelect(LunarUtils.Solar solar, LunarUtils.Lunar lunar,boolean isLunar){
+    private void onDateSelect(Solar solar, Lunar lunar,boolean isLunar){
         mSolar = solar;
         mLunar = lunar;
         mIsLunar = isLunar;

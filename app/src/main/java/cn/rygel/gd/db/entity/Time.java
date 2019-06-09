@@ -9,8 +9,8 @@ import io.objectbox.annotation.Convert;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.relation.ToOne;
-import rygel.cn.calendarview.bean.Lunar;
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
 
 @Entity
 public class Time {

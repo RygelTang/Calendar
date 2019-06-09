@@ -2,7 +2,7 @@ package cn.rygel.gd.utils;
 
 import java.util.Comparator;
 
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Solar;
 
 public class SolarComparator implements Comparator<Solar> {
 

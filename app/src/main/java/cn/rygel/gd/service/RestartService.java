@@ -28,9 +28,11 @@ public class RestartService extends JobService {
             JobInfo.Builder builder = new JobInfo.Builder(startId++,
                     new ComponentName(getPackageName(), RestartService.class.getName()));
 
-            builder.setPeriodic(5000); //每隔5秒运行一次
+            builder.setPeriodic(5000);
+            //每隔5秒运行一次
             builder.setRequiresCharging(true);
-            builder.setPersisted(true);  //设置设备重启后，是否重新执行任务
+            builder.setPersisted(true);
+            //设置设备重启后，是否重新执行任务
             builder.setRequiresDeviceIdle(true);
 
             if (mJobScheduler.schedule(builder.build()) <= 0) {

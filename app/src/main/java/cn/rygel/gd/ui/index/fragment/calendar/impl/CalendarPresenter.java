@@ -14,7 +14,7 @@ import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import io.reactivex.Observable;
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Solar;
 import rygel.cn.uilibrary.mvp.BasePresenter;
 
 public class CalendarPresenter extends BasePresenter<ICalendarView> {

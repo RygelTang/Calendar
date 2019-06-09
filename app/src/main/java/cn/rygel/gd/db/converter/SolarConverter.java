@@ -1,7 +1,7 @@
 package cn.rygel.gd.db.converter;
 
 import io.objectbox.converter.PropertyConverter;
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Solar;
 
 public class SolarConverter implements PropertyConverter<Solar,Integer> {
 

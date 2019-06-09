@@ -1,7 +1,7 @@
 package cn.rygel.gd.db.converter;
 
 import io.objectbox.converter.PropertyConverter;
-import rygel.cn.calendarview.bean.Lunar;
+import rygel.cn.calendar.bean.Lunar;
 
 public class LunarConverter implements PropertyConverter<Lunar,Integer> {
 

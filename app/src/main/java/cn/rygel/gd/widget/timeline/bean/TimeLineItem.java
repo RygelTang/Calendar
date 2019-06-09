@@ -3,25 +3,25 @@ package cn.rygel.gd.widget.timeline.bean;
 import java.util.List;
 
 import cn.rygel.gd.bean.event.base.BaseEvent;
-import cn.rygel.gd.utils.calendar.LunarUtils;
+import rygel.cn.calendar.bean.Solar;
 
 public class TimeLineItem {
 
-    private LunarUtils.Solar mDate;
+    private Solar mDate;
     private List<BaseEvent> mEvents;
 
     public TimeLineItem() { }
 
-    public TimeLineItem(LunarUtils.Solar date, List<BaseEvent> events) {
+    public TimeLineItem(Solar date, List<BaseEvent> events) {
         mDate = date;
         mEvents = events;
     }
 
-    public LunarUtils.Solar getDate() {
+    public Solar getDate() {
         return mDate;
     }
 
-    public void setDate(LunarUtils.Solar date) {
+    public void setDate(Solar date) {
         mDate = date;
     }
 

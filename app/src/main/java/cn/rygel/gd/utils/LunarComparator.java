@@ -2,7 +2,7 @@ package cn.rygel.gd.utils;
 
 import java.util.Comparator;
 
-import rygel.cn.calendarview.bean.Lunar;
+import rygel.cn.calendar.bean.Lunar;
 
 public class LunarComparator implements Comparator<Lunar> {
 

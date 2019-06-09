@@ -31,8 +31,10 @@ ext {
             mmkv                        : "1.0.16",
             matisse                     : "0.5.2-beta4",
             picker                      : "1.2.2",
+            date_picker                 : "1.0.0",
             switch_button               : "2.0.0",
-            calendar                    : "1.0.6"
+            calendar                    : "1.0.1",
+            calendar_utils              : "1.0.6"
     ]
 
     support = [
@@ -113,9 +115,13 @@ ext {
 
     picker = "com.cncoderx.wheelview:library:${versions.picker}"
 
+    date_picker = "cn.rygel.widget:dateselector:${versions.date_picker}"
+
     switch_button = "com.kyleduo.switchbutton:library:${versions.switch_button}"
 
-    calendar = "cn.rygel.rtviewlib:calendarview:${versions.calendar}"
+    calendar = "cn.rygel.widget:calendarview:${versions.calendar}"
+
+    calendar_utils = "cn.rygel.utils:calendar:${versions.calendar_utils}"
 }
 
 buildscript {

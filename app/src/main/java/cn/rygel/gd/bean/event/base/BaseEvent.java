@@ -8,8 +8,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.TimeZone;
 
 import cn.rygel.gd.bean.event.constants.EventType;
-import rygel.cn.calendarview.bean.Lunar;
-import rygel.cn.calendarview.bean.Solar;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
 
 public class BaseEvent implements Parcelable,MultiItemEntity {
 

@@ -109,6 +109,8 @@ dependencies {
 
     // 日历
     implementation rootProject.ext.calendar
+    implementation rootProject.ext.calendar_utils
+    implementation rootProject.ext.date_picker
 
     // UI基础库
     implementation project(':uilibrary')

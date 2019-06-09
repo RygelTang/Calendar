@@ -2,9 +2,9 @@ package cn.rygel.gd.db.filter;
 
 import cn.rygel.gd.db.entity.Time;
 import io.objectbox.query.QueryFilter;
-import rygel.cn.calendarview.bean.Lunar;
-import rygel.cn.calendarview.bean.Solar;
-import rygel.cn.calendarview.utils.SolarUtils;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.SolarUtils;
 
 public class TimeFilter implements QueryFilter<Time>{
 

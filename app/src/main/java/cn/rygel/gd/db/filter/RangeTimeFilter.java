@@ -4,10 +4,10 @@ import cn.rygel.gd.db.entity.Time;
 import cn.rygel.gd.utils.LunarComparator;
 import cn.rygel.gd.utils.SolarComparator;
 import io.objectbox.query.QueryFilter;
-import rygel.cn.calendarview.bean.Lunar;
-import rygel.cn.calendarview.bean.Solar;
-import rygel.cn.calendarview.utils.LunarUtils;
-import rygel.cn.calendarview.utils.SolarUtils;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.LunarUtils;
+import rygel.cn.calendar.utils.SolarUtils;
 
 public class RangeTimeFilter implements QueryFilter<Time> {
 
@@ -123,7 +123,9 @@ public class RangeTimeFilter implements QueryFilter<Time> {
     }
 
     private boolean checkLunar(Lunar lunar){
-        return LunarUtils.daysInMonth(lunar.lunarYear,lunar.lunarMonth,LunarUtils.isLeapMonth(lunar.lunarYear,lunar.lunarMonth)) >= lunar.lunarDay ||
+        return LunarUtils.daysInMonth(lunar.lunarYear,
+                lunar.lunarMonth,
+                LunarUtils.getLeapMonth(lunar.lunarYear) == lunar.lunarMonth) >= lunar.lunarDay ||
                 LunarUtils.daysInMonth(lunar.lunarYear,lunar.lunarMonth,false) >= lunar.lunarDay;
     }
 

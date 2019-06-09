@@ -27,11 +27,11 @@ import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.widget.timeline.adapter.EventAdapter;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
-import rygel.cn.calendarview.bean.Solar;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
-import rygel.cn.calendarview.utils.SolarUtils;
 import rygel.cn.uilibrary.mvp.BaseFragment;
 import rygel.cn.uilibrary.utils.UIUtils;
 
