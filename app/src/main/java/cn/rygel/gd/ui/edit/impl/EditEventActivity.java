@@ -40,7 +40,6 @@ import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.constants.Global;
-import cn.rygel.gd.dialog.TimePicker;
 import cn.rygel.gd.ui.edit.IEditEventView;
 import cn.rygel.gd.utils.calendar.CalendarUtils;
 import cn.rygel.gd.utils.calendar.LunarUtils;

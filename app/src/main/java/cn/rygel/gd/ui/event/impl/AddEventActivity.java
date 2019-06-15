@@ -39,13 +39,18 @@ import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.constants.Global;
-import cn.rygel.gd.dialog.TimePicker;
 import cn.rygel.gd.ui.event.IAddEventView;
 import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.LunarUtils;
+import rygel.cn.calendar.utils.SolarUtils;
+import rygel.cn.dateselector.DateSelector;
+import rygel.cn.dateselector.TimeSelector;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
+
+import static rygel.cn.calendar.utils.LunarUtils.LUNAR_DAYS;
+import static rygel.cn.calendar.utils.LunarUtils.LUNAR_MONTHS;
 
 public class AddEventActivity extends BaseActivity<AddEventPresenter> implements IAddEventView {
 
@@ -89,9 +94,11 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @BindView(R.id.layout_option_time)
     View mLayoutTime;
 
-    private DatePicker mDatePicker = null;
-    private TimePicker mStartTimePicker = null;
-    private TimePicker mEndTimePicker = null;
+    private DateSelector mDatePicker = null;
+    private TimeSelector mStartTimePicker = null;
+    private TimeSelector mEndTimePicker = null;
+
+    private MaterialDialog mDialog = null;
 
     private Solar mSolar = null;
     private Lunar mLunar = null;
@@ -187,30 +194,34 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     }
 
     private void initPickers(){
-        mDatePicker = new DatePicker(this);
-        mStartTimePicker = new TimePicker(this);
-        mEndTimePicker = new TimePicker(this);
-        mDatePicker.setOnDateChangedListener(new DatePicker.OnDateSelectListener() {
+        mDatePicker = new DateSelector(this);
+        mStartTimePicker = new TimeSelector(this);
+        mEndTimePicker = new TimeSelector(this);
+        mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
-            public void onSelectSolar(LunarUtils.Solar solar) {
+            public void onSelect(Solar solar, boolean isLunarMode) {
                 onDateSelect(solar,LunarUtils.solarToLunar(solar),false);
-            }
-
-            @Override
-            public void onSelectLunar(LunarUtils.Lunar lunar) {
-                onDateSelect(LunarUtils.lunarToSolar(lunar),lunar,true);
+                if(mDialog != null) {
+                    mDialog.dismiss();
+                }
             }
         });
-        mStartTimePicker.setTimeSelectListener(new TimePicker.OnTimeSelectListener() {
+        mStartTimePicker.setTimeSelectListener(new TimeSelector.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(int hour, int minute) {
                 onStartTimeSelect(hour, minute);
+                if(mDialog != null) {
+                    mDialog.dismiss();
+                }
             }
         });
-        mEndTimePicker.setTimeSelectListener(new TimePicker.OnTimeSelectListener() {
+        mEndTimePicker.setTimeSelectListener(new TimeSelector.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(int hour, int minute) {
                 onEndTimeSelect(hour, minute);
+                if(mDialog != null) {
+                    mDialog.dismiss();
+                }
             }
         });
     }
@@ -234,7 +245,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
             onEventTypeSelected(index);
             Solar solar = intent.getParcelableExtra(KEY_EVENT_DATE);
             if(solar == null){
-                solar = CalendarUtils.today();
+                solar = SolarUtils.today();
             }
             onDateSelect(solar,solar.toLunar(),false);
         }
@@ -262,22 +273,34 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
 
     @OnClick(R.id.btn_event_date)
     protected void selectEventDate(){
-        mDatePicker.show();
+        mDialog = new MaterialDialog.Builder(this)
+                .customView(mDatePicker,false)
+                .build();
+        mDialog.show();
     }
 
     @OnClick(R.id.btn_start_time)
     protected void selectStartTime(){
-        mStartTimePicker.show();
+        mDialog = new MaterialDialog.Builder(this)
+                .customView(mStartTimePicker,false)
+                .build();
+        mDialog.show();
     }
 
     @OnClick(R.id.btn_end_time)
     protected void selectEndTime(){
-        mEndTimePicker.show();
+        mDialog = new MaterialDialog.Builder(this)
+                .customView(mEndTimePicker,false)
+                .build();
+        mDialog.show();
     }
 
     @OnClick({R.id.btn_time})
     protected void selectEventTime() {
-        mStartTimePicker.show();
+        mDialog = new MaterialDialog.Builder(this)
+                .customView(mStartTimePicker,false)
+                .build();
+        mDialog.show();
     }
 
     @OnCheckedChanged(R.id.switch_all_day)
@@ -484,7 +507,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mSolar = solar;
         mLunar = lunar;
         mIsLunar = isLunar;
-        mBtnEventDate.setText(isLunar ? LunarUtils.getLunarString(lunar) : LunarUtils.getSolarString(solar));
+        mBtnEventDate.setText(isLunar ? formatLunarDate(lunar) : formatSolarDate(solar));
     }
 
     /**
@@ -621,7 +644,18 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         return (hour < 10 ? "0" + hour : String.valueOf(hour)) + ":" + (minute < 10 ? "0" + minute : String.valueOf(minute));
     }
 
-    public static void start(Context context, @Nullable LunarUtils.Solar date, @Nullable EventType type, @Nullable String userName){
+    private static String formatSolarDate(Solar solar) {
+        return solar.solarYear + "年" + solar.solarMonth + "月" + solar.solarDay + "日";
+    }
+
+    private static String formatLunarDate(Lunar lunar) {
+        return lunar.lunarYear + "年" +
+                (lunar.isLeap ? "闰" : "") +
+                LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" +
+                LUNAR_DAYS[lunar.lunarDay - 1];
+    }
+
+    public static void start(Context context, @Nullable Solar date, @Nullable EventType type, @Nullable String userName){
         Intent intent = new Intent(context,AddEventActivity.class);
         if(date != null){
             intent.putExtra(KEY_EVENT_DATE,date);
