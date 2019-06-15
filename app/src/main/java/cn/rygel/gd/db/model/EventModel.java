@@ -19,24 +19,22 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.Alert;
 import cn.rygel.gd.db.entity.Description;
 import cn.rygel.gd.db.entity.Event;
-import cn.rygel.gd.db.entity.Event_;
 import cn.rygel.gd.db.entity.Location;
 import cn.rygel.gd.db.entity.Time;
 import cn.rygel.gd.db.entity.Time_;
 import cn.rygel.gd.db.entity.User;
 import cn.rygel.gd.db.entity.User_;
+import cn.rygel.gd.db.filter.RangeTimeFilter;
 import cn.rygel.gd.db.filter.TimeFilter;
-import cn.rygel.gd.utils.calendar.LunarUtils;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.exception.UniqueViolationException;
 import io.objectbox.query.Query;
+import rygel.cn.calendar.bean.Solar;
 
 public class EventModel {
 
     private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
-
-    private TimeFilter mTimeFilter = new TimeFilter();
 
     private Gson mGson = new Gson();
 
@@ -75,16 +73,27 @@ public class EventModel {
      * @param end
      * @return
      */
-    public List<BaseEvent> queryInRange(LunarUtils.Solar start, LunarUtils.Solar end){
+    public List<BaseEvent> queryInRange(Solar start, Solar end){
         List<BaseEvent> events = new ArrayList<>();
         List<Time> times = mTimeBox.query()
-                .filter(mTimeFilter
-                        .setStartSolar(start)
-                        .setEndSolar(end)
-                )
+                .filter(new RangeTimeFilter(start, end))
                 .eager(Time_.mEvent)
                 .build()
                 .find();
+        return queryByTimes(times);
+    }
+
+    public List<BaseEvent> queryInDay(Solar date) {
+        List<Time> times = mTimeBox.query()
+                .filter(new TimeFilter(date))
+                .eager(Time_.mEvent)
+                .build()
+                .find();
+        return queryByTimes(times);
+    }
+
+    public List<BaseEvent> queryByTimes(List<Time> times) {
+        List<BaseEvent> events = new ArrayList<>();
         for(Time time : times){
             Event event = time.getEvent().getTarget();
             if(event != null) {

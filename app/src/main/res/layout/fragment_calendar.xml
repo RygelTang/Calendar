@@ -21,31 +21,33 @@
             app:navigationIcon="@drawable/ic_menu_white_24dp"
             app:title="@string/yyyy_MM"/>
 
-        <cn.rygel.gd.widget.calendar.impl.CalendarView
-            android:id="@+id/cv_calendar"
-            android:padding="@dimen/padding_s"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/calendar_view_height"
-            android:background="@color/white"
-            android:elevation="@dimen/elevation_s"
-            app:child_padding_bottom="@dimen/calendar_view_child_padding"
-            app:child_padding_left="@dimen/calendar_view_child_padding"
-            app:child_padding_right="@dimen/calendar_view_child_padding"
-            app:child_padding_top="@dimen/calendar_view_child_padding"
-            app:date_text_size="@dimen/text_l"
-            app:holiday_text_size="@dimen/text_xs"
-            app:lunar_text_size="@dimen/text_xs"
-            app:primary_color="@color/colorPrimary"
-            app:holiday_text_color="@color/red"
-            app:holiday_break_text_color="@color/blue"
-            app:solar_terms_text_color="@color/green"
-            app:week_bar_height="@dimen/calendar_View_week_bar_height"
-            app:week_day_text_size="@dimen/text_xs" />
+            android:layout_height="match_parent">
 
-        <cn.rygel.gd.widget.timeline.TimeLineView
-            android:id="@+id/tl_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <rygel.cn.calendarview.CalendarView
+                    android:id="@+id/cv_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/divide_width"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_events"
+                    android:padding="@dimen/padding_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 
@@ -55,7 +57,6 @@
         android:layout_margin="@dimen/margin_xxl"
         android:focusable="true"
         android:clickable="true"
-        app:layout_behavior="cn.rygel.gd.widget.behavior.ScrollAwareFABBehavior"
         app:fabSize="auto"
         app:srcCompat="@drawable/ic_add_white_24dp"
         android:layout_gravity="right|bottom"

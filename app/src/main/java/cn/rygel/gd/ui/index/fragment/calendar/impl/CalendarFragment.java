@@ -1,5 +1,7 @@
 package cn.rygel.gd.ui.index.fragment.calendar.impl;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -9,6 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,16 +22,16 @@ import cn.rygel.gd.bean.OnDateEventDeleteAllEvent;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
+import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.setting.Settings;
-import cn.rygel.gd.widget.timeline.TimeLineView;
-import cn.rygel.gd.widget.timeline.bean.TimeLineItem;
+import cn.rygel.gd.widget.timeline.adapter.EventAdapter;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
-import cn.rygel.gd.utils.calendar.CalendarUtils;
-import cn.rygel.gd.utils.calendar.LunarUtils;
-import cn.rygel.gd.widget.calendar.impl.CalendarView;
-import cn.rygel.gd.widget.calendar.listener.OnDateSelectedListener;
-import cn.rygel.gd.widget.calendar.listener.OnMonthChangedListener;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.SolarUtils;
+import rygel.cn.calendarview.CalendarView;
+import rygel.cn.calendarview.listener.OnDateSelectedListener;
+import rygel.cn.calendarview.listener.OnMonthChangedListener;
 import rygel.cn.uilibrary.mvp.BaseFragment;
 import rygel.cn.uilibrary.utils.UIUtils;
 
@@ -40,8 +43,11 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     @BindView(R.id.cv_calendar)
     CalendarView mCalendarView;
 
-    @BindView(R.id.tl_calendar)
-    TimeLineView mTimeLine;
+    @BindView(R.id.rv_events)
+    RecyclerView mEvents;
+
+    EventAdapter mEventAdapter = null;
+    Solar mSelected = SolarUtils.today();
 
     @Override
     protected CalendarPresenter createPresenter() {
@@ -55,51 +61,38 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mToolbar.setNavigationOnClickListener(l -> {
             EventBus.getDefault().post(new OnDrawerStateChangeEvent(true));
         });
+        initEventList();
         initCalendarView();
-        initTimeLine();
+    }
+
+    private void initEventList() {
+        mEventAdapter = generateAdapter();
+        mEvents.setAdapter(mEventAdapter);
+        mEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        // 减少滑动卡顿
+        mEvents.setNestedScrollingEnabled(false);
+        mEvents.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
 
     private void initCalendarView(){
+        Solar today = SolarUtils.today();
+        mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
-            public void onMonthChanged(int year, int month) {
+            public void OnMonthChange(int year, int month) {
                 CalendarFragment.this.onMonthChanged(year, month);
             }
         });
-        mCalendarView.setSelect(CalendarUtils.today());
-        mCalendarView.setCalendarOptions(
-                mCalendarView
-                        .getCalendarOptions()
-                        .setDateOffset(
-                                Settings
-                                        .getInstance()
-                                        .getWeekdayOffset()
-                        )
-        );
+        mCalendarView.getConfig()
+                .setStartOffset(
+                        Settings.getInstance()
+                                .getWeekdayOffset()
+                )
+                .config();
         mCalendarView.setOnDateSelectListener(new OnDateSelectedListener() {
             @Override
-            public void onDateSelect(LunarUtils.Solar date) {
-                mTimeLine.setDate(date,true);
-            }
-
-            @Override
-            public void onDateLongClick(LunarUtils.Solar date) {
-                mTimeLine.setDate(date,true);
-            }
-        });
-    }
-
-    private void initTimeLine(){
-        mTimeLine.setDateSelectListener(new TimeLineView.IDateSelectListener() {
-            @Override
-            public void onDateSelect(LunarUtils.Solar date) {
-                mCalendarView.setSelect(date);
-            }
-        });
-        mTimeLine.setLoadMoreListener(new TimeLineView.ILoadMoreListener() {
-            @Override
-            public void onLoadMore(LunarUtils.Solar start, int interval, boolean isStart) {
-                getPresenter().loadEventItemsInRange(start, interval, isStart);
+            public void onSelected(Solar solar) {
+                CalendarFragment.this.onDateSelect(solar);
             }
         });
     }
@@ -111,27 +104,19 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     @Override
     protected void loadData() {
-        LunarUtils.Solar start = CalendarUtils.today();
-        start.solarDay = 1;
-        getPresenter().loadEventItemsInRange(start,CalendarUtils.getMonthDay(start.solarYear,start.solarMonth) - 1,true);
+
     }
 
     private void reloadData() {
-        if(mTimeLine.getData() != null && mTimeLine.getData().size() > 0){
-            TimeLineItem start = mTimeLine.getData().get(0);
-            TimeLineItem end = mTimeLine.getData().get(mTimeLine.getData().size() - 1);
-            mTimeLine.clear();
-            getPresenter().loadEventItemsInRange(start.getDate(),CalendarUtils.getIntervalDays(start.getDate(),end.getDate()),true);
-        }
+        getPresenter().loadEventsOf(mSelected);
     }
 
     @Override
-    public void showEvents(List<TimeLineItem> items, boolean isStart) {
-        if(isStart) {
-            mTimeLine.addEvents(0,items);
-        } else {
-            mTimeLine.addEvents(items);
+    public void showEvents(List<BaseEvent> events) {
+        if(mEventAdapter == null) {
+            initEventList();
         }
+        mEventAdapter.setNewData(events);
     }
 
     @Override
@@ -149,9 +134,14 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mToolbar.setTitle(UIUtils.getString(getContext(),R.string.yyyy_MM,year,month));
     }
 
-    private void onDateSelect(LunarUtils.Solar solar){
+    private void onDateSelect(Solar solar){
         Logger.i("select date : " +  solar);
+        mSelected = solar;
+        getPresenter().loadEventsOf(solar);
+    }
 
+    private EventAdapter generateAdapter() {
+        return new EventAdapter(new ArrayList<>());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -161,14 +151,8 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDrawerStateChanged(OnWeekDayOffsetSelectEvent event) {
-        mCalendarView.setCalendarOptions(
-                mCalendarView
-                        .getCalendarOptions()
-                        .setDateOffset(
-                                event.getOffset()
-                        )
-        );
+    public void onOptionChanged(OnWeekDayOffsetSelectEvent event) {
+        mCalendarView.getConfig().setStartOffset(event.getOffset()).config();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

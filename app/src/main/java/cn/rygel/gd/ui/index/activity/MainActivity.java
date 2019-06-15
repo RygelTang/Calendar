@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initView() {
-        Scoop.getInstance().apply(this);
+        // Scoop.getInstance().apply(this);
         ButterKnife.bind(this);
         hideActionBar();
         mNVMain.setNavigationItemSelectedListener(this);

@@ -27,7 +27,7 @@ public class AddEventPresenter extends BasePresenter<IAddEventView> {
     private Set<String> mSubscribeTags = new HashSet<>();
 
     public void saveEvent(final BaseEvent event){
-        final String method = "loadEventItemsInRange";
+        final String method = "loadEventsOf";
         final String subscribeTag = TAG + "#" + method;
         mSubscribeTags.add(subscribeTag);
         BaseObserver.cancel(subscribeTag);

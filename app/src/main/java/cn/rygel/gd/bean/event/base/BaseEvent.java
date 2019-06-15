@@ -8,7 +8,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.TimeZone;
 
 import cn.rygel.gd.bean.event.constants.EventType;
-import cn.rygel.gd.utils.calendar.LunarUtils;
+import rygel.cn.calendar.bean.Lunar;
+import rygel.cn.calendar.bean.Solar;
 
 public class BaseEvent implements Parcelable,MultiItemEntity {
 
@@ -21,8 +22,8 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
     protected boolean mShowNotification = true;
     protected boolean mIsLunarEvent = false;
     protected long mStart = 0;
-    protected LunarUtils.Solar mEventSolarDate = new LunarUtils.Solar();
-    protected LunarUtils.Lunar mEventLunarDate = new LunarUtils.Lunar();
+    protected Solar mEventSolarDate = new Solar();
+    protected Lunar mEventLunarDate = new Lunar();
     protected EventType mEventType = null;
 
     /**
@@ -48,8 +49,8 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         setShowNotification(in.readByte() == 1);
         setLunarEvent(in.readByte() == 1);
         setStart(in.readLong());
-        setEventSolarDate(in.readParcelable(LunarUtils.Solar.class.getClassLoader()));
-        setEventLunarDate(in.readParcelable(LunarUtils.Lunar.class.getClassLoader()));
+        setEventSolarDate(in.readParcelable(Solar.class.getClassLoader()));
+        setEventLunarDate(in.readParcelable(Lunar.class.getClassLoader()));
         mEventType = in.readParcelable(EventType.class.getClassLoader());
     }
 
@@ -117,19 +118,19 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         mStart = start;
     }
 
-    public LunarUtils.Solar getEventSolarDate() {
+    public Solar getEventSolarDate() {
         return mEventSolarDate;
     }
 
-    public void setEventSolarDate(LunarUtils.Solar eventSolarDate) {
+    public void setEventSolarDate(Solar eventSolarDate) {
         mEventSolarDate = eventSolarDate;
     }
 
-    public LunarUtils.Lunar getEventLunarDate() {
+    public Lunar getEventLunarDate() {
         return mEventLunarDate;
     }
 
-    public void setEventLunarDate(LunarUtils.Lunar eventLunarDate) {
+    public void setEventLunarDate(Lunar eventLunarDate) {
         mEventLunarDate = eventLunarDate;
     }
 

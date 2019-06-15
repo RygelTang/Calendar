@@ -32,11 +32,11 @@ import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.ui.index.activity.MainActivity;
-import cn.rygel.gd.utils.calendar.CalendarUtils;
-import cn.rygel.gd.utils.calendar.LunarUtils;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import io.reactivex.Observable;
+import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 import rygel.cn.uilibrary.utils.WeakHandler;
 
@@ -102,7 +102,7 @@ public class LocalService extends Service {
         Logger.i("init events to push");
         mPushHandler.removeMessages(PushHandler.MESSAGE_PUSH_EVENT);
         // 异步查询数据
-        Observable.just(EventModel.getInstance().queryInRange(CalendarUtils.today(), CalendarUtils.today()))
+        Observable.just(EventModel.getInstance().queryInRange(SolarUtils.today(), SolarUtils.today()))
                 .compose(new AsyncTransformer<>())
                 .subscribe(new BaseObserver<List<BaseEvent>>() {
                     @Override
@@ -236,8 +236,8 @@ public class LocalService extends Service {
         return event.getStart() * 60 * 1000L + offset - current;
     }
 
-    private static long toMillisTime(LunarUtils.Solar solar, long timeZone) {
-        int interval = CalendarUtils.getIntervalDays(new LunarUtils.Solar(1970, 1, 1), solar);
+    private static long toMillisTime(Solar solar, long timeZone) {
+        int interval = SolarUtils.getIntervalDays(new Solar(1970, 1, 1), solar);
         return interval * 86400000L - timeZone;
     }
 

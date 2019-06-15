@@ -33,7 +33,9 @@ public class DateChangeBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    // 判断服务是否运行
+    /**
+     * 判断服务是否运行
+     */
     public boolean isServiceRunning(Context context, String serviceName) {
         boolean isRunning = false;
         ActivityManager am = (ActivityManager) context
@@ -41,7 +43,8 @@ public class DateChangeBroadcastReceiver extends BroadcastReceiver {
         List<ActivityManager.RunningAppProcessInfo> lists = am.getRunningAppProcesses();
 
 
-        for (ActivityManager.RunningAppProcessInfo info : lists) {// 获取运行服务再启动
+        for (ActivityManager.RunningAppProcessInfo info : lists) {
+            // 获取运行服务再启动
             System.out.println(info.processName);
             if (info.processName.equals(serviceName)) {
                 isRunning = true;
