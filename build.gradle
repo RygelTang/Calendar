@@ -31,7 +31,7 @@ ext {
             mmkv                        : "1.0.16",
             matisse                     : "0.5.2-beta4",
             picker                      : "1.2.2",
-            date_picker                 : "1.0.2",
+            date_picker                 : "1.0.7",
             switch_button               : "2.0.0",
             calendar                    : "1.0.1",
             calendar_utils              : "1.0.6"

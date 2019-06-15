@@ -667,5 +667,5 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
             intent.putExtra(KEY_EVENT_USER,userName);
         }
         context.startActivity(intent);
-    }
+}
 }
