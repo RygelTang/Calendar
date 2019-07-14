@@ -18,7 +18,6 @@ public class Event {
     ToMany<User> mUser;
 
     ToOne<Description> mDescription;
-    @Backlink(to = "mEvent")
     ToOne<Time> mTime;
     ToOne<Location> mLocation;
 

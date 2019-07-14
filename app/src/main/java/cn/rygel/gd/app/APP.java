@@ -16,8 +16,6 @@ import cn.rygel.gd.R;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import io.objectbox.android.AndroidObjectBrowser;
-import me.jessyan.autosize.AutoSizeConfig;
-import me.jessyan.autosize.unit.Subunits;
 
 // TODO: 2019/1/29 编辑事件以及删除事件
 // TODO: 2019/1/29 修改图标
@@ -37,8 +35,6 @@ public class APP extends MultiDexApplication {
         initLeakCanary();
         // 初始化换肤框架
         initScoop();
-        // 初始化屏幕适配规则
-        initAutoSize();
         // 初始化MMKV
         initMMKV();
         initMultiDex();
@@ -68,11 +64,11 @@ public class APP extends MultiDexApplication {
                         .build()
                 );
         if(BuildConfig.DEBUG){
-            new AndroidObjectBrowser(
+            Logger.i("object browser started?" + new AndroidObjectBrowser(
                     BoxStoreHolder
                             .getInstance()
                             .getBoxStore()
-            ).start(this);
+            ).start(this));
         }
     }
 
@@ -108,16 +104,6 @@ public class APP extends MultiDexApplication {
     private void initMMKV(){
         String dir = MMKV.initialize(this);
         Logger.i("MMKV root : " + dir);
-    }
-
-    /**
-     * 初始化AutoSize
-     */
-    private void initAutoSize(){
-        AutoSizeConfig.getInstance().getUnitsManager()
-                .setSupportDP(false)
-                .setSupportSP(false)
-                .setSupportSubunits(Subunits.MM);
     }
 
     /**

@@ -18,7 +18,6 @@ public class Time {
     @Id
     long mId;
 
-    @Backlink(to = "mTime")
     ToOne<Event> mEvent;
 
     @Convert(converter = RepeatTypeConverter.class,dbType = Integer.class)

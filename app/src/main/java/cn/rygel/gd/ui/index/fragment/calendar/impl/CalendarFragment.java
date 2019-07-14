@@ -30,6 +30,7 @@ import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
+import rygel.cn.calendarview.item.impl.DefaultItemCommonImpl;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
 import rygel.cn.uilibrary.mvp.BaseFragment;

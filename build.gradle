@@ -33,8 +33,10 @@ ext {
             picker                      : "1.2.2",
             date_picker                 : "1.0.7",
             switch_button               : "2.0.0",
-            calendar                    : "1.0.1",
-            calendar_utils              : "1.0.6"
+            calendar                    : "1.0.3",
+            calendar_utils              : "1.0.6",
+            utils                       : "1.24.7",
+            object_box                  : "2.3.4"
     ]
 
     support = [
@@ -93,6 +95,11 @@ ext {
             support_fragment    : "com.squareup.leakcanary:leakcanary-support-fragment:${versions.leak_canary}"
     ]
 
+    object_box = [
+            browser             : "io.objectbox:objectbox-android-objectbrowser:${versions.object_box}",
+            android             : "io.objectbox:objectbox-android:${versions.object_box}"
+    ]
+
     vertical_view_pager = "me.kaelaela:verticalviewpager:${versions.vertical_view_pager}"
 
     auto_size = "me.jessyan:autosize:${versions.auto_size}"
@@ -122,6 +129,8 @@ ext {
     calendar = "cn.rygel.widget:calendarview:${versions.calendar}"
 
     calendar_utils = "cn.rygel.utils:calendar:${versions.calendar_utils}"
+
+    utils = "com.blankj:utilcode:${versions.utils}"
 }
 
 buildscript {
@@ -132,8 +141,8 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
-        classpath "io.objectbox:objectbox-gradle-plugin:2.2.0"
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath "io.objectbox:objectbox-gradle-plugin:2.3.4"
         classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-SNAPSHOT'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong

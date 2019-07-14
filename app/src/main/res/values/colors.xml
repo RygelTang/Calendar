@@ -5,6 +5,11 @@
     <color name="colorPrimaryLight">#C8E6C9</color>
     <color name="colorAccent">#8BC34A</color>
 
+    <color name="cornerTextColor">#EBB471</color>
+    <color name="holidayTextColor">#E87A90</color>
+    <color name="termTextColor">#90B44B</color>
+    <color name="makeupTextColor">#00896C</color>
+
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>

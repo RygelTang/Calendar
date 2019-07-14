@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'io.objectbox'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -43,6 +42,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // support
     implementation rootProject.ext.support.app_compat
     implementation rootProject.ext.support.v4
     implementation rootProject.ext.support.v7
@@ -55,8 +55,10 @@ dependencies {
 
     // 图片加载
     implementation rootProject.ext.glide.glide
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor rootProject.ext.glide.compiler
+
+    // 工具类
+    implementation rootProject.ext.utils
 
     // 日志
     implementation rootProject.ext.logger
@@ -112,6 +114,9 @@ dependencies {
     implementation rootProject.ext.calendar_utils
     implementation rootProject.ext.date_picker
 
+    debugImplementation rootProject.ext.object_box.browser
+    releaseImplementation rootProject.ext.object_box.android
+
     // UI基础库
     implementation project(':uilibrary')
 
@@ -119,3 +124,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+// 官网要求apply必须在dependencies block之后
+// apply the plugin after the dependencies block
+apply plugin: 'io.objectbox'

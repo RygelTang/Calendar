@@ -2,77 +2,78 @@
 <resources>
 
     <!--通用尺寸-->
-    <dimen name="icon_width">64mm</dimen>
+    <dimen name="icon_width">24dp</dimen>
 
-    <dimen name="round_corner_radius_s">10mm</dimen>
-    <dimen name="round_corner_radius_m">20mm</dimen>
-    <dimen name="round_corner_radius_l">30mm</dimen>
-    <dimen name="round_corner_radius_xl">40mm</dimen>
+    <dimen name="round_corner_radius_s">2dp</dimen>
+    <dimen name="round_corner_radius_m">4dp</dimen>
+    <dimen name="round_corner_radius_l">6dp</dimen>
+    <dimen name="round_corner_radius_xl">8dp</dimen>
 
-    <dimen name="elevation_s">4mm</dimen>
-    <dimen name="elevation_m">8mm</dimen>
-    <dimen name="elevation_l">12mm</dimen>
-    <dimen name="elevation_xl">16mm</dimen>
+    <dimen name="elevation_s">2dp</dimen>
+    <dimen name="elevation_m">4dp</dimen>
+    <dimen name="elevation_l">6dp</dimen>
+    <dimen name="elevation_xl">8dp</dimen>
 
-    <dimen name="divide_width">1mm</dimen>
+    <dimen name="divide_width">0.1dp</dimen>
 
-    <dimen name="text_xxs">22mm</dimen>
-    <dimen name="text_xs">26mm</dimen>
-    <dimen name="text_s">36mm</dimen>
-    <dimen name="text_m">42mm</dimen>
-    <dimen name="text_l">48mm</dimen>
-    <dimen name="text_xl">60mm</dimen>
-    <dimen name="text_xxl">72mm</dimen>
-    <dimen name="text_xxxl">96mm</dimen>
+    <dimen name="text_xxs">8sp</dimen>
+    <dimen name="text_xs">10sp</dimen>
+    <dimen name="text_s">12sp</dimen>
+    <dimen name="text_m">14sp</dimen>
+    <dimen name="text_l">18sp</dimen>
+    <dimen name="text_xl">24sp</dimen>
+    <dimen name="text_xxl">48sp</dimen>
+    <dimen name="text_xxxl">96sp</dimen>
 
-    <dimen name="margin_xxs">5mm</dimen>
-    <dimen name="margin_xs">10mm</dimen>
-    <dimen name="margin_s">20mm</dimen>
-    <dimen name="margin_m">30mm</dimen>
-    <dimen name="margin_l">40mm</dimen>
-    <dimen name="margin_xl">50mm</dimen>
-    <dimen name="margin_xxl">60mm</dimen>
-    <dimen name="margin_xxxl">90mm</dimen>
-    <dimen name="margin_xxxxl">120mm</dimen>
-    <dimen name="margin_xxxxxl">160mm</dimen>
+    <dimen name="margin_xxs">2dp</dimen>
+    <dimen name="margin_xs">4dp</dimen>
+    <dimen name="margin_s">6dp</dimen>
+    <dimen name="margin_m">8dp</dimen>
+    <dimen name="margin_l">12dp</dimen>
+    <dimen name="margin_xl">16dp</dimen>
+    <dimen name="margin_xxl">24dp</dimen>
+    <dimen name="margin_xxxl">36dp</dimen>
+    <dimen name="margin_xxxxl">48dp</dimen>
+    <dimen name="margin_xxxxxl">96dp</dimen>
 
-    <dimen name="padding_xxs">5mm</dimen>
-    <dimen name="padding_xs">10mm</dimen>
-    <dimen name="padding_s">20mm</dimen>
-    <dimen name="padding_m">30mm</dimen>
-    <dimen name="padding_l">40mm</dimen>
-    <dimen name="padding_xl">50mm</dimen>
-    <dimen name="padding_xxl">60mm</dimen>
-    <dimen name="padding_xxxl">90mm</dimen>
-    <dimen name="padding_xxxxl">120mm</dimen>
-    <dimen name="padding_xxxxxl">160mm</dimen>
+    <dimen name="padding_xxs">2dp</dimen>
+    <dimen name="padding_xs">4dp</dimen>
+    <dimen name="padding_s">6dp</dimen>
+    <dimen name="padding_m">8dp</dimen>
+    <dimen name="padding_l">12dp</dimen>
+    <dimen name="padding_xl">16dp</dimen>
+    <dimen name="padding_xxl">24dp</dimen>
+    <dimen name="padding_xxxl">36dp</dimen>
+    <dimen name="padding_xxxxl">48dp</dimen>
+    <dimen name="padding_xxxxxl">96dp</dimen>
 
     <!--tool bar-->
-    <dimen name="status_bar_height">72mm</dimen>
-    <dimen name="tool_bar_height">120mm</dimen>
-    <dimen name="tool_bar_icon_width">100mm</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="tool_bar_height">56dp</dimen>
+    <dimen name="tool_bar_icon_width">36dp</dimen>
 
     <!--主界面-->
-    <dimen name="drawer_width">720mm</dimen>
-    <dimen name="drawer_head_height">480mm</dimen>
+    <dimen name="drawer_width">240dp</dimen>
+    <dimen name="drawer_head_height">160dp</dimen>
+
     <!--calendar view-->
-    <dimen name="calendar_view_height">960mm</dimen>
-    <dimen name="calendar_View_week_bar_height">42mm</dimen>
-    <dimen name="calendar_view_child_padding">6mm</dimen>
-    <dimen name="time_line_date_width">160mm</dimen>
+    <dimen name="calendar_view_height">280dp</dimen>
+    <dimen name="calendar_View_week_bar_height">24dp</dimen>
+    <dimen name="calendar_view_child_padding">4dp</dimen>
+    <dimen name="time_line_date_width">100dp</dimen>
 
     <!--event list-->
-    <dimen name="time_line_item_min_height">200mm</dimen>
-    <dimen name="item_indicator">48mm</dimen>
-    <dimen name="time_line_width">3mm</dimen>
+    <dimen name="time_line_item_min_height">64dp</dimen>
+    <dimen name="item_indicator">24dp</dimen>
+    <dimen name="time_line_width">0.5dp</dimen>
 
     <!--创建日程-->
 
     <!--时间及日期选择-->
-    <dimen name="looper_width">240mm</dimen>
-    <dimen name="looper_height">540mm</dimen>
+    <dimen name="looper_width">80dp</dimen>
+    <dimen name="looper_height">240dp</dimen>
 
     <!--关于界面-->
-    <dimen name="about_icon_width">120mm</dimen>
+    <dimen name="about_icon_width">36dp</dimen>
 
 </resources>

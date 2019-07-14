@@ -175,7 +175,9 @@ public class EventModel {
     }
 
     public Query<User> queryUser(String userName){
-        return mUserBox.query().equal(User_.mUserName,userName).build();
+        return mUserBox.query()
+                .equal(User_.mUserName,userName)
+                .build();
     }
 
     /**
