@@ -114,6 +114,9 @@ dependencies {
     implementation rootProject.ext.calendar_utils
     implementation rootProject.ext.date_picker
 
+    // indicator
+    implementation rootProject.ext.indicator
+
     debugImplementation rootProject.ext.object_box.browser
     releaseImplementation rootProject.ext.object_box.android
 

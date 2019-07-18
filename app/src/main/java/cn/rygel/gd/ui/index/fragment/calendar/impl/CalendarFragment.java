@@ -1,5 +1,6 @@
 package cn.rygel.gd.ui.index.fragment.calendar.impl;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,6 @@ import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
-import rygel.cn.calendarview.item.impl.DefaultItemCommonImpl;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
 import rygel.cn.uilibrary.mvp.BaseFragment;
@@ -46,6 +46,9 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     @BindView(R.id.rv_events)
     RecyclerView mEvents;
+
+    @BindView(R.id.fab_to_today)
+    FloatingActionButton mFabBackToToday;
 
     EventAdapter mEventAdapter = null;
     Solar mSelected = SolarUtils.today();
@@ -77,13 +80,13 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     private void initCalendarView(){
         Solar today = SolarUtils.today();
-        mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void OnMonthChange(int year, int month) {
                 CalendarFragment.this.onMonthChanged(year, month);
             }
         });
+        mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.getConfig()
                 .setStartOffset(
                         Settings.getInstance()
@@ -101,6 +104,11 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     @OnClick(R.id.fab_add_event)
     protected void addEvent(){
         AddEventActivity.start(getContext(),null,null,null);
+    }
+
+    @OnClick(R.id.fab_to_today)
+    protected void back2Today() {
+        mCalendarView.setSelect(SolarUtils.today());
     }
 
     @Override
@@ -133,12 +141,23 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     private void onMonthChanged(int year,int month){
         Logger.i("on month changed : year : " + year + " month : " + month);
         mToolbar.setTitle(UIUtils.getString(getContext(),R.string.yyyy_MM,year,month));
+        // 判断是否显示fab
+        Solar today = SolarUtils.today();
+        if (year != today.solarYear || month != today.solarMonth) {
+            mFabBackToToday.show();
+        }
     }
 
     private void onDateSelect(Solar solar){
         Logger.i("select date : " +  solar);
         mSelected = solar;
         getPresenter().loadEventsOf(solar);
+        // 判断是否显示fab
+        if (solar.equals(SolarUtils.today())) {
+            mFabBackToToday.hide();
+        } else {
+            mFabBackToToday.show();
+        }
     }
 
     private EventAdapter generateAdapter() {

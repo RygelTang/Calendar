@@ -5,8 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/bg_bottom_round_corner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/calendar_view_height"/>
+
     <LinearLayout
-        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,6 +19,7 @@
         <android.support.v7.widget.Toolbar
             style="@style/BaseToolBar"
             android:id="@+id/tb_main"
+            android:background="@color/color_transparent"
             app:titleTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,34 +36,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <rygel.cn.calendarview.CalendarView
-                    android:id="@+id/cv_calendar"
-                    app:common_text_color="@color/text_color"
-                    app:text_size="@dimen/text_m"
-                    app:sub_text_size="@dimen/text_s"
-                    app:corner_padding="@dimen/padding_xs"
-                    app:date_offset="0"
-                    app:corner_text_size="@dimen/text_xs"
-                    app:weekbar_text_size="@dimen/text_m"
-                    app:theme_color="@color/colorPrimary"
-                    app:term_text_color="@color/termTextColor"
-                    app:text_color="@color/text_color"
-                    app:holiday_text_color="@color/holidayTextColor"
-                    app:corner_text_color="@color/cornerTextColor"
-                    app:makeup_text_color="@color/makeupTextColor"
-                    app:show_today="true"
+                <android.support.v7.widget.CardView
+                    android:background="@color/white"
+                    android:layout_margin="@dimen/margin_m"
+                    android:padding="@dimen/padding_s"
+                    app:cardCornerRadius="@dimen/round_corner_radius_m"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/calendar_view_height"/>
+                    android:elevation="@dimen/elevation_s"
+                    android:layout_height="@dimen/calendar_view_height">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divide_width"/>
+                    <rygel.cn.calendarview.CalendarView
+                        android:id="@+id/cv_calendar"
+                        app:common_text_color="@color/text_color"
+                        app:text_size="@dimen/text_m"
+                        app:sub_text_size="@dimen/text_s"
+                        app:corner_padding="@dimen/padding_xs"
+                        app:date_offset="0"
+                        app:corner_text_size="@dimen/text_xs"
+                        app:weekbar_text_size="@dimen/text_m"
+                        app:theme_color="@color/colorPrimary"
+                        app:term_text_color="@color/termTextColor"
+                        app:text_color="@color/text_color"
+                        app:holiday_text_color="@color/holidayTextColor"
+                        app:corner_text_color="@color/cornerTextColor"
+                        app:makeup_text_color="@color/makeupTextColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_events"
                     android:padding="@dimen/padding_m"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 
@@ -73,6 +85,20 @@
         android:clickable="true"
         app:fabSize="auto"
         app:srcCompat="@drawable/ic_add_white_24dp"
+        android:layout_gravity="right|bottom"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_to_today"
+        android:elevation="@dimen/elevation_m"
+        android:layout_marginVertical="@dimen/margin_xxl"
+        android:layout_marginRight="@dimen/margin_xxxxxl"
+        android:focusable="true"
+        android:clickable="true"
+        app:fabSize="auto"
+        app:srcCompat="@drawable/ic_back_to_today"
         android:layout_gravity="right|bottom"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_width="wrap_content"

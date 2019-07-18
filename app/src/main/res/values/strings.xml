@@ -9,6 +9,9 @@
     <string name="temperature">%d℃</string>
     <string name="event_empty_click_to_add">没有日程，点击添加日程</string>
 
+    <!--事件页-->
+    <string name="event_list">事件列表</string>
+
     <!--创建活动-->
     <string name="save">保存</string>
     <string name="create_event">创建活动</string>
