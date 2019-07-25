@@ -49,6 +49,7 @@ public class EventModel {
      */
     public void init(String userName) {
         mUser = UserModel.getInstance().getUserByName(userName);
+        Logger.i("current user : " + mUser.getUserName());
         if (mUser == null) {
             Logger.e("user not exist!" + userName);
         }
@@ -228,6 +229,7 @@ public class EventModel {
         }
         event.getDescription().setTarget(formatDescription(baseEvent));
         User user = UserModel.getInstance().getUserByName(baseEvent.getUser());
+        time.getUser().setTarget(user);
         if(user == null) {
             UserModel.getInstance().putUser(baseEvent.getUser());
             user = UserModel.getInstance().getUserByName(baseEvent.getUser());

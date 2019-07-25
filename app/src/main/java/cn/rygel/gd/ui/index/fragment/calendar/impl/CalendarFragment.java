@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,7 +35,6 @@ import rygel.cn.calendarview.CalendarView;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
 import rygel.cn.uilibrary.mvp.BaseFragment;
-import rygel.cn.uilibrary.utils.UIUtils;
 
 public class CalendarFragment extends BaseFragment<CalendarPresenter> implements ICalendarView {
 
@@ -140,7 +140,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     private void onMonthChanged(int year,int month){
         Logger.i("on month changed : year : " + year + " month : " + month);
-        mToolbar.setTitle(UIUtils.getString(getContext(),R.string.yyyy_MM,year,month));
+        mToolbar.setTitle(StringUtils.getString(R.string.yyyy_MM, year, month));
         // 判断是否显示fab
         Solar today = SolarUtils.today();
         if (year != today.solarYear || month != today.solarMonth) {

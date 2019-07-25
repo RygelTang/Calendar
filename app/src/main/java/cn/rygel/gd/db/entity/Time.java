@@ -19,7 +19,7 @@ public class Time {
     long mId;
 
     ToOne<Event> mEvent;
-    ToOne<Event> mUser;
+    ToOne<User> mUser;
 
     @Convert(converter = RepeatTypeConverter.class,dbType = Integer.class)
     RepeatType mRepeatType;
@@ -129,11 +129,11 @@ public class Time {
         return this;
     }
 
-    public ToOne<Event> getUser() {
+    public ToOne<User> getUser() {
         return mUser;
     }
 
-    public Time setUser(ToOne<Event> mUser) {
+    public Time setUser(ToOne<User> mUser) {
         this.mUser = mUser;
         return this;
     }
