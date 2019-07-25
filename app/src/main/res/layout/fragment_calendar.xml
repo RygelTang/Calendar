@@ -42,7 +42,7 @@
                     android:padding="@dimen/padding_s"
                     app:cardCornerRadius="@dimen/round_corner_radius_m"
                     android:layout_width="match_parent"
-                    android:elevation="@dimen/elevation_s"
+                    app:cardElevation="@dimen/elevation_s"
                     android:layout_height="@dimen/calendar_view_height">
 
                     <rygel.cn.calendarview.CalendarView
@@ -51,12 +51,10 @@
                         app:text_size="@dimen/text_m"
                         app:sub_text_size="@dimen/text_s"
                         app:corner_padding="@dimen/padding_xs"
-                        app:date_offset="0"
                         app:corner_text_size="@dimen/text_xs"
                         app:weekbar_text_size="@dimen/text_m"
                         app:theme_color="@color/colorPrimary"
                         app:term_text_color="@color/termTextColor"
-                        app:text_color="@color/text_color"
                         app:holiday_text_color="@color/holidayTextColor"
                         app:corner_text_color="@color/cornerTextColor"
                         app:makeup_text_color="@color/makeupTextColor"
