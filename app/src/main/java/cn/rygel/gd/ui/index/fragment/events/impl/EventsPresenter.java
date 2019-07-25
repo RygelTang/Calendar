@@ -60,9 +60,9 @@ public class EventsPresenter extends BasePresenter<IEventsView> {
         List<EventListAdapter> adapters = new ArrayList<>();
         Solar weekEnd = SolarUtils.getDayByInterval(today, 7);
         Solar monthEnd = SolarUtils.getDayByInterval(today, SolarUtils.getMonthDay(today.solarYear,today.solarMonth) - today.solarDay);
-        adapters.add(new EventListAdapter(mEventModel.queryInRange(today, weekEnd), today, weekEnd));
-        adapters.add(new EventListAdapter(mEventModel.queryInRange(today, monthEnd), today, monthEnd));
-        adapters.add(new EventListAdapter(mEventModel.query(), today, null));
+        adapters.add(new EventListAdapter(mEventModel.queryInRange(today, weekEnd), today));
+        adapters.add(new EventListAdapter(mEventModel.queryInRange(today, monthEnd), today));
+        adapters.add(new EventListAdapter(mEventModel.query(), today));
         Logger.i("adapter generated!");
         return adapters;
     }
