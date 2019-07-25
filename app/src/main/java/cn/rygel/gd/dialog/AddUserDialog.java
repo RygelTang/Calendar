@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import cn.rygel.gd.R;
 import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import io.reactivex.Observable;
@@ -59,11 +60,11 @@ public class AddUserDialog {
                                 return;
                             }
                             Observable
-                                    .just(EventModel
+                                    .just(UserModel
                                             .getInstance()
                                             .putUser(mUserName)
                                     )
-                                    .compose(new AsyncTransformer<Boolean>())
+                                    .compose(new AsyncTransformer())
                                     .subscribe(new BaseObserver<Boolean>() {
                                         @Override
                                         public Object getTag() {

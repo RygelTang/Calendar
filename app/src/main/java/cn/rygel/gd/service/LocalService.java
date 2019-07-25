@@ -103,7 +103,7 @@ public class LocalService extends Service {
         mPushHandler.removeMessages(PushHandler.MESSAGE_PUSH_EVENT);
         // 异步查询数据
         Observable.just(EventModel.getInstance().queryInRange(SolarUtils.today(), SolarUtils.today()))
-                .compose(new AsyncTransformer<>())
+                .compose(new AsyncTransformer())
                 .subscribe(new BaseObserver<List<BaseEvent>>() {
                     @Override
                     public Object getTag() {

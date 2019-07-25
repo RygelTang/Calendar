@@ -1,4 +1,4 @@
-package cn.rygel.gd.widget.timeline.adapter;
+package cn.rygel.gd.widget.adapter;
 
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
@@ -26,10 +26,10 @@ public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHo
     public EventAdapter(List<BaseEvent> events)  {
         super(events);
         addItemType(EventType.TYPE_DEFAULT,R.layout.item_event_type_default);
-        addItemType(EventType.TYPE_BIRTHDAY,R.layout.item_event_type_birthday);
-        addItemType(EventType.TYPE_APPOINTMENT,R.layout.item_event_type_appointment);
-        addItemType(EventType.TYPE_MEETING,R.layout.item_event_type_meeting);
-        addItemType(EventType.TYPE_MEMORIAL,R.layout.item_event_type_memorial);
+        addItemType(EventType.TYPE_BIRTHDAY,R.layout.item_event_type_default);
+        addItemType(EventType.TYPE_APPOINTMENT,R.layout.item_event_with_location);
+        addItemType(EventType.TYPE_MEETING,R.layout.item_event_with_location);
+        addItemType(EventType.TYPE_MEMORIAL,R.layout.item_event_type_default);
     }
 
     @Override

@@ -30,6 +30,7 @@ import cn.rygel.gd.service.RestartService;
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
+import cn.rygel.gd.ui.index.fragment.events.impl.EventsFragment;
 import cn.rygel.gd.ui.setting.SettingsActivity;
 import rygel.cn.uilibrary.base.BaseActivity;
 
@@ -98,9 +99,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.action_calendar:
                 loadFragment(new CalendarFragment());
                 break;
+            case R.id.action_event_list:
+                loadFragment(new EventsFragment());
+                break;
             case R.id.action_about:
                 AboutActivity.start(this);
-            break;
+                break;
             case R.id.action_create_local_user:
                 new AddUserDialog(this).show();
                 break;
@@ -110,6 +114,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             default:
                 break;
         }
+        hideDrawer();
         return true;
     }
 
@@ -131,7 +136,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void hideDrawer(){
         if(mDLMain.isDrawerOpen(Gravity.START)) {
-            mDLMain.closeDrawer(Gravity.START);
+            mDLMain.closeDrawer(Gravity.START, true);
         }
     }
 

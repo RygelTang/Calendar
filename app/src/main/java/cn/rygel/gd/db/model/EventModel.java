@@ -1,6 +1,5 @@
 package cn.rygel.gd.db.model;
 
-import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -23,24 +22,20 @@ import cn.rygel.gd.db.entity.Location;
 import cn.rygel.gd.db.entity.Time;
 import cn.rygel.gd.db.entity.Time_;
 import cn.rygel.gd.db.entity.User;
-import cn.rygel.gd.db.entity.User_;
 import cn.rygel.gd.db.filter.RangeTimeFilter;
 import cn.rygel.gd.db.filter.TimeFilter;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
-import io.objectbox.exception.UniqueViolationException;
-import io.objectbox.query.Query;
 import rygel.cn.calendar.bean.Solar;
 
 public class EventModel {
 
     private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
 
-    private Gson mGson = new Gson();
-
     private Box<Event> mEventBox = mBoxStore.boxFor(Event.class);
     private Box<Time> mTimeBox = mBoxStore.boxFor(Time.class);
-    private Box<User> mUserBox = mBoxStore.boxFor(User.class);
+
+    private User mUser = null;
 
     private EventModel(){}
 
@@ -49,18 +44,27 @@ public class EventModel {
     }
 
     /**
-     * 查询指定用户的所有日程
+     * 初始化用户
      * @param userName
+     */
+    public void init(String userName) {
+        mUser = UserModel.getInstance().getUserByName(userName);
+        if (mUser == null) {
+            Logger.e("user not exist!" + userName);
+        }
+    }
+
+    /**
+     * 查询指定用户的所有日程
      * @return
      */
-    public List<BaseEvent> queryByUser(String userName){
+    public List<BaseEvent> query(){
         List<BaseEvent> events = new ArrayList<>();
-        final User user = queryUser(userName).findUnique();
-        if(user == null){
-            Logger.e("query user fail, user not exist");
+        if(mUser == null){
+            Logger.e("call init before query!");
             return new ArrayList<>();
         }
-        for(Event event : user.getEvents()){
+        for(Event event : mUser.getEvents()){
             events.add(format2BaseEvent(event));
         }
         return events;
@@ -74,9 +78,9 @@ public class EventModel {
      * @return
      */
     public List<BaseEvent> queryInRange(Solar start, Solar end){
-        List<BaseEvent> events = new ArrayList<>();
         List<Time> times = mTimeBox.query()
                 .filter(new RangeTimeFilter(start, end))
+                .equal(Time_.mUserId, mUser.getId())
                 .eager(Time_.mEvent)
                 .build()
                 .find();
@@ -86,6 +90,7 @@ public class EventModel {
     public List<BaseEvent> queryInDay(Solar date) {
         List<Time> times = mTimeBox.query()
                 .filter(new TimeFilter(date))
+                .equal(Time_.mUserId, mUser.getId())
                 .eager(Time_.mEvent)
                 .build()
                 .find();
@@ -109,19 +114,6 @@ public class EventModel {
      */
     public void delete(BaseEvent event){
         deleteEventByID(event.getId());
-    }
-
-    /**
-     * 删除用户
-     * @param userName
-     */
-    public void delete(String userName) {
-        Logger.i("object delete user : " + userName);
-        User user = queryUser(userName).findUnique();
-        Logger.i("user found is null? " + (user == null));
-        if (user != null) {
-            mUserBox.remove(user);
-        }
     }
 
     /**
@@ -151,33 +143,6 @@ public class EventModel {
         for (BaseEvent event : events){
             putEvent(event);
         }
-    }
-
-    /**
-     * 创建用户
-     * @param userName
-     * @return
-     */
-    public boolean putUser(String userName){
-        boolean flag;
-        try{
-            flag = mUserBox.put(new User().setUserName(userName)) >= 0;
-        } catch (UniqueViolationException ex){
-            Logger.e(ex,ex.getMessage());
-            flag = false;
-        }
-        Logger.i("object box put",userName,flag ? "success" : "fail");
-        return flag;
-    }
-
-    public List<User> getUser(){
-        return mUserBox.query().build().find();
-    }
-
-    public Query<User> queryUser(String userName){
-        return mUserBox.query()
-                .equal(User_.mUserName,userName)
-                .build();
     }
 
     /**
@@ -262,10 +227,10 @@ public class EventModel {
             event.getLocation().setTarget(location);
         }
         event.getDescription().setTarget(formatDescription(baseEvent));
-        User user = queryUser(baseEvent.getUser()).findUnique();
+        User user = UserModel.getInstance().getUserByName(baseEvent.getUser());
         if(user == null) {
-            putUser(baseEvent.getUser());
-            user = queryUser(baseEvent.getUser()).findUnique();
+            UserModel.getInstance().putUser(baseEvent.getUser());
+            user = UserModel.getInstance().getUserByName(baseEvent.getUser());
             if(user != null) {
                 user.getEvents().add(event);
             }

@@ -19,6 +19,7 @@ public class Time {
     long mId;
 
     ToOne<Event> mEvent;
+    ToOne<Event> mUser;
 
     @Convert(converter = RepeatTypeConverter.class,dbType = Integer.class)
     RepeatType mRepeatType;
@@ -125,6 +126,15 @@ public class Time {
 
     public Time setAlert(ToOne<Alert> alert) {
         mAlert = alert;
+        return this;
+    }
+
+    public ToOne<Event> getUser() {
+        return mUser;
+    }
+
+    public Time setUser(ToOne<Event> mUser) {
+        this.mUser = mUser;
         return this;
     }
 }

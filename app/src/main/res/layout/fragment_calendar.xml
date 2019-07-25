@@ -67,7 +67,6 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_events"
-                    android:padding="@dimen/padding_m"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 

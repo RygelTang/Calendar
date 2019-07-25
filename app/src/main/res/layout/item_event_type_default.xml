@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:elevation="@dimen/elevation_s"
-    android:background="@drawable/bg_round_corner"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="@dimen/elevation_s"
+    app:cardCornerRadius="@dimen/round_corner_radius_l"
+    android:layout_margin="@dimen/margin_m"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:padding="@dimen/padding_m"
         android:id="@+id/layout_content"
-        android:background="@drawable/bg_ripple"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_event_name"
-            android:padding="@dimen/padding_s"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_m"
-            android:text="@string/event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_event_name"
+                android:padding="@dimen/padding_s"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_xl"
+                android:textStyle="bold"
+                android:text="@string/event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_m"
+                android:id="@+id/tv_duration"
+                android:textSize="@dimen/text_m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -46,4 +65,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

@@ -29,7 +29,7 @@ public class CalendarPresenter extends BasePresenter<ICalendarView> {
         mSubscribeTags.add(subscribeTag);
         BaseObserver.cancel(subscribeTag);
         Observable.just(EventModel.getInstance().queryInDay(new Solar(date.solarYear,date.solarMonth,date.solarDay)))
-                .compose(new AsyncTransformer<List<BaseEvent>>())
+                .compose(new AsyncTransformer())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .subscribe(new BaseObserver<List<BaseEvent>>() {
                     @Override

@@ -1,9 +1,10 @@
 package cn.rygel.gd.app;
 
 import android.preference.PreferenceManager;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.Utils;
 import com.ftinc.scoop.Scoop;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -15,10 +16,10 @@ import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
+import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.db.model.UserModel;
 import io.objectbox.android.AndroidObjectBrowser;
 
-// TODO: 2019/1/29 编辑事件以及删除事件
-// TODO: 2019/1/29 修改图标
 public class APP extends MultiDexApplication {
 
     private static APP sInstance = null;
@@ -27,6 +28,8 @@ public class APP extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        // 初始化工具类
+        initUtils();
         // 初始化Logger
         initLogger();
         // 初始化BoxStore
@@ -37,7 +40,13 @@ public class APP extends MultiDexApplication {
         initScoop();
         // 初始化MMKV
         initMMKV();
-        initMultiDex();
+    }
+
+    /**
+     * 初始化工具类
+     */
+    private void initUtils() {
+        Utils.init(this);
     }
 
     /**
@@ -70,6 +79,10 @@ public class APP extends MultiDexApplication {
                             .getBoxStore()
             ).start(this));
         }
+        if (UserModel.getInstance().getUserByName(StringUtils.getString(R.string.default_user)) == null) {
+            UserModel.getInstance().putUser(StringUtils.getString(R.string.default_user));
+        }
+        EventModel.getInstance().init(StringUtils.getString(R.string.default_user));
     }
 
     /**
@@ -104,13 +117,6 @@ public class APP extends MultiDexApplication {
     private void initMMKV(){
         String dir = MMKV.initialize(this);
         Logger.i("MMKV root : " + dir);
-    }
-
-    /**
-     * 初始化MultiDex，避免在5.0以下机型崩溃
-     */
-    private void initMultiDex(){
-        MultiDex.install(this);
     }
 
     /**

@@ -8,6 +8,7 @@ import java.util.Set;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.db.entity.User;
 import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.ui.edit.IEditEventView;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
@@ -29,7 +30,7 @@ public class EditEventPresenter extends BasePresenter<IEditEventView> {
         final String method = "update";
         final String subscribeTag = TAG + "#" + method;
         Observable.just(mEventModel.update(event))
-                .compose(new AsyncTransformer<Boolean>())
+                .compose(new AsyncTransformer())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .subscribe(new BaseObserver<Boolean>(){
                     @Override
@@ -57,14 +58,14 @@ public class EditEventPresenter extends BasePresenter<IEditEventView> {
             @Override
             public void subscribe(ObservableEmitter<List<User>> emitter) throws Exception {
                 try {
-                    emitter.onNext(mEventModel.getUser());
+                    emitter.onNext(UserModel.getInstance().queryUsers());
                 } catch (Exception e){
                     emitter.onError(e);
                 }
                 emitter.onComplete();
             }
         })
-                .compose(new AsyncTransformer<List<User>>())
+                .compose(new AsyncTransformer())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .map(new Function<List<User>,List<String>>() {
                     @Override
