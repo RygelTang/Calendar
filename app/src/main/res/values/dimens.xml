@@ -58,6 +58,7 @@
 
     <!--events-->
     <dimen name="indicator_height">40dp</dimen>
+    <dimen name="spinner_height">48dp</dimen>
 
     <!--calendar view-->
     <dimen name="calendar_view_height">280dp</dimen>

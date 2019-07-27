@@ -8,6 +8,7 @@ import java.util.List;
 
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.event.base.BaseEvent;
+import cn.rygel.gd.utils.CalendarUtils;
 import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
@@ -41,26 +42,66 @@ public class EventListAdapter extends EventAdapter {
     }
 
     private static int getEventDuration(BaseEvent event, Solar start) {
-        int interval = 0;
-        switch (event.getEventType().mRepeatType) {
+        int interval = -1;
+        Solar tempSolar = null;
+        Lunar tempLunar = null;
+        switch (event.getRepeatType()) {
             case NO_REPEAT :
                 return SolarUtils.getIntervalDays(start, event.getEventSolarDate());
             case EVERY_DAY:
                 return 0;
             case EVERY_WEEK:
-                return SolarUtils.getIntervalDays(start, event.getEventSolarDate()) % 7;
+                interval = SolarUtils.getIntervalDays(start, event.getEventSolarDate()) % 7;
+                if (interval < 0) {
+                    interval += 7;
+                }
+                return interval;
             case EVERY_MONTH:
-                interval = SolarUtils.getIntervalDays(start, new Solar(start.solarYear, start.solarMonth, event.getEventSolarDate().solarDay));
-                return interval < 0 ? interval + SolarUtils.getMonthDay(start.solarYear, start.solarMonth) : interval;
+                tempSolar =  new Solar(start.solarYear, start.solarMonth, event.getEventSolarDate().solarDay);
+                // 确保temp是合法的日期
+                while (interval < 0) {
+                    while (!CalendarUtils.checkSolar(tempSolar)) {
+                        tempSolar.solarMonth += 1;
+                        if (tempSolar.solarMonth > 12) {
+                            tempSolar.solarYear += 1;
+                            tempSolar.solarMonth = 1;
+                        }
+                    }
+                    interval = SolarUtils.getIntervalDays(start, tempSolar);
+                    tempSolar.solarMonth += 1;
+                    if (tempSolar.solarMonth > 12) {
+                        tempSolar.solarYear += 1;
+                        tempSolar.solarMonth = 1;
+                    }
+                }
+                return interval;
             case EVERY_YEAR:
                 if (event.isLunarEvent()) {
                     Lunar date = event.getEventLunarDate();
-                    interval = SolarUtils.getIntervalDays(start, new Lunar(false, start.toLunar().lunarYear, date.lunarMonth, date.lunarDay).toSolar());
-                    return interval < 0 ? SolarUtils.getIntervalDays(start, new Lunar(false, start.toLunar().lunarYear + 1, date.lunarMonth, date.lunarDay).toSolar()) : interval;
+                    tempLunar = new Lunar(false, start.toLunar().lunarYear, date.lunarMonth, date.lunarDay);
+                    while (interval < 0) {
+                        while (!CalendarUtils.checkLunar(tempLunar)) {
+                            if (!tempLunar.isLeap) {
+                                tempLunar.isLeap = true;
+                                continue;
+                            }
+                            tempLunar.lunarYear += 1;
+                        }
+                        interval = SolarUtils.getIntervalDays(start, tempLunar.toSolar());
+                    }
+                    return interval;
                 } else {
                     Solar date = event.getEventSolarDate();
-                    interval = SolarUtils.getIntervalDays(start, new Solar(start.solarYear, date.solarMonth, date.solarDay));
-                    return interval < 0 ? SolarUtils.getIntervalDays(start, new Solar(start.solarYear + 1, date.solarMonth, date.solarDay)) : interval;
+                    tempSolar =  new Solar(start.solarYear, date.solarMonth, date.solarDay);
+                    // 确保temp是合法的日期
+                    while (interval < 0) {
+                        while (!CalendarUtils.checkSolar(tempSolar)) {
+                            tempSolar.solarYear += 1;
+                        }
+                        interval = SolarUtils.getIntervalDays(start, tempSolar);
+                        tempSolar.solarYear += 1;
+                    }
+                    return interval;
                 }
             default:
                 return -1;

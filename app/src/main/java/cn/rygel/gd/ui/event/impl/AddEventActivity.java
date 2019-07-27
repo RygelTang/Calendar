@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.orhanobut.logger.Logger;
 
@@ -38,6 +40,7 @@ import cn.rygel.gd.bean.event.MemorialEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
+import cn.rygel.gd.bean.event.constants.RepeatType;
 import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.ui.event.IAddEventView;
 import rygel.cn.calendar.bean.Lunar;
@@ -82,6 +85,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @BindView(R.id.switch_all_day)
     SwitchButton mSwitchAllDay;
 
+    @BindView(R.id.sp_repeat_type)
+    MaterialSpinner mSpRepeatType;
+
     @BindView(R.id.btn_user)
     Button mBtnUser;
 
@@ -109,6 +115,8 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     private long mDuration = 0L;
 
     private String mEventName = null;
+
+    private RepeatType mRepeatType = RepeatType.NO_REPEAT;
 
     private String mDescription = null;
 
@@ -161,6 +169,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
             }
         });
         initPickers();
+        initSpinner();
         onDefaultTypeSelect();
     }
 
@@ -191,6 +200,16 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         }
         menu.findItem(typeID).setChecked(true);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void initSpinner() {
+        mSpRepeatType.setItems(StringUtils.getStringArray(R.array.repeat_types));
+        mSpRepeatType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                mRepeatType = RepeatType.values()[position];
+            }
+        });
     }
 
     private void initPickers(){
@@ -493,6 +512,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
                 break;
         }
         event2Save.setEventType(mEventType);
+        event2Save.setRepeatType(mRepeatType);
         event2Save.setStart(mStart);
         getPresenter().saveEvent(event2Save);
     }

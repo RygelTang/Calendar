@@ -117,6 +117,9 @@ dependencies {
     // indicator
     implementation rootProject.ext.indicator
 
+    // spinner
+    implementation rootProject.ext.spinner
+
     debugImplementation rootProject.ext.object_box.browser
     releaseImplementation rootProject.ext.object_box.android
 

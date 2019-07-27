@@ -26,6 +26,7 @@
     <string name="user">用户</string>
     <string name="alert">提醒</string>
     <string name="repeat">重复</string>
+    <string name="repeat_type">重复类型</string>
     <string name="alert_after_event">活动结束是否提醒</string>
 
     <!--新建任务-->
@@ -104,6 +105,15 @@
 
     <!--日期选择器-->
     <string name="use_lunar_mode">使用农历日期</string>
+
+    <!--重复类型-->
+    <string-array name="repeat_types">
+        <item>不重复</item>
+        <item>按天</item>
+        <item>按周</item>
+        <item>按月</item>
+        <item>按年</item>
+    </string-array>
 
     <!--时间选择-->
     <string-array name="hours">

@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.TimeZone;
 
 import cn.rygel.gd.bean.event.constants.EventType;
+import cn.rygel.gd.bean.event.constants.RepeatType;
 import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
 
@@ -25,6 +26,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
     protected Solar mEventSolarDate = new Solar();
     protected Lunar mEventLunarDate = new Lunar();
     protected EventType mEventType = null;
+    protected RepeatType mRepeatType = RepeatType.NO_REPEAT;
 
     /**
      * 提前提醒时间
@@ -52,6 +54,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         setEventSolarDate(in.readParcelable(Solar.class.getClassLoader()));
         setEventLunarDate(in.readParcelable(Lunar.class.getClassLoader()));
         mEventType = in.readParcelable(EventType.class.getClassLoader());
+        mRepeatType = RepeatType.values()[in.readInt()];
     }
 
     public long getId() {
@@ -158,6 +161,18 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         return mEventType;
     }
 
+    public RepeatType getRepeatType() {
+        return mRepeatType;
+    }
+
+    public void setRepeatType(RepeatType repeatType) {
+        mRepeatType = repeatType;
+    }
+
+    public static Creator<BaseEvent> getCREATOR() {
+        return CREATOR;
+    }
+
     @Override
     public int getItemType() {
         return EventType.EVENT_TYPE_SUPPORT.indexOf(getEventType());
@@ -185,6 +200,7 @@ public class BaseEvent implements Parcelable,MultiItemEntity {
         dest.writeParcelable(getEventSolarDate(),Parcelable.CONTENTS_FILE_DESCRIPTOR);
         dest.writeParcelable(getEventLunarDate(),Parcelable.CONTENTS_FILE_DESCRIPTOR);
         dest.writeParcelable(getEventType(),Parcelable.CONTENTS_FILE_DESCRIPTOR);
+        dest.writeInt(getRepeatType().ordinal());
     }
 
     public static final Creator<BaseEvent> CREATOR = new Creator<BaseEvent>() {

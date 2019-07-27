@@ -24,19 +24,17 @@ public class EventType implements Parcelable {
     public static final int TYPE_MEMORIAL = 4;
 
     static {
-        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_default),NO_REPEAT));
-        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_birthday),EVERY_YEAR));
-        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_meeting),NO_REPEAT));
-        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_appointment),NO_REPEAT));
-        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_memorial),EVERY_YEAR));
+        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_default)));
+        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_birthday)));
+        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_meeting)));
+        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_appointment)));
+        EVENT_TYPE_SUPPORT.add(new EventType(UIUtils.getString(APP.getInstance(), R.string.type_memorial)));
     }
 
     private String mDescription = "";
-    public RepeatType mRepeatType = NO_REPEAT;
 
-    public EventType(String description, RepeatType repeatType){
+    public EventType(String description){
         mDescription = description;
-        mRepeatType = repeatType;
     }
 
     public String getDescription() {

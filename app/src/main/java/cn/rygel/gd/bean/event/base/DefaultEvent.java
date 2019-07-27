@@ -26,6 +26,11 @@ public class DefaultEvent extends BaseEvent {
         mDuration = duration;
     }
 
+    @Override
+    public EventType getEventType() {
+        return mEventType;
+    }
+
     /********************************************** 支持Parcelable ********************************************/
     @Override
     public void writeToParcel(Parcel dest, int flags) {

@@ -199,6 +199,7 @@ public class EventModel {
                 baseEvent = new BaseEvent();
                 break;
         }
+        baseEvent.setRepeatType(time.getRepeatType());
         baseEvent.setId(event.getId());
         baseEvent.setShowNotification(event.isShowNotification());
         baseEvent.setEventType(event.getEventType());
@@ -243,7 +244,7 @@ public class EventModel {
 
     private static Time formatTime(BaseEvent event) {
         Time time = new Time().setLunar(event.isLunarEvent())
-                .setRepeatType(event.getEventType().mRepeatType)
+                .setRepeatType(event.getRepeatType())
                 .setSolar(event.getEventSolarDate())
                 .setLunar(event.getEventLunarDate())
                 .setStart(event.getStart())
