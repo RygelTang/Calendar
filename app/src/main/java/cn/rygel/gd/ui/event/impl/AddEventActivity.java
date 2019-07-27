@@ -127,6 +127,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     private String mUser = Global.DEFAULT_USER;
 
     private EventType mEventType = EventType.EVENT_TYPE_SUPPORT.get(EventType.TYPE_DEFAULT);
+
     private int mEventTypeIndex = EventType.TYPE_DEFAULT;
 
     @Override
@@ -219,7 +220,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {
-                onDateSelect(solar,LunarUtils.solarToLunar(solar),false);
+                onDateSelect(solar,LunarUtils.solarToLunar(solar), isLunarMode);
                 if(mDialog != null) {
                     mDialog.dismiss();
                 }
@@ -509,7 +510,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
                 event2Save = memorialEvent;
                 break;
             default:
-                break;
+                Logger.e("save fail, unknown event type!");
+                showToast(R.string.save_fail);
+                return;
         }
         event2Save.setEventType(mEventType);
         event2Save.setRepeatType(mRepeatType);

@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.orhanobut.logger.Logger;
 
@@ -39,6 +41,7 @@ import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.bean.event.constants.EventType;
+import cn.rygel.gd.bean.event.constants.RepeatType;
 import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.ui.edit.IEditEventView;
 import rygel.cn.calendar.bean.Lunar;
@@ -82,6 +85,9 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     @BindView(R.id.switch_all_day)
     SwitchButton mSwitchAllDay;
 
+    @BindView(R.id.sp_repeat_type)
+    MaterialSpinner mSpRepeatType;
+
     @BindView(R.id.switch_alert)
     SwitchButton mSwitchAlert;
 
@@ -112,6 +118,8 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     private long mDuration = 0L;
 
     private String mEventName = null;
+
+    private RepeatType mRepeatType = RepeatType.NO_REPEAT;
 
     private String mDescription = null;
 
@@ -167,6 +175,7 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
             }
         });
         initPickers();
+        initSpinner();
         onDefaultTypeSelect();
     }
 
@@ -199,6 +208,16 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         return super.onPrepareOptionsMenu(menu);
     }
 
+    private void initSpinner() {
+        mSpRepeatType.setItems(StringUtils.getStringArray(R.array.repeat_types));
+        mSpRepeatType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                mRepeatType = RepeatType.values()[position];
+            }
+        });
+    }
+
     private void initPickers(){
         mDatePicker = new DateSelector(this);
         mStartTimePicker = new TimeSelector(this);
@@ -206,7 +225,7 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {
-                onDateSelect(solar, LunarUtils.solarToLunar(solar),false);
+                onDateSelect(solar, LunarUtils.solarToLunar(solar), isLunarMode);
                 if(mDialog != null) {
                     mDialog.dismiss();
                 }
@@ -264,6 +283,8 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
 
             onUserSelect(mOldEvent.getUser());
 
+            mRepeatType = mOldEvent.getRepeatType();
+
             if(mOldEvent instanceof LocationEvent) {
                 mLocation = ((LocationEvent) mOldEvent).getLocation();
                 mETLocation.setText(mLocation);
@@ -274,6 +295,8 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
 
             mIsShowNotification = mOldEvent.isShowNotification();
             mSwitchAlert.setChecked(mIsShowNotification);
+            mSpRepeatType.setSelectedIndex(mRepeatType.ordinal());
+
         }
     }
 
@@ -516,9 +539,10 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
                 event2Save = memorialEvent;
                 break;
             default:
-                break;
+                return;
         }
         event2Save.setEventType(mEventType);
+        event2Save.setRepeatType(mRepeatType);
         event2Save.setStart(mStart);
         event2Save.setId(mOldEvent.getId());
         getPresenter().update(event2Save);
