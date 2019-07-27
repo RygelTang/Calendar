@@ -98,6 +98,10 @@ public class EventModel {
         return queryByTimes(times);
     }
 
+    public boolean hasEventIn(Solar solar) {
+        return queryInDay(solar).size() > 0;
+    }
+
     public List<BaseEvent> queryByTimes(List<Time> times) {
         List<BaseEvent> events = new ArrayList<>();
         for(Time time : times){

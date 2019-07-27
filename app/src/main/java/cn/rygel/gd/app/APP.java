@@ -3,6 +3,7 @@ package cn.rygel.gd.app;
 import android.preference.PreferenceManager;
 import android.support.multidex.MultiDexApplication;
 
+import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
 import com.ftinc.scoop.Scoop;
@@ -47,6 +48,7 @@ public class APP extends MultiDexApplication {
      */
     private void initUtils() {
         Utils.init(this);
+        CrashUtils.init();
     }
 
     /**

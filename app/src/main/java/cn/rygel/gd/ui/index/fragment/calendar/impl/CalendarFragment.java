@@ -29,6 +29,9 @@ import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.widget.adapter.EventAdapter;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
+import cn.rygel.gd.widget.calendar.CustomItemCommon;
+import cn.rygel.gd.widget.calendar.CustomItemSelected;
+import cn.rygel.gd.widget.calendar.CustomItemToday;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
@@ -89,9 +92,13 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.getConfig()
                 .setStartOffset(
-                        Settings.getInstance()
-                                .getWeekdayOffset()
+                        Settings.getInstance().getWeekdayOffset()
                 )
+                .config();
+        mCalendarView.getConfig()
+                .setItemCommon(new CustomItemCommon(mCalendarView))
+                .setItemSelected(new CustomItemSelected(mCalendarView))
+                .setItemToday(new CustomItemToday(mCalendarView))
                 .config();
         mCalendarView.setOnDateSelectListener(new OnDateSelectedListener() {
             @Override

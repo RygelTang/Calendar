@@ -94,13 +94,13 @@
 
     <!--星期选择器-->
     <string-array name="weekdays">
-        <item>星期日</item>
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
+        <item>周日</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
     </string-array>
 
     <!--日期选择器-->

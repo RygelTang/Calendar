@@ -39,7 +39,7 @@
                 <android.support.v7.widget.CardView
                     android:background="@color/white"
                     android:layout_margin="@dimen/margin_m"
-                    android:padding="@dimen/padding_s"
+                    android:padding="@dimen/padding_m"
                     app:cardCornerRadius="@dimen/round_corner_radius_m"
                     android:layout_width="match_parent"
                     app:cardElevation="@dimen/elevation_s"
@@ -48,6 +48,7 @@
                     <rygel.cn.calendarview.CalendarView
                         android:id="@+id/cv_calendar"
                         app:common_text_color="@color/text_color"
+                        app:weekbar_height="@dimen/calendar_View_week_bar_height"
                         app:text_size="@dimen/text_m"
                         app:sub_text_size="@dimen/text_s"
                         app:corner_padding="@dimen/padding_xs"

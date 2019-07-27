@@ -61,8 +61,8 @@
     <dimen name="spinner_height">48dp</dimen>
 
     <!--calendar view-->
-    <dimen name="calendar_view_height">280dp</dimen>
-    <dimen name="calendar_View_week_bar_height">24dp</dimen>
+    <dimen name="calendar_view_height">320dp</dimen>
+    <dimen name="calendar_View_week_bar_height">32dp</dimen>
     <dimen name="calendar_view_child_padding">4dp</dimen>
     <dimen name="time_line_date_width">100dp</dimen>
 
