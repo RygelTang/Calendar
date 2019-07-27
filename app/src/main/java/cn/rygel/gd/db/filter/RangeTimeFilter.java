@@ -55,7 +55,7 @@ public class RangeTimeFilter implements QueryFilter<Time> {
                 flag = start <= weekday && end >= weekday;
                 break;
             case EVERY_MONTH:
-                final int daysOfStart = SolarUtils.getMonthDay(solar.solarYear,solar.solarMonth);
+                final int daysOfStart = SolarUtils.getMonthDay(mStart.solarYear,mStart.solarMonth);
                 final int startDay = mStart.solarDay;
                 final int endDay = mEnd.solarDay;
                 final int eventDay = solar.solarDay;
@@ -67,7 +67,7 @@ public class RangeTimeFilter implements QueryFilter<Time> {
                 } else {
                     flag = eventDay <= endDay || (eventDay >= startDay && eventDay <= daysOfStart);
                     if(!flag){
-                        for(int i = 0;i < months;i++){
+                        for(int i = 1;i < months;i++){
                             final boolean nextYear = mStart.solarMonth + i > 12;
                             final int curMonth = nextYear ? mStart.solarMonth + i - 12 : mStart.solarMonth + i;
                             final int curYear = nextYear ? mStart.solarYear + 1 : mStart.solarYear;
