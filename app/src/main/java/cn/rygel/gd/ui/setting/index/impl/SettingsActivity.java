@@ -1,4 +1,4 @@
-package cn.rygel.gd.ui.setting;
+package cn.rygel.gd.ui.setting.index.impl;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +25,8 @@ import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
 import cn.rygel.gd.ui.about.AboutActivity;
+import cn.rygel.gd.ui.setting.index.ISettingView;
+import cn.rygel.gd.ui.setting.theme.ThemeActivity;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 import skin.support.content.res.SkinCompatUserThemeManager;
@@ -55,16 +57,21 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initWeekDaySelector();
-        mSwitchHideStatus.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
-        mSwitchKeepAlive.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mTbSetting.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        mSwitchHideStatus.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchKeepAlive.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimaryDark).getColorDefault()));
+        super.onResume();
     }
 
     private void initWeekDaySelector() {
@@ -91,6 +98,11 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     protected void loadData() {
         mSwitchKeepAlive.setChecked(getPresenter().isKeepAlive());
         mTvWeekDay.setText(mWeekDays.get(getPresenter().getWeekdayOffset()));
+    }
+
+    @OnClick(R.id.btn_theme)
+    protected void onSelectTheme() {
+        startActivity(new Intent(this, ThemeActivity.class));
     }
 
     @OnCheckedChanged(R.id.switch_keep_alive)

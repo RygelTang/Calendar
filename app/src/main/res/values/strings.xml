@@ -70,7 +70,7 @@
     <!--设置页面-->
     <string name="option_first_weekday">一周的起始日</string>
     <string name="option_hide_status">沉浸状态栏</string>
-    <string name="option_theme">主题</string>
+    <string name="option_theme">主题设置</string>
     <string name="option_group">用户群</string>
     <string name="option_account">账户</string>
     <string name="option_about">关于</string>
@@ -102,6 +102,66 @@
         <item>周四</item>
         <item>周五</item>
         <item>周六</item>
+    </string-array>
+
+    <string-array name="color_values">
+        <item>奶奶灰</item>
+        <item>薄青</item>
+        <item>豹粉</item>
+        <item>柠檬黄</item>
+        <item>鸟之子</item>
+        <item>小草绿</item>
+        <item>薄紫</item>
+        <item>深支子</item>
+        <item>雀茶</item>
+    </string-array>
+
+    <string-array name="theme_colors">
+        <item>#90A4A1</item>
+        <item>#7ABD9A</item>
+        <item>#D39EA6</item>
+        <item>#F7D94C</item>
+        <item>#DAC9A6</item>
+        <item>#91AD70</item>
+        <item>#986DB2</item>
+        <item>#FB9966</item>
+        <item>#8F5A3C</item>
+    </string-array>
+
+    <string-array name="theme_light_colors">
+        <item>#B0BEC5</item>
+        <item>#BCDECD</item>
+        <item>#E0BEB9</item>
+        <item>#FFF59D</item>
+        <item>#DAC9DD</item>
+        <item>#B5CAA0</item>
+        <item>#B28FCE</item>
+        <item>#F0A986</item>
+        <item>#E3916E</item>
+    </string-array>
+
+    <string-array name="theme_dark_colors">
+        <item>#90A4A1</item>
+        <item>#7ABD9A</item>
+        <item>#D39EA6</item>
+        <item>#F7D94C</item>
+        <item>#DAC9A6</item>
+        <item>#91AD70</item>
+        <item>#986DB2</item>
+        <item>#FB9966</item>
+        <item>#8F5A3C</item>
+    </string-array>
+
+    <string-array name="accent_colors">
+        <item>#90A4A1</item>
+        <item>#7ABD9A</item>
+        <item>#D39EA6</item>
+        <item>#F7D94C</item>
+        <item>#DAC9A6</item>
+        <item>#91AD70</item>
+        <item>#986DB2</item>
+        <item>#FB9966</item>
+        <item>#8F5A3C</item>
     </string-array>
 
     <!--日期选择器-->

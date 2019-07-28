@@ -141,7 +141,6 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,11 +177,20 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
                 return true;
             }
         });
-        mSwitchAllDay.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
-        mSwitchAlert.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initPickers();
         initSpinner();
         onDefaultTypeSelect();
+    }
+
+    @Override
+    protected void onResume() {
+        mDatePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mStartTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mEndTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchAllDay.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchAlert.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimaryDark).getColorDefault()));
+        super.onResume();
     }
 
     @Override
@@ -228,9 +236,6 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         mDatePicker = new DateSelector(this);
         mStartTimePicker = new TimeSelector(this);
         mEndTimePicker = new TimeSelector(this);
-        mDatePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
-        mStartTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
-        mEndTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {

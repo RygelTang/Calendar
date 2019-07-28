@@ -47,6 +47,12 @@ public class EventsFragment extends BaseFragment<EventsPresenter> implements IEv
     };
 
     @Override
+    public void onResume() {
+        initIndicator();
+        super.onResume();
+    }
+
+    @Override
     protected EventsPresenter createPresenter() {
         return new EventsPresenter();
     }

@@ -1,4 +1,4 @@
-package cn.rygel.gd.ui.setting;
+package cn.rygel.gd.ui.setting.index;
 
 import rygel.cn.uilibrary.mvp.IView;
 

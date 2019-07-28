@@ -19,6 +19,7 @@
         app:navigationIcon="@drawable/md_nav_back"/>
 
     <ScrollView
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

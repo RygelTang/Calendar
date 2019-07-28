@@ -30,8 +30,13 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mToolbar.setNavigationOnClickListener(l -> finish());
+    }
+
+    @Override
+    protected void onResume() {
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimaryDark).getColorDefault()));
+        super.onResume();
     }
 
     @Override

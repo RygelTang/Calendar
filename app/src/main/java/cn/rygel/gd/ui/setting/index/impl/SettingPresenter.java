@@ -1,31 +1,32 @@
-package cn.rygel.gd.ui.setting;
+package cn.rygel.gd.ui.setting.index.impl;
 
 import cn.rygel.gd.setting.Settings;
+import cn.rygel.gd.ui.setting.index.ISettingView;
 import rygel.cn.uilibrary.mvp.BasePresenter;
 
 public class SettingPresenter extends BasePresenter<ISettingView> {
 
-    boolean putKeepAlive(boolean state) {
+    public boolean putKeepAlive(boolean state) {
         return Settings.getInstance().putKeepAlive(state);
     }
 
-    boolean putWeekDayOffset(int offset) {
+    public boolean putWeekDayOffset(int offset) {
         return Settings.getInstance().putWeekDayOffset(offset);
     }
 
-    boolean putHideStatus(boolean isHideStatus) {
+    public boolean putHideStatus(boolean isHideStatus) {
         return Settings.getInstance().putHideStatus(isHideStatus);
     }
 
-    boolean isKeepAlive() {
+    public boolean isKeepAlive() {
         return Settings.getInstance().isKeepAlive();
     }
 
-    int getWeekdayOffset() {
+    public int getWeekdayOffset() {
         return Settings.getInstance().getWeekdayOffset();
     }
 
-    boolean isHideStatus() {
+    public boolean isHideStatus() {
         return Settings.getInstance().isHideStatus();
     }
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_s"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="@dimen/padding_m"
+            android:layout_gravity="center"
+            android:id="@+id/tv_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <rygel.cn.uilibrary.widget.SmoothCheckBox
+            android:id="@+id/cb_selected"
+            android:layout_margin="@dimen/margin_m"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_width" />
+
+    </LinearLayout>
+
+    <View
+        android:background="@color/divider_color"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divide_width"/>
+
+</LinearLayout>

@@ -16,6 +16,7 @@ public class Settings {
     private static final String KEY_THEME_COLOR_DARK = "KEY_THEME_COLOR_DARK";
     private static final String KEY_THEME_COLOR_LIGHT = "KEY_THEME_COLOR_LIGHT";
     private static final String KEY_ACCENT_COLOR = "KEY_ACCENT_COLOR";
+    private static final String KEY_THEME_INDEX = "KEY_THEME_INDEX";
 
     public boolean putKeepAlive(boolean state) {
         return mKV.encode(KEY_KEEP_ALIVE, state);
@@ -39,6 +40,14 @@ public class Settings {
 
     public boolean isHideStatus() {
         return mKV.decodeBool(KEY_HIDE_STATUS, false);
+    }
+
+    public boolean putThemeIndex(int index) {
+        return mKV.encode(KEY_THEME_INDEX, index);
+    }
+
+    public int getThemeIndex() {
+        return mKV.decodeInt(KEY_THEME_INDEX, 0);
     }
 
     public boolean putCustomThemeColorDark(int color) {

@@ -30,7 +30,7 @@ import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
 import cn.rygel.gd.ui.index.fragment.events.impl.EventsFragment;
-import cn.rygel.gd.ui.setting.SettingsActivity;
+import cn.rygel.gd.ui.setting.index.impl.SettingsActivity;
 import rygel.cn.uilibrary.base.BaseActivity;
 import skin.support.content.res.SkinCompatUserThemeManager;
 
@@ -58,11 +58,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void initView() {
         // Scoop.getInstance().apply(this);
         ButterKnife.bind(this);
-        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         hideActionBar();
         mNVMain.setNavigationItemSelectedListener(this);
         mNVMain.getChildAt(0).setVerticalScrollBarEnabled(false);
         loadFragment(new CalendarFragment());
+    }
+
+    @Override
+    protected void onResume() {
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimaryDark).getColorDefault()));
+        super.onResume();
     }
 
     private void loadFragment(Fragment fragment){

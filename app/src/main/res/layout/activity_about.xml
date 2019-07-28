@@ -113,7 +113,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_margin="@dimen/margin_l"
+                android:layout_margin="@dimen/margin_m"
                 android:tint="@color/colorSecondaryText"
                 app:srcCompat="@drawable/ic_email_black_24dp"
                 android:layout_width="@dimen/icon_width"
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_margin="@dimen/margin_l"
+                android:layout_margin="@dimen/margin_m"
                 android:tint="@color/colorSecondaryText"
                 app:srcCompat="@drawable/ic_qq"
                 android:layout_width="@dimen/icon_width"

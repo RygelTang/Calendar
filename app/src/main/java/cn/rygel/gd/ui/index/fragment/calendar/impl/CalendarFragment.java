@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.orhanobut.logger.Logger;
 
@@ -74,6 +73,14 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     @Override
+    public void onResume() {
+        mCalendarView.getConfig().getOptions().mThemeColor = Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault());
+        mCalendarView.getConfig().config();
+        mDateSelector.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        super.onResume();
+    }
+
+    @Override
     protected void initView(View view) {
         EventBus.getDefault().register(this);
         ButterKnife.bind(this,view);
@@ -93,7 +100,6 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             return;
         }
         mDateSelector = new DateSelector(getContext());
-        mDateSelector.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mDateSelector.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {
@@ -123,7 +129,6 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
                 CalendarFragment.this.onMonthChanged(year, month);
             }
         });
-        mCalendarView.getConfig().getOptions().mThemeColor = Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault());
         mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.getConfig()
                 .setStartOffset(

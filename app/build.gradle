@@ -55,6 +55,7 @@ dependencies {
 
     // 图片加载
     implementation rootProject.ext.glide.glide
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor rootProject.ext.glide.compiler
 
     // 工具类
