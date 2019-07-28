@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,7 +36,9 @@ import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.widget.calendar.CustomItemCommon;
 import cn.rygel.gd.widget.calendar.CustomItemSelected;
 import cn.rygel.gd.widget.calendar.CustomItemToday;
+import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
+import rygel.cn.calendar.utils.LunarUtils;
 import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
@@ -63,6 +66,12 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     EventAdapter mEventAdapter = null;
     Solar mSelected = SolarUtils.today();
+
+    private View mCalendarHeader;
+
+    private TextView mTvDate;
+    private TextView mTvLunarInfo;
+    private TextView mTvDateInfo;
 
     private DateSelector mDateSelector;
     private MaterialDialog mDialog = null;
@@ -116,9 +125,24 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mEventAdapter = generateAdapter();
         mEvents.setAdapter(mEventAdapter);
         mEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        mCalendarHeader = LayoutInflater.from(getContext()).inflate(R.layout.item_calendar_events_header, null, false);
+        mTvDate = mCalendarHeader.findViewById(R.id.tv_date);
+        mTvLunarInfo = mCalendarHeader.findViewById(R.id.tv_date_lunar_info);
+        mTvDateInfo = mCalendarHeader.findViewById(R.id.tv_date_info);
+        loadDateInfo(mSelected);
+        mEventAdapter.setHeaderView(mCalendarHeader);
         // 减少滑动卡顿
         mEvents.setNestedScrollingEnabled(false);
         mEvents.setOverScrollMode(View.OVER_SCROLL_NEVER);
+    }
+
+    private void loadDateInfo(Solar solar) {
+        Solar date = new Solar(solar.solarYear, solar.solarMonth, solar.solarDay);
+        Lunar lunar = date.toLunar();
+        mTvDate.setText(String.valueOf(date.solarDay));
+        String lunarStr = (lunar.isLeap ? "闰" : "") + LunarUtils.LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" + LunarUtils.LUNAR_DAYS[lunar.lunarDay - 1];
+        mTvLunarInfo.setText(lunarStr);
+        mTvDateInfo.setText(StringUtils.getStringArray(R.array.weekdays)[SolarUtils.getWeekDay(date)]);
     }
 
     private void initCalendarView(){
@@ -144,6 +168,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             @Override
             public void onSelected(Solar solar) {
                 CalendarFragment.this.onDateSelect(solar);
+                loadDateInfo(solar);
             }
         });
     }

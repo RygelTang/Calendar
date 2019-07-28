@@ -6,6 +6,7 @@
     <string name="yyyy_MM">%d年%d月</string>
     <string name="yyyy_MM_dd">%d年%d月%d日</string>
     <string name="dd">%d日</string>
+    <string name="date">日</string>
     <string name="default_time">00:00</string>
     <string name="temperature">%d℃</string>
     <string name="event_empty_click_to_add">没有日程，点击添加日程</string>

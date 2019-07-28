@@ -23,7 +23,7 @@
     <dimen name="text_l">18sp</dimen>
     <dimen name="text_xl">20sp</dimen>
     <dimen name="text_xxl">32sp</dimen>
-    <dimen name="text_xxxl">64sp</dimen>
+    <dimen name="text_xxxl">42sp</dimen>
 
     <dimen name="margin_xxs">2dp</dimen>
     <dimen name="margin_xs">4dp</dimen>
