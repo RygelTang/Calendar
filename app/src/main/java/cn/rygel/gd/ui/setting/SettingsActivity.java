@@ -58,6 +58,7 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initWeekDaySelector();
         mSwitchHideStatus.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchKeepAlive.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mTbSetting.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
