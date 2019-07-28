@@ -33,8 +33,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:padding="@dimen/padding_xxs"
+                app:srcCompat="@drawable/ic_date_range_black_24dp"
                 android:layout_margin="@dimen/margin_s"
-                android:src="@mipmap/ic_launcher"
                 android:layout_width="@dimen/about_icon_width"
                 android:layout_height="@dimen/about_icon_width" />
 

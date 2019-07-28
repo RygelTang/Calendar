@@ -25,23 +25,23 @@
     <dimen name="text_xxl">32sp</dimen>
     <dimen name="text_xxxl">42sp</dimen>
 
-    <dimen name="margin_xxs">2dp</dimen>
-    <dimen name="margin_xs">4dp</dimen>
-    <dimen name="margin_s">6dp</dimen>
-    <dimen name="margin_m">8dp</dimen>
-    <dimen name="margin_l">12dp</dimen>
-    <dimen name="margin_xl">16dp</dimen>
+    <dimen name="margin_xxs">3dp</dimen>
+    <dimen name="margin_xs">6dp</dimen>
+    <dimen name="margin_s">9dp</dimen>
+    <dimen name="margin_m">12dp</dimen>
+    <dimen name="margin_l">15dp</dimen>
+    <dimen name="margin_xl">18dp</dimen>
     <dimen name="margin_xxl">24dp</dimen>
     <dimen name="margin_xxxl">36dp</dimen>
     <dimen name="margin_xxxxl">48dp</dimen>
     <dimen name="margin_xxxxxl">96dp</dimen>
 
-    <dimen name="padding_xxs">2dp</dimen>
-    <dimen name="padding_xs">4dp</dimen>
-    <dimen name="padding_s">6dp</dimen>
-    <dimen name="padding_m">8dp</dimen>
-    <dimen name="padding_l">12dp</dimen>
-    <dimen name="padding_xl">16dp</dimen>
+    <dimen name="padding_xxs">3dp</dimen>
+    <dimen name="padding_xs">6dp</dimen>
+    <dimen name="padding_s">9dp</dimen>
+    <dimen name="padding_m">12dp</dimen>
+    <dimen name="padding_l">15dp</dimen>
+    <dimen name="padding_xl">18dp</dimen>
     <dimen name="padding_xxl">24dp</dimen>
     <dimen name="padding_xxxl">36dp</dimen>
     <dimen name="padding_xxxxl">48dp</dimen>

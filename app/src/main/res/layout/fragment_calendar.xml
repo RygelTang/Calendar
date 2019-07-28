@@ -49,7 +49,7 @@
 
                 <android.support.v7.widget.CardView
                     android:background="@color/white"
-                    android:layout_margin="@dimen/margin_m"
+                    android:layout_marginHorizontal="@dimen/margin_m"
                     android:padding="@dimen/padding_m"
                     app:cardCornerRadius="@dimen/round_corner_radius_m"
                     android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                         app:weekbar_height="@dimen/calendar_View_week_bar_height"
                         app:text_size="@dimen/text_m"
                         app:sub_text_size="@dimen/text_s"
-                        app:corner_padding="@dimen/padding_xs"
+                        app:corner_padding="@dimen/padding_xxs"
                         app:corner_text_size="@dimen/text_xs"
                         app:weekbar_text_size="@dimen/text_m"
                         app:theme_color="@color/colorPrimary"
