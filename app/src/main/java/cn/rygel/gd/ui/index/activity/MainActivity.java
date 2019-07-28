@@ -1,6 +1,7 @@
 package cn.rygel.gd.ui.index.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,8 +13,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-
-import com.ftinc.scoop.Scoop;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,6 +32,7 @@ import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
 import cn.rygel.gd.ui.index.fragment.events.impl.EventsFragment;
 import cn.rygel.gd.ui.setting.SettingsActivity;
 import rygel.cn.uilibrary.base.BaseActivity;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void initView() {
         // Scoop.getInstance().apply(this);
         ButterKnife.bind(this);
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         hideActionBar();
         mNVMain.setNavigationItemSelectedListener(this);
         mNVMain.getChildAt(0).setVerticalScrollBarEnabled(false);

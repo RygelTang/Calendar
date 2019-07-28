@@ -1,6 +1,7 @@
 package cn.rygel.gd.dialog;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import io.reactivex.Observable;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class AddUserDialog {
 
@@ -33,6 +35,8 @@ public class AddUserDialog {
         if(mDialog == null) {
             mDialog = new MaterialDialog.Builder(mContext)
                     .title(R.string.create_local_user)
+                    .positiveColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()))
+                    .widgetColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()))
                     .input(R.string.create_local_user, R.string.default_user, new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {

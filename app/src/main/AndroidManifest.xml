@@ -23,10 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.event.impl.AddEventActivity" />
+        <activity android:name=".ui.event.impl.AddEventActivity"
+            android:theme="@style/EventTheme"/>
         <activity android:name=".ui.setting.SettingsActivity" />
         <activity android:name=".ui.about.AboutActivity"/>
-        <activity android:name=".ui.edit.impl.EditEventActivity"/>
+        <activity android:name=".ui.edit.impl.EditEventActivity"
+            android:theme="@style/EventTheme"/>
 
         <meta-data
             android:name="design_width_in_dp"

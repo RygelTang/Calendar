@@ -1,12 +1,13 @@
 package cn.rygel.gd.app;
 
-import android.preference.PreferenceManager;
-import android.support.multidex.MultiDexApplication;
+import android.app.Application;
+import android.graphics.Color;
+import android.support.multidex.MultiDex;
 
+import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
-import com.ftinc.scoop.Scoop;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
@@ -19,9 +20,13 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
+import cn.rygel.gd.setting.Settings;
 import io.objectbox.android.AndroidObjectBrowser;
+import skin.support.SkinCompatManager;
+import skin.support.content.res.SkinCompatUserThemeManager;
+import skin.support.design.app.SkinMaterialViewInflater;
 
-public class APP extends MultiDexApplication {
+public class APP extends Application {
 
     private static APP sInstance = null;
 
@@ -37,10 +42,20 @@ public class APP extends MultiDexApplication {
         initBoxStore();
         // 初始化内存泄漏工具
         initLeakCanary();
-        // 初始化换肤框架
-        initScoop();
+        // 初始化MultiDex
+        initMultiDex();
         // 初始化MMKV
         initMMKV();
+        // 初始化换肤框架
+        initTheme();
+
+    }
+
+    /**
+     * 初始化MultiDex
+     */
+    private void initMultiDex() {
+        MultiDex.install(this);
     }
 
     /**
@@ -104,13 +119,16 @@ public class APP extends MultiDexApplication {
     /**
      * 初始化换肤工具
      */
-    private void initScoop(){
-        Scoop.waffleCone()
-                .addFlavor("Default", R.style.Theme_Scoop,true)
-                .addFlavor("Light",R.style.Theme_Scoop_Light)
-                .addDayNightFlavor("DayNight",R.style.Theme_Scoop_DayNight)
-                .setSharedPreferences(PreferenceManager.getDefaultSharedPreferences(this))
-                .initialize();
+    private void initTheme() {
+        SkinCompatManager.withoutActivity(this)
+                .addInflater(new SkinMaterialViewInflater())
+                .loadSkin();
+        SkinCompatUserThemeManager.get().clearColors();
+        SkinCompatUserThemeManager.get().addColorState(R.color.colorPrimary, ColorUtils.int2ArgbString(Settings.getInstance().getCustomThemeColor()));
+        SkinCompatUserThemeManager.get().addColorState(R.color.colorPrimaryDark, ColorUtils.int2ArgbString(Settings.getInstance().getCustomThemeColorDark()));
+        SkinCompatUserThemeManager.get().addColorState(R.color.colorPrimaryLight, ColorUtils.int2ArgbString(Settings.getInstance().getCustomThemeColorLight()));
+        SkinCompatUserThemeManager.get().addColorState(R.color.colorAccent, ColorUtils.int2ArgbString(Settings.getInstance().getCustomAccentColor()));
+        SkinCompatUserThemeManager.get().apply();
     }
 
     /**

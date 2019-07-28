@@ -2,6 +2,7 @@ package cn.rygel.gd.ui.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,6 +27,7 @@ import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
 import cn.rygel.gd.ui.about.AboutActivity;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class SettingsActivity extends BaseActivity<SettingPresenter> implements ISettingView {
 
@@ -53,7 +55,9 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initWeekDaySelector();
+        mSwitchHideStatus.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mTbSetting.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

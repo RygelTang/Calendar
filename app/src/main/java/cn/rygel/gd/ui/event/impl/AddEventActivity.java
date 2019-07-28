@@ -2,6 +2,7 @@ package cn.rygel.gd.ui.event.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -52,6 +53,7 @@ import rygel.cn.dateselector.DateSelector;
 import rygel.cn.dateselector.TimeSelector;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 import static rygel.cn.calendar.utils.LunarUtils.LUNAR_DAYS;
 import static rygel.cn.calendar.utils.LunarUtils.LUNAR_MONTHS;
@@ -85,6 +87,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
 
     @BindView(R.id.switch_all_day)
     SwitchButton mSwitchAllDay;
+
+    @BindView(R.id.switch_alert)
+    SwitchButton mSwitchAlert;
 
     @BindView(R.id.sp_repeat_type)
     MaterialSpinner mSpRepeatType;
@@ -134,6 +139,7 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +176,8 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
                 return true;
             }
         });
+        mSwitchAllDay.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchAlert.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initPickers();
         initSpinner();
         onDefaultTypeSelect();
@@ -218,9 +226,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mDatePicker = new DateSelector(this);
         mStartTimePicker = new TimeSelector(this);
         mEndTimePicker = new TimeSelector(this);
-        mDatePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
-        mStartTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
-        mEndTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mDatePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mStartTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mEndTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {

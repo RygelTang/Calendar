@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <View
-        android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/bg_bottom_round_corner"
+        android:id="@+id/bg_main"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="@dimen/calendar_view_height"/>
 

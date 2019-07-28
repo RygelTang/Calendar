@@ -74,10 +74,6 @@ dependencies {
     //请求解析
     implementation rootProject.ext.gson
 
-    // 换肤框架
-    implementation rootProject.ext.scoops.scoops
-    annotationProcessor rootProject.ext.scoops.compiler
-
     // ButterKnife
     implementation rootProject.ext.butter_knife.butter_knife
     annotationProcessor rootProject.ext.butter_knife.compiler
@@ -120,6 +116,11 @@ dependencies {
     // spinner
     implementation rootProject.ext.spinner
 
+    // 换肤框架
+    implementation rootProject.ext.theme.support
+    implementation rootProject.ext.theme.design
+
+    // object box
     debugImplementation rootProject.ext.object_box.browser
     releaseImplementation rootProject.ext.object_box.android
 

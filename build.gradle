@@ -31,14 +31,15 @@ ext {
             mmkv                        : "1.0.16",
             matisse                     : "0.5.2-beta4",
             picker                      : "1.2.2",
-            date_picker                 : "1.0.8",
+            date_picker                 : "1.0.9",
             switch_button               : "2.0.0",
-            calendar                    : "1.1.9",
+            calendar                    : "1.2.0",
             calendar_utils              : "1.0.6",
             utils                       : "1.24.7",
             object_box                  : "2.3.4",
             indicator                   : "1.5.0",
-            spinner                     : "1.3.1"
+            spinner                     : "1.3.1",
+            theme                       : "3.1.1"
     ]
 
     support = [
@@ -102,6 +103,11 @@ ext {
             android             : "io.objectbox:objectbox-android:${versions.object_box}"
     ]
 
+    theme = [
+            support             : "skin.support:skin-support:${versions.theme}",
+            design              : "skin.support:skin-support-design:${versions.theme}",
+    ]
+
     vertical_view_pager = "me.kaelaela:verticalviewpager:${versions.vertical_view_pager}"
 
     auto_size = "me.jessyan:autosize:${versions.auto_size}"
@@ -137,6 +143,7 @@ ext {
     utils = "com.blankj:utilcode:${versions.utils}"
 
     spinner = "com.jaredrummler:material-spinner:${versions.spinner}"
+
 }
 
 buildscript {

@@ -2,6 +2,7 @@ package cn.rygel.gd.ui.edit.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -51,6 +52,7 @@ import rygel.cn.calendar.utils.LunarUtils;
 import rygel.cn.dateselector.DateSelector;
 import rygel.cn.dateselector.TimeSelector;
 import rygel.cn.uilibrary.mvp.BaseActivity;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 import static rygel.cn.calendar.utils.LunarUtils.LUNAR_DAYS;
 import static rygel.cn.calendar.utils.LunarUtils.LUNAR_MONTHS;
@@ -139,6 +141,7 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +178,8 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
                 return true;
             }
         });
+        mSwitchAllDay.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mSwitchAlert.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         initPickers();
         initSpinner();
         onDefaultTypeSelect();
@@ -223,9 +228,9 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         mDatePicker = new DateSelector(this);
         mStartTimePicker = new TimeSelector(this);
         mEndTimePicker = new TimeSelector(this);
-        mDatePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
-        mStartTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
-        mEndTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mDatePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mStartTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
+        mEndTimePicker.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.utils.ClipboardUtils;
 import rygel.cn.uilibrary.base.BaseActivity;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class AboutActivity extends BaseActivity {
 
@@ -28,6 +30,7 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
+        setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mToolbar.setNavigationOnClickListener(l -> finish());
     }
 

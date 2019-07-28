@@ -1,5 +1,6 @@
 package cn.rygel.gd.ui.index.fragment.calendar.impl;
 
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +43,7 @@ import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
 import rygel.cn.dateselector.DateSelector;
 import rygel.cn.uilibrary.mvp.BaseFragment;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class CalendarFragment extends BaseFragment<CalendarPresenter> implements ICalendarView {
 
@@ -91,7 +93,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
             return;
         }
         mDateSelector = new DateSelector(getContext());
-        mDateSelector.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mDateSelector.setThemeColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         mDateSelector.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {
@@ -121,6 +123,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
                 CalendarFragment.this.onMonthChanged(year, month);
             }
         });
+        mCalendarView.getConfig().getOptions().mThemeColor = Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault());
         mCalendarView.getToMonth(today.solarYear,today.solarMonth,false);
         mCalendarView.getConfig()
                 .setStartOffset(

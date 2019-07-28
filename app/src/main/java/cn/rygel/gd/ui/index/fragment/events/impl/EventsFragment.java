@@ -31,6 +31,7 @@ import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.ui.index.fragment.events.IEventsView;
 import cn.rygel.gd.widget.adapter.EventPagerAdapter;
 import rygel.cn.uilibrary.mvp.BaseFragment;
+import skin.support.content.res.SkinCompatUserThemeManager;
 
 public class EventsFragment extends BaseFragment<EventsPresenter> implements IEventsView {
 
@@ -86,7 +87,7 @@ public class EventsFragment extends BaseFragment<EventsPresenter> implements IEv
             public IPagerTitleView getTitleView(Context context, int index) {
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.GRAY);
-                colorTransitionPagerTitleView.setSelectedColor(ColorUtils.getColor(R.color.colorPrimary));
+                colorTransitionPagerTitleView.setSelectedColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
                 colorTransitionPagerTitleView.setText(mTitles[index]);
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -100,7 +101,7 @@ public class EventsFragment extends BaseFragment<EventsPresenter> implements IEv
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(ColorUtils.getColor(R.color.colorPrimary));
+                indicator.setColors(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
                 indicator.setLineHeight(5F);
                 indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
                 return indicator;
