@@ -5,7 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.orhanobut.logger.Logger;
 
@@ -37,12 +40,16 @@ import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
 import rygel.cn.calendarview.listener.OnDateSelectedListener;
 import rygel.cn.calendarview.listener.OnMonthChangedListener;
+import rygel.cn.dateselector.DateSelector;
 import rygel.cn.uilibrary.mvp.BaseFragment;
 
 public class CalendarFragment extends BaseFragment<CalendarPresenter> implements ICalendarView {
 
     @BindView(R.id.tb_main)
     Toolbar mToolbar;
+
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     @BindView(R.id.cv_calendar)
     CalendarView mCalendarView;
@@ -56,6 +63,9 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     EventAdapter mEventAdapter = null;
     Solar mSelected = SolarUtils.today();
 
+    private DateSelector mDateSelector;
+    private MaterialDialog mDialog = null;
+
     @Override
     protected CalendarPresenter createPresenter() {
         return new CalendarPresenter();
@@ -68,8 +78,30 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mToolbar.setNavigationOnClickListener(l -> {
             EventBus.getDefault().post(new OnDrawerStateChangeEvent(true));
         });
+        initPickers();
+        mTvTitle.setOnClickListener(l -> {
+            mDialog.show();
+        });
         initEventList();
         initCalendarView();
+    }
+
+    private void initPickers() {
+        if (getContext() == null) {
+            return;
+        }
+        mDateSelector = new DateSelector(getContext());
+        mDateSelector.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mDateSelector.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
+            @Override
+            public void onSelect(Solar solar, boolean isLunarMode) {
+                mDialog.dismiss();
+                mCalendarView.setSelect(new Solar(solar.solarYear, solar.solarMonth, solar.solarDay));
+            }
+        });
+        mDialog = new MaterialDialog.Builder(getContext())
+                .customView(mDateSelector, false)
+                .build();
     }
 
     private void initEventList() {
@@ -147,7 +179,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     private void onMonthChanged(int year,int month){
         Logger.i("on month changed : year : " + year + " month : " + month);
-        mToolbar.setTitle(StringUtils.getString(R.string.yyyy_MM, year, month));
+        mTvTitle.setText(StringUtils.getString(R.string.yyyy_MM, year, month));
         // 判断是否显示fab
         Solar today = SolarUtils.today();
         if (year != today.solarYear || month != today.solarMonth) {

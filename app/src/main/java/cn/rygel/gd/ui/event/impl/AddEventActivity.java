@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -217,6 +218,9 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         mDatePicker = new DateSelector(this);
         mStartTimePicker = new TimeSelector(this);
         mEndTimePicker = new TimeSelector(this);
+        mDatePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mStartTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
+        mEndTimePicker.setThemeColor(ColorUtils.getColor(R.color.colorPrimary));
         mDatePicker.setOndateSelectListener(new DateSelector.OnDateSelectListener() {
             @Override
             public void onSelect(Solar solar, boolean isLunarMode) {
