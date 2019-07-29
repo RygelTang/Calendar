@@ -161,6 +161,12 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mWeekDaySelector = null;
+    }
+
     public static void start(Context context) {
         Intent intent = new Intent(context,SettingsActivity.class);
         context.startActivity(intent);

@@ -5,8 +5,8 @@ ext {
     buildToolsVersion = "28.0.0"
     minSdkVersion = 16
     targetSdkVersion = 28
-    versionCode = 2
-    versionName = "1.0"
+    versionCode = 4
+    versionName = "1.0.0-beta1"
 
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
@@ -108,6 +108,11 @@ ext {
             design              : "skin.support:skin-support-design:${versions.theme}",
     ]
 
+    material_dialog = [
+            core                : "com.afollestad.material-dialogs:core:${versions.material_dialog}",
+            commons             : "com.afollestad.material-dialogs:commons:${versions.material_dialog}"
+    ]
+
     vertical_view_pager = "me.kaelaela:verticalviewpager:${versions.vertical_view_pager}"
 
     auto_size = "me.jessyan:autosize:${versions.auto_size}"
@@ -123,8 +128,6 @@ ext {
     gson = "com.google.code.gson:gson:${versions.gson}"
 
     logger = "com.orhanobut:logger:${versions.logger}"
-
-    material_dialog = "com.afollestad.material-dialogs:core:${versions.material_dialog}"
 
     mmkv = "com.tencent:mmkv:${versions.mmkv}"
 

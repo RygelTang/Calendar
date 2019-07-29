@@ -680,6 +680,12 @@ public class AddEventActivity extends BaseActivity<AddEventPresenter> implements
         Snackbar.make(view, strRes, Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDialog = null;
+    }
+
     private static String formatTime(int hour, int minute){
         return (hour < 10 ? "0" + hour : String.valueOf(hour)) + ":" + (minute < 10 ? "0" + minute : String.valueOf(minute));
     }

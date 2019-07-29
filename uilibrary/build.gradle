@@ -38,7 +38,8 @@ dependencies {
     api rootProject.ext.brva
 
     // md 风格对话框
-    api rootProject.ext.material_dialog
+    api rootProject.ext.material_dialog.core
+    api rootProject.ext.material_dialog.commons
 
     // 导入Logcat
     implementation rootProject.ext.logger
