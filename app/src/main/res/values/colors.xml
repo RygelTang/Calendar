@@ -5,10 +5,10 @@
     <color name="colorDefaultThemeLight">#B0BEC5</color>
     <color name="colorDefaultAccent">#90A4A1</color>
 
-    <color name="colorPrimary">#4CAF50</color>
-    <color name="colorPrimaryDark">#388E3C</color>
-    <color name="colorPrimaryLight">#C8E6C9</color>
-    <color name="colorAccent">#8BC34A</color>
+    <color name="colorPrimary">#90A4A1</color>
+    <color name="colorPrimaryDark">#90A4A1</color>
+    <color name="colorPrimaryLight">#B0BEC5</color>
+    <color name="colorAccent">#90A4A1</color>
 
     <color name="cornerTextColor">#EBB471</color>
     <color name="holidayTextColor">#E87A90</color>
