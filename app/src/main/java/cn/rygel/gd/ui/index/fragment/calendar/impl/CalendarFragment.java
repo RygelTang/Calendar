@@ -24,7 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
-import cn.rygel.gd.bean.OnDateEventDeleteAllEvent;
+import cn.rygel.gd.bean.OnDateEventAddEvent;
+import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
@@ -237,18 +238,23 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onOptionChanged(OnWeekDayOffsetSelectEvent event) {
+        mCalendarView.getConfig().setStartOffset(event.getOffset()).config();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDrawerStateChanged(OnEventAddedEvent event) {
         // 重新加载数据
         reloadData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onOptionChanged(OnWeekDayOffsetSelectEvent event) {
-        mCalendarView.getConfig().setStartOffset(event.getOffset()).config();
+    public void onEventDelete(OnDateEventDeleteEvent event) {
+        reloadData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventDelete(OnDateEventDeleteAllEvent event) {
+    public void onEventAdd(OnDateEventAddEvent event) {
         reloadData();
     }
 

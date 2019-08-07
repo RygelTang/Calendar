@@ -2,10 +2,14 @@ package cn.rygel.gd.db.model;
 
 import com.orhanobut.logger.Logger;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import cn.rygel.gd.bean.OnDateEventAddEvent;
+import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.event.AppointmentEvent;
 import cn.rygel.gd.bean.event.BirthdayEvent;
 import cn.rygel.gd.bean.event.MeetingEvent;
@@ -119,6 +123,7 @@ public class EventModel {
      */
     public void delete(BaseEvent event){
         deleteEventByID(event.getId());
+        EventBus.getDefault().post(new OnDateEventDeleteEvent());
     }
 
     /**
@@ -163,6 +168,7 @@ public class EventModel {
         }
         long eventId = mEventBox.put(format2Event(baseEvent));
         flag = eventId >= 0;
+        EventBus.getDefault().post(new OnDateEventAddEvent());
         Logger.i("object box put " + baseEvent.getName() + (flag ? " success" : " fail") + " id : " + eventId);
         return flag;
     }

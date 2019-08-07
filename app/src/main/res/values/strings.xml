@@ -31,6 +31,8 @@
     <string name="repeat_type">重复类型</string>
     <string name="alert_after_event">活动结束是否提醒</string>
 
+    <string name="not_support">暂时不支持自定义用户！敬请期待！</string>
+
     <!--新建任务-->
     <string name="event_name_can_not_be_null">事件名称不可为空!</string>
     <string name="do_not_select_time_before_start">请不要选择开始时间之前的时间!</string>

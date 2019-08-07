@@ -19,12 +19,16 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.rygel.gd.R;
+import cn.rygel.gd.bean.OnDateEventAddEvent;
+import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.ui.index.fragment.events.IEventsView;
 import cn.rygel.gd.widget.adapter.EventListAdapter;
@@ -130,4 +134,27 @@ public class EventsFragment extends BaseFragment<EventsPresenter> implements IEv
     public void refresh() {
         Logger.e("this fragment do not support refresh option!");
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventDelete(OnDateEventDeleteEvent event) {
+        loadData();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventAdd(OnDateEventAddEvent event) {
+        loadData();
+    }
+
 }

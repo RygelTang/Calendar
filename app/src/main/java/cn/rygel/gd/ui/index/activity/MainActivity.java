@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -109,7 +110,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 loadFragment(new EventsFragment());
                 break;
             case R.id.action_about:
-                AboutActivity.start(this);
+                Toast.makeText(this, R.string.not_support, Toast.LENGTH_SHORT).show();
+//                AboutActivity.start(this);
                 break;
             case R.id.action_create_local_user:
                 new AddUserDialog(this).show();

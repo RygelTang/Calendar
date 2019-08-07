@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import cn.rygel.gd.R;
-import cn.rygel.gd.bean.OnDateEventDeleteAllEvent;
+import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
@@ -86,11 +86,7 @@ public class EventAdapter extends BaseMultiItemQuickAdapter<BaseEvent,BaseViewHo
         EventModel.getInstance().delete(event);
         if(mData.contains(event)) {
             int index = mData.indexOf(event);
-            mData.remove(event);
-            notifyItemRemoved(index);
-        }
-        if(mData.size() == 0) {
-            EventBus.getDefault().post(new OnDateEventDeleteAllEvent());
+            remove(index);
         }
     }
 
