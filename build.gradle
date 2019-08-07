@@ -5,8 +5,8 @@ ext {
     buildToolsVersion = "28.0.0"
     minSdkVersion = 16
     targetSdkVersion = 28
-    versionCode = 5
-    versionName = "1.0.0-beta2"
+    versionCode = 7
+    versionName = "1.0.2"
 
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
@@ -33,7 +33,7 @@ ext {
             picker                      : "1.2.2",
             date_picker                 : "1.0.9",
             switch_button               : "2.0.0",
-            calendar                    : "1.2.1",
+            calendar                    : "1.2.4",
             calendar_utils              : "1.0.6",
             utils                       : "1.24.7",
             object_box                  : "2.3.4",
