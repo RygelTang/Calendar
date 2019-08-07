@@ -41,5 +41,6 @@
 
     <color name="divider_color">#80CCCCCC</color>
     <color name="bg_fragment">#FDFDFD</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

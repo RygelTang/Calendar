@@ -1,7 +1,6 @@
 package cn.rygel.gd.app;
 
 import android.app.Application;
-import android.graphics.Color;
 import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.ColorUtils;
