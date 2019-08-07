@@ -93,7 +93,11 @@
     <string name="m_email">rygel.tang@gmail.com</string>
     <string name="qq">QQ</string>
     <string name="m_qq">1066340496</string>
+    <string name="qq_group">用户反馈交流群</string>
+    <string name="m_qq_group">228434421</string>
     <string name="author">开发者</string>
+
+    <string name="not_found_qq">跳转失败：您没有安装QQ！</string>
 
     <!--星期选择器-->
     <string-array name="weekdays">

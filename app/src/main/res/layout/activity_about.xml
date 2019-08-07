@@ -180,6 +180,43 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_qq_group"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_margin="@dimen/margin_m"
+                android:tint="@color/colorSecondaryText"
+                app:srcCompat="@drawable/ic_group"
+                android:layout_width="@dimen/icon_width"
+                android:layout_height="@dimen/icon_width" />
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_m"
+                    android:text="@string/qq_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/m_qq_group"
+                    android:textSize="@dimen/text_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
