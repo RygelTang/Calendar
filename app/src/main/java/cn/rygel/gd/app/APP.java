@@ -86,6 +86,7 @@ public class APP extends Application {
     private void initBoxStore(){
         BoxStoreHolder.getInstance()
                 .init(MyObjectBox.builder()
+                        .name("GD")
                         .androidContext(this)
                         .build()
                 );

@@ -6,7 +6,7 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 
 public interface IView {
 
-    LifecycleProvider getLifecycleProvider();
+    <T> LifecycleProvider<T> getLifecycleProvider();
 
     void refresh();
     void showToast(String str);

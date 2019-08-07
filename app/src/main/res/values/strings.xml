@@ -107,8 +107,8 @@
     </string-array>
 
     <string-array name="color_values">
-        <item>奶奶灰</item>
         <item>薄青</item>
+        <item>奶奶灰</item>
         <item>豹粉</item>
         <item>柠檬黄</item>
         <item>鸟之子</item>
@@ -119,8 +119,8 @@
     </string-array>
 
     <string-array name="theme_colors">
-        <item>#90A4A1</item>
         <item>#7ABD9A</item>
+        <item>#90A4A1</item>
         <item>#D39EA6</item>
         <item>#F7D94C</item>
         <item>#DAC9A6</item>
@@ -131,8 +131,8 @@
     </string-array>
 
     <string-array name="theme_light_colors">
-        <item>#B0BEC5</item>
         <item>#BCDECD</item>
+        <item>#B0BEC5</item>
         <item>#E0BEB9</item>
         <item>#FFF59D</item>
         <item>#DAC9DD</item>
@@ -143,8 +143,8 @@
     </string-array>
 
     <string-array name="theme_dark_colors">
-        <item>#90A4A1</item>
         <item>#7ABD9A</item>
+        <item>#90A4A1</item>
         <item>#D39EA6</item>
         <item>#F7D94C</item>
         <item>#DAC9A6</item>
@@ -155,8 +155,8 @@
     </string-array>
 
     <string-array name="accent_colors">
-        <item>#90A4A1</item>
         <item>#7ABD9A</item>
+        <item>#90A4A1</item>
         <item>#D39EA6</item>
         <item>#F7D94C</item>
         <item>#DAC9A6</item>

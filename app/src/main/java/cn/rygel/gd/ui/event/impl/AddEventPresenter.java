@@ -44,7 +44,7 @@ public class AddEventPresenter extends BasePresenter<IAddEventView> {
                 emitter.onComplete();
             }
         })
-                .compose(new AsyncTransformer())
+                .compose(new AsyncTransformer<>())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .subscribe(new BaseObserver<Boolean>(){
                     @Override
@@ -85,7 +85,7 @@ public class AddEventPresenter extends BasePresenter<IAddEventView> {
                 emitter.onComplete();
             }
         })
-                .compose(new AsyncTransformer())
+                .compose(new AsyncTransformer<>())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .map(new Function<List<User>,List<String>>() {
                     @Override

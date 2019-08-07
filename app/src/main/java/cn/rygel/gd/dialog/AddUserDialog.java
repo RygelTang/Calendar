@@ -68,7 +68,7 @@ public class AddUserDialog {
                                             .getInstance()
                                             .putUser(mUserName)
                                     )
-                                    .compose(new AsyncTransformer())
+                                    .compose(new AsyncTransformer<>())
                                     .subscribe(new BaseObserver<Boolean>() {
                                         @Override
                                         public Object getTag() {

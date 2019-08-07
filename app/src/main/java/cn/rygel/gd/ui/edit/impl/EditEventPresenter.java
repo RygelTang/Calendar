@@ -30,7 +30,7 @@ public class EditEventPresenter extends BasePresenter<IEditEventView> {
         final String method = "update";
         final String subscribeTag = TAG + "#" + method;
         Observable.just(mEventModel.update(event))
-                .compose(new AsyncTransformer())
+                .compose(new AsyncTransformer<>())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .subscribe(new BaseObserver<Boolean>(){
                     @Override
@@ -65,7 +65,7 @@ public class EditEventPresenter extends BasePresenter<IEditEventView> {
                 emitter.onComplete();
             }
         })
-                .compose(new AsyncTransformer())
+                .compose(new AsyncTransformer<>())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
                 .map(new Function<List<User>,List<String>>() {
                     @Override

@@ -17,7 +17,7 @@ public class EventPagerAdapter extends PagerAdapter {
 
     private List<View> mViews = new ArrayList<>();
 
-    public EventPagerAdapter(Context context, List<BaseQuickAdapter> adapters) {
+    public EventPagerAdapter(Context context, List<EventListAdapter> adapters) {
         for (BaseQuickAdapter adapter : adapters) {
             RecyclerView rvEvents = new RecyclerView(context);
             rvEvents.setLayoutManager(new LinearLayoutManager(context));

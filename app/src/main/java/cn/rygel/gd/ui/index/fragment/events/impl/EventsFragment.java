@@ -6,9 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -29,6 +27,7 @@ import butterknife.ButterKnife;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.ui.index.fragment.events.IEventsView;
+import cn.rygel.gd.widget.adapter.EventListAdapter;
 import cn.rygel.gd.widget.adapter.EventPagerAdapter;
 import rygel.cn.uilibrary.mvp.BaseFragment;
 import skin.support.content.res.SkinCompatUserThemeManager;
@@ -68,12 +67,12 @@ public class EventsFragment extends BaseFragment<EventsPresenter> implements IEv
         });
     }
 
-    private void initViewPager(List<BaseQuickAdapter> adapters) {
+    private void initViewPager(List<EventListAdapter> adapters) {
         mVpEventPager.setAdapter(new EventPagerAdapter(getContext(), adapters));
     }
 
     @Override
-    public void onAdapterGenerated(List<BaseQuickAdapter> adapters) {
+    public void onAdapterGenerated(List<EventListAdapter> adapters) {
         initViewPager(adapters);
         initIndicator();
     }

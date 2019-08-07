@@ -1,6 +1,5 @@
 package cn.rygel.gd.ui.index.fragment.events.impl;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import cn.rygel.gd.ui.index.fragment.events.IEventsView;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
 import cn.rygel.gd.widget.adapter.EventListAdapter;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
@@ -31,16 +29,16 @@ public class EventsPresenter extends BasePresenter<IEventsView> {
         final String subscribeTag = TAG + "#" + method;
         mSubscribeTags.add(subscribeTag);
         Observable.just(generateAdapter(userName))
-                .compose(new AsyncTransformer())
+                .compose(new AsyncTransformer<>())
                 .compose(getView().getLifecycleProvider().bindToLifecycle())
-                .subscribe(new BaseObserver<List<BaseQuickAdapter>>() {
+                .subscribe(new BaseObserver<List<EventListAdapter>>() {
                     @Override
                     public Object getTag() {
                         return subscribeTag;
                     }
 
                     @Override
-                    public void onSuccess(List<BaseQuickAdapter> adapters) {
+                    public void onSuccess(List<EventListAdapter> adapters) {
                         Logger.i("adapter generate success!");
                         getView().onAdapterGenerated(adapters);
                     }

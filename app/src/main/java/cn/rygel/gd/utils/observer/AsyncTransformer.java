@@ -19,10 +19,10 @@ import io.reactivex.SingleTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class AsyncTransformer implements ObservableTransformer,
-        FlowableTransformer,
-        SingleTransformer,
-        MaybeTransformer,
+public class AsyncTransformer<T> implements ObservableTransformer<T, T>,
+        FlowableTransformer<T, T>,
+        SingleTransformer<T, T>,
+        MaybeTransformer<T, T>,
         CompletableTransformer {
 
     @Override
@@ -31,22 +31,22 @@ public class AsyncTransformer implements ObservableTransformer,
     }
 
     @Override
-    public Publisher apply(Flowable upstream) {
+    public Publisher<T> apply(Flowable<T> upstream) {
         return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public MaybeSource apply(Maybe upstream) {
+    public MaybeSource<T> apply(Maybe<T> upstream) {
         return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public ObservableSource apply(Observable upstream) {
+    public ObservableSource<T> apply(Observable<T> upstream) {
         return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public SingleSource apply(Single upstream) {
+    public SingleSource<T> apply(Single<T> upstream) {
         return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

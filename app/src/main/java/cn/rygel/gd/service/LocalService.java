@@ -102,8 +102,8 @@ public class LocalService extends Service {
         Logger.i("init events to push");
         mPushHandler.removeMessages(PushHandler.MESSAGE_PUSH_EVENT);
         // 异步查询数据
-        Observable.just(EventModel.getInstance().queryInRange(SolarUtils.today(), SolarUtils.today()))
-                .compose(new AsyncTransformer())
+        Observable.just(EventModel.getInstance().queryInDay(SolarUtils.today()))
+                .compose(new AsyncTransformer<>())
                 .subscribe(new BaseObserver<List<BaseEvent>>() {
                     @Override
                     public Object getTag() {
