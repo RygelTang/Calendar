@@ -14,6 +14,17 @@
     <!--事件页-->
     <string name="event_list">事件列表</string>
 
+    <!--日期计算器-->
+    <string name="date_calculate">日期推算</string>
+    <string name="start_time">起始时间</string>
+    <string name="end_time">截止时间</string>
+    <string name="interval">间隔时间</string>
+    <string name="interval_hint">请输入间隔时间</string>
+    <string name="calculate_result">计算结果</string>
+    <string name="lunar_out_of_bound">农历结果超出范围</string>
+    <string name="sky">天</string>
+    <string name="zero">0</string>
+
     <!--创建活动-->
     <string name="save">保存</string>
     <string name="create_event">创建活动</string>
@@ -48,10 +59,13 @@
     <string name="task">任务</string>
     <string name="event">活动</string>
     <string name="settings">设置</string>
+    <string name="leap">闰</string>
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
     <string name="time_separator">:</string>
+    <string name="solar">公历</string>
+    <string name="lunar">农历</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="create_local_user">创建本地用户</string>
@@ -100,6 +114,12 @@
     <string name="author">开发者</string>
 
     <string name="not_found_qq">跳转失败：您没有安装QQ！</string>
+
+    <!--方向-->
+    <string-array name="directions">
+        <item>前</item>
+        <item>后</item>
+    </string-array>
 
     <!--星期选择器-->
     <string-array name="weekdays">

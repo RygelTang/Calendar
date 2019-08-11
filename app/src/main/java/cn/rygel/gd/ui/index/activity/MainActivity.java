@@ -29,6 +29,7 @@ import cn.rygel.gd.service.RemoteService;
 import cn.rygel.gd.service.RestartService;
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.ui.about.AboutActivity;
+import cn.rygel.gd.ui.index.fragment.calculate.CalculateFragment;
 import cn.rygel.gd.ui.index.fragment.calendar.impl.CalendarFragment;
 import cn.rygel.gd.ui.index.fragment.events.impl.EventsFragment;
 import cn.rygel.gd.ui.setting.index.impl.SettingsActivity;
@@ -109,12 +110,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.action_event_list:
                 loadFragment(new EventsFragment());
                 break;
+            case R.id.action_calculate:
+                loadFragment(new CalculateFragment());
+                break;
             case R.id.action_about:
                 Toast.makeText(this, R.string.not_support, Toast.LENGTH_SHORT).show();
 //                AboutActivity.start(this);
                 break;
             case R.id.action_create_local_user:
-                new AddUserDialog(this).show();
+                Toast.makeText(this, R.string.not_support, Toast.LENGTH_SHORT).show();
+                //new AddUserDialog(this).show();
                 break;
             case R.id.action_setting:
                 SettingsActivity.start(MainActivity.this);

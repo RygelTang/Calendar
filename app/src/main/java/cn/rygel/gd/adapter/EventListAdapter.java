@@ -1,4 +1,4 @@
-package cn.rygel.gd.widget.adapter;
+package cn.rygel.gd.adapter;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 

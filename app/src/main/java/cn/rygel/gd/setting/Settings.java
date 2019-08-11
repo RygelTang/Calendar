@@ -47,7 +47,7 @@ public class Settings {
     }
 
     public int getThemeIndex() {
-        return mKV.decodeInt(KEY_THEME_INDEX, 0);
+        return mKV.decodeInt(KEY_THEME_INDEX, 1);
     }
 
     public boolean putCustomThemeColorDark(int color) {

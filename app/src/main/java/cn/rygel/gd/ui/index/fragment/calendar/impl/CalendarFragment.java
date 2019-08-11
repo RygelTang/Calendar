@@ -31,7 +31,7 @@ import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.setting.Settings;
-import cn.rygel.gd.widget.adapter.EventAdapter;
+import cn.rygel.gd.adapter.EventAdapter;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
 import cn.rygel.gd.widget.calendar.CustomItemCommon;

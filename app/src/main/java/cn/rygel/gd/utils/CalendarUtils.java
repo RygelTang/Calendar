@@ -1,5 +1,8 @@
 package cn.rygel.gd.utils;
 
+import com.blankj.utilcode.util.StringUtils;
+
+import cn.rygel.gd.R;
 import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.LunarUtils;
@@ -42,6 +45,15 @@ public class CalendarUtils {
             return false;
         }
         return true;
+    }
+
+    public static String format(Solar solar) {
+        return solar.solarYear + StringUtils.getString(R.string.year) + solar.solarMonth + StringUtils.getString(R.string.month) + solar.solarDay + StringUtils.getString(R.string.day);
+    }
+
+    public static String format(Lunar lunar) {
+        if (lunar.lunarDay <= 0 || lunar.lunarMonth <= 0) throw new IllegalArgumentException("lunar illegal : " + lunar);
+        return lunar.lunarYear + StringUtils.getString(R.string.year) + (lunar.isLeap?StringUtils.getString(R.string.year):"") + LunarUtils.LUNAR_MONTHS[lunar.lunarMonth - 1] + StringUtils.getString(R.string.month) + LunarUtils.LUNAR_DAYS[lunar.lunarDay - 1];
     }
 
 }

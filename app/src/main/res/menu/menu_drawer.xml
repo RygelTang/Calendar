@@ -7,6 +7,9 @@
     <item android:id="@+id/action_event_list"
         android:icon="@drawable/ic_events_white_24dp"
         android:title="@string/event_list"/>
+    <item android:id="@+id/action_calculate"
+        android:icon="@drawable/ic_compare_arrows_white_24dp"
+        android:title="@string/date_calculate"/>
     <item android:id="@+id/action_create_local_user"
         android:icon="@drawable/ic_account_circle_white_24dp"
         android:title="@string/create_local_user"/>

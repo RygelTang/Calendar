@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        style="@style/BaseToolBar"
+        android:elevation="@dimen/elevation_m"
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/ic_menu_white_24dp"
+        app:title="@string/date_calculate"/>
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:background="@color/white"
+            android:id="@+id/indicator"
+        android:elevation="@dimen/elevation_m"
+        android:paddingHorizontal="@dimen/padding_m"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/indicator_height"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

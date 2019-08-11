@@ -1,4 +1,4 @@
-package cn.rygel.gd.widget.adapter;
+package cn.rygel.gd.adapter;
 
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuInflater;
