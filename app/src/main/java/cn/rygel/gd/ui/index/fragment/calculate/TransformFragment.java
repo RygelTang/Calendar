@@ -37,7 +37,7 @@ public class TransformFragment extends BaseFragment {
     }
 
     @OnClick({R.id.btn_solar, R.id.btn_lunar})
-    private void showDateSelector() {
+    protected void showDateSelector() {
         if (mDialog == null || mDateSelector == null) {
             initDateSelector();
             if (mDialog == null || mDateSelector == null) {
@@ -70,6 +70,9 @@ public class TransformFragment extends BaseFragment {
     }
 
     private void onDateSelected(Solar solar) {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
         mSelected = solar;
         mBtnSolar.setText(CalendarUtils.format(mSelected));
         mBtnLunar.setText(CalendarUtils.format(mSelected.toLunar()));
@@ -85,4 +88,9 @@ public class TransformFragment extends BaseFragment {
         return R.layout.fragment_transform;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mDialog = null;
+    }
 }

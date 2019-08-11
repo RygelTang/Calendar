@@ -46,6 +46,7 @@ import cn.rygel.gd.bean.event.constants.EventType;
 import cn.rygel.gd.bean.event.constants.RepeatType;
 import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.ui.edit.IEditEventView;
+import cn.rygel.gd.utils.CalendarUtils;
 import rygel.cn.calendar.bean.Lunar;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.LunarUtils;
@@ -716,14 +717,11 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     }
 
     private static String formatSolarDate(Solar solar) {
-        return solar.solarYear + "年" + solar.solarMonth + "月" + solar.solarDay + "日";
+        return CalendarUtils.format(solar);
     }
 
     private static String formatLunarDate(Lunar lunar) {
-        return lunar.lunarYear + "年" +
-                (lunar.isLeap ? "闰" : "") +
-                LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" +
-                LUNAR_DAYS[lunar.lunarDay - 1];
+        return CalendarUtils.format(lunar);
     }
 
     public static void start(Context context, @NonNull BaseEvent event){

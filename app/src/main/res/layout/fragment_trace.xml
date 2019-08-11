@@ -76,6 +76,7 @@
                     android:padding="@dimen/padding_m"
                     android:hint="@string/interval_hint"
                     android:inputType="number"
+                    android:text="@string/zero"
                     android:textColor="@color/colorSecondaryText"
                     android:backgroundTint="@color/divider_color"
                     android:background="@drawable/bg_round_corner"
