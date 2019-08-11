@@ -114,8 +114,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 loadFragment(new CalculateFragment());
                 break;
             case R.id.action_about:
-                Toast.makeText(this, R.string.not_support, Toast.LENGTH_SHORT).show();
-//                AboutActivity.start(this);
+                AboutActivity.start(this);
                 break;
             case R.id.action_create_local_user:
                 Toast.makeText(this, R.string.not_support, Toast.LENGTH_SHORT).show();
