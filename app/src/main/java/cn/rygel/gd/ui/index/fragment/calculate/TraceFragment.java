@@ -1,6 +1,7 @@
 package cn.rygel.gd.ui.index.fragment.calculate;
 
 import android.graphics.Color;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -62,11 +63,11 @@ public class TraceFragment extends BaseFragment {
         mDialog.show();
     }
 
-    @OnTextChanged(R.id.et_interval)
-    protected void onIntervalChanged(CharSequence sequence) {
+    @OnTextChanged(value = R.id.et_interval, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    protected void onIntervalChanged(Editable editable) {
         try {
-            mInterval = Integer.getInteger(sequence.toString(), Integer.valueOf(0));
-        } catch (NullPointerException e) {
+            mInterval = Integer.valueOf(editable.toString());
+        } catch (Exception e) {
             Logger.e(e.getMessage());
         }
         onResultUpdate();
@@ -78,7 +79,7 @@ public class TraceFragment extends BaseFragment {
         mSpDirection.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-                mDirection = position == 1;
+                mDirection = position == 0;
                 onResultUpdate();
             }
         });
@@ -110,7 +111,7 @@ public class TraceFragment extends BaseFragment {
         mIsStartLunar = isLunarMode;
 
         final String startStr;
-        if (mIsStartLunar) {
+        if (!mIsStartLunar) {
             startStr = CalendarUtils.format(mStart);
         } else {
             startStr = CalendarUtils.format(mStart.toLunar());
@@ -120,7 +121,10 @@ public class TraceFragment extends BaseFragment {
     }
 
     private void onResultUpdate() {
-        final Solar end = SolarUtils.getDayByInterval(mStart, mInterval);
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
+        final Solar end = SolarUtils.getDayByInterval(mStart, mDirection ? - mInterval : mInterval);
         mTvSolar.setText(CalendarUtils.format(end));
         String lunarStr = null;
         try {

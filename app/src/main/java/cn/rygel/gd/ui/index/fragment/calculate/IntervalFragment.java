@@ -92,8 +92,11 @@ public class IntervalFragment extends BaseFragment {
     }
 
     private void onDateUpdated() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
         final String startStr;
-        if (mIsStartLunar) {
+        if (!mIsStartLunar) {
             startStr = CalendarUtils.format(mStart);
         } else {
             startStr = CalendarUtils.format(mStart.toLunar());
@@ -101,7 +104,7 @@ public class IntervalFragment extends BaseFragment {
         mBtnStart.setText(startStr);
 
         final String endStr;
-        if (mIsEndLunar) {
+        if (!mIsEndLunar) {
             endStr = CalendarUtils.format(mEnd);
         } else {
             endStr = CalendarUtils.format(mEnd.toLunar());
