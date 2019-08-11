@@ -44,4 +44,13 @@ public class CalendarUtils {
         return true;
     }
 
+    public static String format(Solar solar) {
+        return solar.solarYear + "年" + solar.solarMonth + "月" + solar.solarDay + "日";
+    }
+
+    public static String format(Lunar lunar) {
+        if (lunar.lunarDay <= 0 || lunar.lunarMonth <= 0) throw new IllegalArgumentException("lunar illegal : " + lunar);
+        return lunar.lunarYear + (lunar.isLeap?"闰":"") + LunarUtils.LUNAR_MONTHS[lunar.lunarMonth - 1] + LunarUtils.LUNAR_DAYS[lunar.lunarDay - 1];
+    }
+
 }

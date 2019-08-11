@@ -11,7 +11,7 @@ import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.ui.index.fragment.events.IEventsView;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
-import cn.rygel.gd.widget.adapter.EventListAdapter;
+import cn.rygel.gd.adapter.EventListAdapter;
 import io.reactivex.Observable;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
