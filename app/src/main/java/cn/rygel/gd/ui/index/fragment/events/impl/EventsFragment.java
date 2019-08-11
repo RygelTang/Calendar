@@ -27,10 +27,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.rygel.gd.R;
+import cn.rygel.gd.adapter.EventListAdapter;
+import cn.rygel.gd.adapter.EventPagerAdapter;
+import cn.rygel.gd.bean.OnDateEventAddEvent;
+import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
 import cn.rygel.gd.ui.index.fragment.events.IEventsView;
-import cn.rygel.gd.widget.adapter.EventListAdapter;
-import cn.rygel.gd.widget.adapter.EventPagerAdapter;
 import rygel.cn.uilibrary.mvp.BaseFragment;
 import skin.support.content.res.SkinCompatUserThemeManager;
 
