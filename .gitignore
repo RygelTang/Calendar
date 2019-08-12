@@ -43,5 +43,3 @@ proguard/
 # Keystore info
 /keystore.properties
 
-# objectbox model
-objectbox-models/

@@ -105,6 +105,8 @@
 
     <!--关于界面-->
     <string name="version">版本号</string>
+    <string name="star">评分</string>
+    <string name="star_description">喜欢本应用的话不妨给个好评吧！</string>
     <string name="email">邮箱</string>
     <string name="m_email">rygel.tang@gmail.com</string>
     <string name="qq">QQ</string>
