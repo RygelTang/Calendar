@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
+import cn.rygel.gd.app.APP;
 import cn.rygel.gd.utils.ClipboardUtils;
 import rygel.cn.uilibrary.base.BaseActivity;
 import skin.support.content.res.SkinCompatUserThemeManager;
@@ -47,13 +48,28 @@ public class AboutActivity extends BaseActivity {
         loadVersionInfo();
     }
 
+    @OnClick(R.id.layout_star)
+    protected void onGotoStar() {
+        Uri uri = Uri.parse("market://details?id=" + APP.getInstance().getPackageName());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setPackage("com.coolapk.market");
+        if (getPackageManager().resolveActivity(intent, PackageManager.MATCH_ALL) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, R.string.not_found_store, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @OnClick(R.id.layout_email)
     protected void onCopyEmail() {
+        Toast.makeText(this, R.string.copy_success, Toast.LENGTH_SHORT).show();
         ClipboardUtils.copy(this,"email",EMAIL);
     }
 
     @OnClick(R.id.layout_qq)
     protected void onCopyQQ() {
+        Toast.makeText(this, R.string.copy_success, Toast.LENGTH_SHORT).show();
         ClipboardUtils.copy(this,"qq",QQ);
     }
 

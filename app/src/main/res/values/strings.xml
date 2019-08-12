@@ -116,6 +116,8 @@
     <string name="author">开发者</string>
 
     <string name="not_found_qq">跳转失败：您没有安装QQ！</string>
+    <string name="not_found_store">跳转失败：您没有安装酷安！</string>
+    <string name="copy_success">复制成功</string>
 
     <!--方向-->
     <string-array name="directions">
