@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
+apply from: 'andres.gradle'
+
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -49,8 +51,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // support
-    implementation rootProject.ext.support.v4
-    implementation rootProject.ext.support.v7
     implementation rootProject.ext.support.design
     implementation rootProject.ext.support.recyclerview
 
@@ -87,7 +87,7 @@ dependencies {
     implementation rootProject.ext.mmkv
 
     // 选择器
-    implementation rootProject.ext.picker
+    // implementation rootProject.ext.picker
 
     // material switch
     implementation rootProject.ext.switch_button
