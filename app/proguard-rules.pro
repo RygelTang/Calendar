@@ -91,7 +91,7 @@
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
-#// natvie 方法不混淆
+# natvie 方法不混淆
 -keepclasseswithmembernames class * {
     native <methods>;
 }
@@ -148,3 +148,7 @@
 -dontwarn com.squareup.picasso.**
 -dontwarn com.bumptech.glide.**
 -dontwarn com.zhihu.matisse.**
+
+# Bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

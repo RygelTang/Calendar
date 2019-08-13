@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-
+apply plugin: 'bugly'
 apply from: 'andres.gradle'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -37,6 +37,7 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "LOG_DEBUG", "false"
             zipAlignEnabled true
+            multiDexKeepFile file('multidex-config.txt')
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -46,6 +47,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+bugly {
+    appId = keystoreProperties['bugly_id']
+    appKey = keystoreProperties['bugly_key']
 }
 
 dependencies {
@@ -109,6 +115,10 @@ dependencies {
     // 换肤框架
     implementation rootProject.ext.theme.support
     implementation rootProject.ext.theme.design
+
+    // bugly
+    implementation rootProject.ext.bugly.core
+    implementation rootProject.ext.bugly.bugly_native
 
     // object box
     debugImplementation rootProject.ext.object_box.browser

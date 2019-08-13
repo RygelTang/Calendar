@@ -11,9 +11,8 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.Bugly;
 import com.tencent.mmkv.MMKV;
-
-import java.io.File;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
@@ -37,6 +36,8 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        // 初始化bugly
+        initBugly();
         // 初始化工具类
         initUtils();
         // 初始化Logger
@@ -139,6 +140,13 @@ public class APP extends Application {
     private void initMMKV(){
         String dir = MMKV.initialize(this);
         Logger.i("MMKV root : " + dir);
+    }
+
+    /**
+     * 初始化bugly
+     */
+    private void initBugly() {
+        Bugly.init(this, Global.BUGLY_ID, BuildConfig.DEBUG);
     }
 
     /**

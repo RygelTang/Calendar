@@ -14,6 +14,8 @@ public class Global {
             "七天", "30天", "全部"
     };
 
+    public static final String BUGLY_ID = "5a77f82a38";
+
 //    public static String DB_FILE_PATH = APP.getInstance().getFilesDir() + "/GD.mdb";
 
 }

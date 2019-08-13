@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <!--允许以下网址使用非安全的连接-->
+        <domain includeSubdomains="true">android.bugly.qq.com</domain>
+    </domain-config>
+
+</network-security-config>

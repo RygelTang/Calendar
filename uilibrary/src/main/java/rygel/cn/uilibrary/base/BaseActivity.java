@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import rygel.cn.uilibrary.utils.LeakClearUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
@@ -39,6 +40,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         ActivityCollector.removeActivity(this);
+        LeakClearUtils.fixInputMethodManagerLeak(this);
         Logger.i("onDestroy");
         super.onDestroy();
     }
