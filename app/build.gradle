@@ -34,10 +34,10 @@ android {
     }
     buildTypes {
         release {
+            multiDexKeepFile file('multidex-config.txt')
             signingConfig signingConfigs.release
             buildConfigField "boolean", "LOG_DEBUG", "false"
             zipAlignEnabled true
-            multiDexKeepFile file('multidex-config.txt')
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
