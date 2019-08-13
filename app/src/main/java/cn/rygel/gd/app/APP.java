@@ -13,13 +13,17 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mmkv.MMKV;
 
+import java.io.File;
+
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
+import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.setting.Settings;
+import io.objectbox.BoxStoreBuilder;
 import io.objectbox.android.AndroidObjectBrowser;
 import skin.support.SkinCompatManager;
 import skin.support.content.res.SkinCompatUserThemeManager;
@@ -83,12 +87,10 @@ public class APP extends Application {
      * 初始化BoxStore
      */
     private void initBoxStore(){
+        BoxStoreBuilder builder = MyObjectBox.builder()
+                .androidContext(this);
         BoxStoreHolder.getInstance()
-                .init(MyObjectBox.builder()
-                        .name("GD")
-                        .androidContext(this)
-                        .build()
-                );
+                .init(builder.build());
         if(BuildConfig.DEBUG){
             Logger.i("object browser started?" + new AndroidObjectBrowser(
                     BoxStoreHolder

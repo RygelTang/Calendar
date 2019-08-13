@@ -1,5 +1,7 @@
 package cn.rygel.gd.constants;
 
+import cn.rygel.gd.app.APP;
+
 /**
  * 全局变量
  */
@@ -12,5 +14,6 @@ public class Global {
             "七天", "30天", "全部"
     };
 
+//    public static String DB_FILE_PATH = APP.getInstance().getFilesDir() + "/GD.mdb";
 
 }
