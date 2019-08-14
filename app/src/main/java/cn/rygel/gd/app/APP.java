@@ -67,7 +67,6 @@ public class APP extends Application {
      */
     private void initUtils() {
         Utils.init(this);
-        CrashUtils.init();
     }
 
     /**

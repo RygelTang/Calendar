@@ -1,4 +1,4 @@
-package cn.rygel.gd.widget.behavior;
+package cn.rygel.gd.behavior;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

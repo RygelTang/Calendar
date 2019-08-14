@@ -81,10 +81,10 @@ public class IntervalFragment extends BaseFragment {
 
     private void onDateSelected(Solar solar, boolean isLunarMode) {
         if (mIsSelectingStart) {
-            mStart = solar;
+            mStart = new Solar(solar.solarYear, solar.solarMonth, solar.solarDay);
             mIsStartLunar = isLunarMode;
         } else {
-            mEnd = solar;
+            mEnd = new Solar(solar.solarYear, solar.solarMonth, solar.solarDay);
             mIsEndLunar = isLunarMode;
         }
 
