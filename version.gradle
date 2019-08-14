@@ -47,7 +47,7 @@ ext {
             indicator                   : "1.5.0",
             spinner                     : "1.3.1",
             theme                       : "3.1.1",
-            bugly                       : "3.0.0",
+            bugly                       : "1.4.1",
             bugly_native                : "3.7.1"
     ]
 
@@ -124,7 +124,7 @@ ext {
     ]
 
     bugly = [
-            core                : "com.tencent.bugly:crashreport:${versions.bugly}",
+            update              : "com.tencent.bugly:crashreport_upgrade:${versions.bugly}",
             bugly_native        : "com.tencent.bugly:nativecrashreport:${versions.bugly_native}"
     ]
 
