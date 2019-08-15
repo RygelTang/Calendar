@@ -13,6 +13,8 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 
 public abstract class BaseFragment extends RxFragment {
 
+    private boolean mIsFirstLoad = true;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,9 +24,17 @@ public abstract class BaseFragment extends RxFragment {
         View layout = inflater.inflate(getLayoutResID(),container,false);
         Logger.i("initView");
         initView(layout);
-        Logger.i("loadData");
-        loadData();
         return layout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsFirstLoad) {
+            Logger.i("loadData");
+            loadData();
+            mIsFirstLoad = false;
+        }
     }
 
     /**

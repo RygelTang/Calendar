@@ -117,7 +117,7 @@ dependencies {
     implementation rootProject.ext.theme.design
 
     // bugly
-    implementation rootProject.ext.bugly.core
+    implementation rootProject.ext.bugly.update
     implementation rootProject.ext.bugly.bugly_native
 
     // object box

@@ -23,6 +23,7 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
+import cn.rygel.gd.service.InitService;
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.utils.BackupUtils;
 import io.objectbox.BoxStoreBuilder;
@@ -39,8 +40,7 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        // 初始化bugly
-        initBugly();
+        InitService.startInit(this);
         // 初始化工具类
         initUtils();
         // 初始化Logger
@@ -69,7 +69,6 @@ public class APP extends Application {
      */
     private void initUtils() {
         Utils.init(this);
-        CrashUtils.init();
     }
 
     /**
@@ -142,13 +141,6 @@ public class APP extends Application {
     private void initMMKV(){
         String dir = MMKV.initialize(this);
         Logger.i("MMKV root : " + dir);
-    }
-
-    /**
-     * 初始化bugly
-     */
-    private void initBugly() {
-        Bugly.init(this, Global.BUGLY_ID, BuildConfig.DEBUG);
     }
 
     /**

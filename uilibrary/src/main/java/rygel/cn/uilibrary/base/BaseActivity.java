@@ -15,6 +15,8 @@ import rygel.cn.uilibrary.utils.UIUtils;
 
 public abstract class BaseActivity extends RxAppCompatActivity {
 
+    private boolean mIsFirstLoad = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +26,17 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         setContentView(getLayoutResId());
         Logger.i("initView");
         initView();
-        Logger.i("loadData");
-        loadData();
         ActivityCollector.addActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mIsFirstLoad) {
+            Logger.i("loadData");
+            loadData();
+            mIsFirstLoad = false;
+        }
     }
 
     protected void hideActionBar(){
