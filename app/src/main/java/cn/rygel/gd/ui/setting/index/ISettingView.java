@@ -4,4 +4,7 @@ import rygel.cn.uilibrary.mvp.IView;
 
 public interface ISettingView extends IView {
 
+    void onBackupSuccess();
+    void onBackupFail();
+
 }

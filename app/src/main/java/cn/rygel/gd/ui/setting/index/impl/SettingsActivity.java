@@ -105,6 +105,12 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         startActivity(new Intent(this, ThemeActivity.class));
     }
 
+    @OnClick(R.id.btn_backup)
+    protected void onBackup() {
+        onLoading();
+        getPresenter().backup();
+    }
+
     @OnCheckedChanged(R.id.switch_keep_alive)
     protected void onKeepAliveChanged(boolean state){
         if(!getPresenter().putKeepAlive(state)) {
@@ -149,6 +155,18 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         }
         EventBus.getDefault().post(new OnWeekDayOffsetSelectEvent(index));
         mTvWeekDay.setText(mWeekDays.get(index));
+    }
+
+    @Override
+    public void onBackupSuccess() {
+        onLoadFinish();
+        showToast(R.string.save_success);
+    }
+
+    @Override
+    public void onBackupFail() {
+        onLoadFinish();
+        showToast(R.string.save_fail);
     }
 
     @Override

@@ -88,6 +88,8 @@
     <string name="option_first_weekday">一周的起始日</string>
     <string name="option_hide_status">沉浸状态栏</string>
     <string name="option_theme">主题设置</string>
+    <string name="option_backup">数据备份</string>
+    <string name="summary_backup">数据文件将保存在系统目录的cn.rygel.gd/backup文件夹下，请妥善保管！</string>
     <string name="option_group">用户群</string>
     <string name="option_account">账户</string>
     <string name="option_about">关于</string>
