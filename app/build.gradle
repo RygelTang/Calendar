@@ -112,6 +112,9 @@ dependencies {
     // spinner
     implementation rootProject.ext.spinner
 
+    // permission
+    implementation rootProject.ext.permission
+
     // 换肤框架
     implementation rootProject.ext.theme.support
     implementation rootProject.ext.theme.design

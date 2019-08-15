@@ -1,5 +1,7 @@
 package cn.rygel.gd.db.boxstore;
 
+import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.db.model.UserModel;
 import io.objectbox.BoxStore;
 
 public class BoxStoreHolder {
@@ -10,6 +12,8 @@ public class BoxStoreHolder {
 
     public void init(BoxStore boxStore){
         mBoxStore = boxStore;
+        UserModel.getInstance().onNewStore(mBoxStore);
+        EventModel.getInstance().onNewStore(mBoxStore);
     }
 
     public BoxStore getBoxStore() {

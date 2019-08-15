@@ -7,4 +7,6 @@ public interface ISettingView extends IView {
     void onBackupSuccess();
     void onBackupFail();
 
+    void onRestoreSuccess();
+    void onRestoreFail(String err);
 }

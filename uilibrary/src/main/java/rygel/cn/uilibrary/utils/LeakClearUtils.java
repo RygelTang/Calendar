@@ -40,9 +40,9 @@ public class LeakClearUtils {
                     }
                 }
             } catch (NoSuchFieldException ex) {
-                Logger.e(ex.getMessage());
+                Logger.e(ex.getLocalizedMessage());
             } catch (IllegalAccessException ex) {
-                Logger.e(ex.getMessage());
+                Logger.e(ex.getLocalizedMessage());
             }
         }
 

@@ -12,8 +12,8 @@ ext {
     buildToolsVersion = "28.0.0"
     minSdkVersion = 16
     targetSdkVersion = 28
-    versionCode = 14
-    versionName = "1.0.5"
+    versionCode = 18
+    versionName = "1.0.5-beta2"
 
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
@@ -48,7 +48,8 @@ ext {
             spinner                     : "1.3.1",
             theme                       : "3.1.1",
             bugly                       : "1.4.1",
-            bugly_native                : "3.7.1"
+            bugly_native                : "3.7.1",
+            permission                  : "2.0.1"
     ]
 
     support = [
@@ -161,5 +162,7 @@ ext {
     utils = "com.blankj:utilcode:${versions.utils}"
 
     spinner = "com.jaredrummler:material-spinner:${versions.spinner}"
+
+    permission = "pub.devrel:easypermissions:${versions.permission}"
 
 }

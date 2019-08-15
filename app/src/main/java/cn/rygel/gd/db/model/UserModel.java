@@ -4,7 +4,6 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.User;
 import cn.rygel.gd.db.entity.User_;
 import io.objectbox.Box;
@@ -13,13 +12,18 @@ import io.objectbox.exception.UniqueViolationException;
 
 public class UserModel {
 
-    private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
-    private Box<User> mUserBox = mBoxStore.boxFor(User.class);
+    private BoxStore mBoxStore = null;
+    private Box<User> mUserBox = null;
 
     private UserModel() { }
 
     public static UserModel getInstance() {
         return Instance.INSTANCE;
+    }
+
+    public void onNewStore(BoxStore store) {
+        mBoxStore = store;
+        mUserBox = mBoxStore.boxFor(User.class);
     }
 
     /**

@@ -1,5 +1,7 @@
 package cn.rygel.gd.ui.setting.index.impl;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.ui.setting.index.ISettingView;
 import cn.rygel.gd.utils.BackupUtils;
@@ -39,6 +41,33 @@ public class SettingPresenter extends BasePresenter<ISettingView> {
                 if (success) {
                     getView().onBackupSuccess();
                 } else {
+                    getView().onBackupFail();
+                }
+            }
+        });
+    }
+
+    public void restore() {
+        BackupUtils.backup(new BackupUtils.BackupCallback() {
+            @Override
+            public void callback(boolean success) {
+                if (success) {
+                    BackupUtils.restore(new BackupUtils.RestoreCallback() {
+                        @Override
+                        public void success() {
+                            if (getView() == null) return;
+                            getView().onRestoreSuccess();
+                            AppUtils.relaunchApp(true);
+                        }
+
+                        @Override
+                        public void fail(String err) {
+                            if (getView() == null) return;
+                            getView().onRestoreFail(err);
+                        }
+                    });
+                } else {
+                    if (getView() == null) return;
                     getView().onBackupFail();
                 }
             }
