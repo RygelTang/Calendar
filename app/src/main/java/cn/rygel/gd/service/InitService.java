@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.Context;
 
 import com.tencent.bugly.Bugly;
+import com.xdandroid.hellodaemon.DaemonEnv;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.app.APP;
@@ -36,6 +37,11 @@ public class InitService extends IntentService {
 
     private void handleActionInit() {
         initBugly();
+        initPushService();
+    }
+
+    private void initPushService() {
+        DaemonEnv.initialize(APP.getInstance(), PushService.class, 1000 * 60 * 6);
     }
 
     /**

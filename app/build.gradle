@@ -127,6 +127,9 @@ dependencies {
     debugImplementation rootProject.ext.object_box.browser
     releaseImplementation rootProject.ext.object_box.android
 
+    // keep alive
+    implementation rootProject.ext.keep_alive
+
     // UI基础库
     implementation project(':uilibrary')
 

@@ -49,7 +49,8 @@ ext {
             theme                       : "3.1.1",
             bugly                       : "1.4.1",
             bugly_native                : "3.7.1",
-            permission                  : "2.0.1"
+            permission                  : "2.0.1",
+            keep_alive                  : "+"
     ]
 
     support = [
@@ -164,5 +165,7 @@ ext {
     spinner = "com.jaredrummler:material-spinner:${versions.spinner}"
 
     permission = "pub.devrel:easypermissions:${versions.permission}"
+
+    keep_alive = "com.xdandroid:hellodaemon:${versions.keep_alive}"
 
 }

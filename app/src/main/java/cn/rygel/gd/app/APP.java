@@ -40,7 +40,8 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        InitService.startInit(this);
+        // 初始化MultiDex
+        initMultiDex();
         // 初始化工具类
         initUtils();
         // 初始化Logger
@@ -49,12 +50,11 @@ public class APP extends Application {
         initBoxStore();
         // 初始化内存泄漏工具
         initLeakCanary();
-        // 初始化MultiDex
-        initMultiDex();
         // 初始化MMKV
         initMMKV();
         // 初始化换肤框架
         initTheme();
+        InitService.startInit(this);
     }
 
     /**

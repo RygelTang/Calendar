@@ -47,15 +47,8 @@
         <service
             android:name=".service.InitService"
             android:exported="false"/>
-        <!-- 重启服务 -->
-        <service
-            android:name=".service.RestartService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <!-- 双进程保活 -->
-        <service android:name=".service.LocalService" />
-        <service
-            android:name=".service.RemoteService"
-            android:process=":remote" />
+        <!-- 推送服务 -->
+        <service android:name=".service.PushService" />
 
         <receiver
             android:name=".receiver.DateChangeBroadcastReceiver"

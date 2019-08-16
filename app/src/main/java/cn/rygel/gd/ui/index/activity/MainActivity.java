@@ -23,10 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDrawerStateChangeEvent;
-import cn.rygel.gd.dialog.AddUserDialog;
-import cn.rygel.gd.service.LocalService;
-import cn.rygel.gd.service.RemoteService;
-import cn.rygel.gd.service.RestartService;
+import cn.rygel.gd.service.PushService;
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.index.fragment.calculate.CalculateFragment;
@@ -81,14 +78,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void startKeepAliveService(){
         // 启动推送服务
-        startService(new Intent(this, LocalService.class));
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 5.0以上使用JobScheduler保活方案
-            startService(new Intent(this, RestartService.class));
-        } else {
-            // 5.0以下使用双进程守护保活方案
-            startService(new Intent(this, RemoteService.class));
-        }
+        startService(new Intent(this, PushService.class));
     }
 
     @Override

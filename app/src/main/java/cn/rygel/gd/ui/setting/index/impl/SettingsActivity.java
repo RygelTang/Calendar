@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.xdandroid.hellodaemon.IntentWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -121,6 +122,9 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
 
     @OnCheckedChanged(R.id.switch_keep_alive)
     protected void onKeepAliveChanged(boolean state){
+        if (!getPresenter().isKeepAlive()){
+            IntentWrapper.whiteListMatters(this, StringUtils.getString(R.string.add_to_white_list));
+        }
         if(!getPresenter().putKeepAlive(state)) {
             showToast(R.string.save_fail);
         }
