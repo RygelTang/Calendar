@@ -1,6 +1,7 @@
 package cn.rygel.gd.adapter;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.orhanobut.logger.Logger;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,6 +43,7 @@ public class EventListAdapter extends EventAdapter {
     }
 
     private static int getEventDuration(BaseEvent event, Solar start) {
+        Logger.e("getEventDuration called by");
         int interval = -1;
         Solar tempSolar = null;
         Lunar tempLunar = null;
@@ -88,6 +90,7 @@ public class EventListAdapter extends EventAdapter {
                             tempLunar.lunarYear += 1;
                         }
                         interval = SolarUtils.getIntervalDays(start, tempLunar.toSolar());
+                        tempLunar.lunarYear += 1;
                     }
                     return interval;
                 } else {
