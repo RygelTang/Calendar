@@ -278,6 +278,9 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         Intent intent = getIntent();
         if(intent != null){
             mOldEvent = intent.getParcelableExtra(KEY_EVENT);
+            if (mOldEvent == null) {
+                mOldEvent = new DefaultEvent();
+            }
             onEventTypeSelected(EventType.EVENT_TYPE_SUPPORT.indexOf(mOldEvent.getEventType()));
             mETEventName.setText(mOldEvent.getName());
             // 设置选中的日期
