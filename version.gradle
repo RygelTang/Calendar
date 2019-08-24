@@ -12,8 +12,8 @@ ext {
     buildToolsVersion = "28.0.0"
     minSdkVersion = 16
     targetSdkVersion = 28
-    versionCode = 18
-    versionName = "1.0.5-beta2"
+    versionCode = 101006
+    versionName = "1.1.6"
 
     testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 

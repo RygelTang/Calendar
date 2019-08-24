@@ -11,21 +11,16 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.Bugly;
 import com.tencent.mmkv.MMKV;
-
-import java.io.File;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
-import cn.rygel.gd.constants.Global;
 import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.service.InitService;
 import cn.rygel.gd.setting.Settings;
-import cn.rygel.gd.utils.BackupUtils;
 import io.objectbox.BoxStoreBuilder;
 import io.objectbox.android.AndroidObjectBrowser;
 import skin.support.SkinCompatManager;

@@ -22,6 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.setting.widget.WidgetSettingActivity"></activity>
         <activity android:name=".ui.setting.theme.ThemeActivity" />
         <activity android:name=".ui.index.activity.MainActivity">
             <intent-filter>
@@ -46,7 +47,7 @@
         <!-- 初始化服务 -->
         <service
             android:name=".service.InitService"
-            android:exported="false"/>
+            android:exported="false" />
         <!-- 推送服务 -->
         <service android:name=".service.PushService" />
 
