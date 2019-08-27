@@ -22,7 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.setting.widget.WidgetSettingActivity"></activity>
+        <activity android:name=".ui.setting.widget.ImageWidgetSettingActivity"></activity>
         <activity android:name=".ui.setting.theme.ThemeActivity" />
         <activity android:name=".ui.index.activity.MainActivity">
             <intent-filter>
@@ -44,6 +44,10 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
         <!-- 初始化服务 -->
         <service
             android:name=".service.InitService"

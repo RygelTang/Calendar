@@ -4,6 +4,8 @@
     <external-path name="beta_external_path" path="Download/"/>
     <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
     <external-path name="beta_external_files_path" path="Android/data/"/>
+    <cache-path name="internal" path="boxing" />
+    <external-path name="external" path="DCIM/bili/boxing" />
     <external-path
         name="files_root"
         path="cn.rygel.gd/data"/>

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.setting.widget.WidgetSettingActivity">
+    tools:context=".ui.setting.widget.ImageWidgetSettingActivity">
 
     <android.support.v7.widget.Toolbar
         style="@style/BaseToolBar"
@@ -17,172 +17,258 @@
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/md_nav_back"/>
 
-    <LinearLayout
-        android:padding="@dimen/padding_m"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:scaleType="centerCrop"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/margin_s"
-            app:srcCompat="@drawable/ic_background"
-            android:layout_width="@dimen/icon_width"
-            android:layout_height="@dimen/icon_width" />
-
-        <TextView
-            android:padding="@dimen/padding_m"
-            android:text="@string/color_background"
-            android:textSize="@dimen/text_m"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/switch_color_background"
-            app:kswThumbMargin="-3dp"
-            app:kswTintColor="@color/colorPrimary"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_option_blur"
-        android:padding="@dimen/padding_m"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:scaleType="centerCrop"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/margin_s"
-            app:srcCompat="@drawable/ic_blur"
-            android:layout_width="@dimen/icon_width"
-            android:layout_height="@dimen/icon_width" />
-
-        <TextView
-            android:padding="@dimen/padding_m"
-            android:text="@string/background_blur"
-            android:textSize="@dimen/text_m"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/switch_blur"
-            app:kswThumbMargin="-3dp"
-            app:kswTintColor="@color/colorPrimary"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:padding="@dimen/padding_m"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/margin_s"
-                app:srcCompat="@drawable/ic_corner"
-                android:layout_width="@dimen/icon_width"
-                android:layout_height="@dimen/icon_width" />
-
-            <TextView
-                android:padding="@dimen/padding_m"
-                android:text="@string/background_corner_radius"
-                android:textSize="@dimen/text_m"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/sb_corner_radius"
-            android:max="255"
-            android:progressTint="@color/colorPrimary"
-            android:thumbTint="@color/colorPrimary"
-            android:layout_marginHorizontal="@dimen/margin_xxxl"
-            android:padding="@dimen/padding_m"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:padding="@dimen/padding_m"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:scaleType="centerCrop"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="@dimen/margin_s"
-                app:srcCompat="@drawable/ic_alpha"
-                android:layout_width="@dimen/icon_width"
-                android:layout_height="@dimen/icon_width" />
-
-            <TextView
-                android:padding="@dimen/padding_m"
-                android:text="@string/background_alpha"
-                android:textSize="@dimen/text_m"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/sb_alpha"
-            android:max="255"
-            android:progressTint="@color/colorPrimary"
-            android:thumbTint="@color/colorPrimary"
-            android:layout_marginHorizontal="@dimen/margin_xxxl"
-            android:padding="@dimen/padding_m"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/img_preview"
-            android:layout_weight="1"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:padding="@dimen/padding_m"
-            android:gravity="center"
-            android:text="@string/click_img_to_reselect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_background"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/color_background"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:checked="true"
+                    android:id="@+id/switch_color_background"
+                    app:kswThumbMargin="-3dp"
+                    app:kswTintColor="@color/colorPrimary"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/btn_select_bg_color"
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_color_lens_black_24dp"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/bg_color"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:checked="true"
+                    android:id="@+id/view_color_bg"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:id="@+id/btn_select_text_color"
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_format_color_text_black_24dp"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/text_color"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:checked="true"
+                    android:id="@+id/view_color_text"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_option_blur"
+                android:visibility="gone"
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_blur"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/background_blur"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/switch_blur"
+                    app:kswThumbMargin="-3dp"
+                    app:kswTintColor="@color/colorPrimary"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="@dimen/padding_m"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/margin_s"
+                        android:padding="@dimen/padding_xxs"
+                        app:srcCompat="@drawable/ic_corner"
+                        android:layout_width="@dimen/icon_width"
+                        android:layout_height="@dimen/icon_width" />
+
+                    <TextView
+                        android:padding="@dimen/padding_m"
+                        android:text="@string/background_corner_radius"
+                        android:textSize="@dimen/text_m"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/sb_corner_radius"
+                    android:max="64"
+                    android:progress="32"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginHorizontal="@dimen/margin_xxxl"
+                    android:padding="@dimen/padding_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="@dimen/padding_m"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_vertical"
+                        android:padding="@dimen/padding_xxs"
+                        android:layout_margin="@dimen/margin_s"
+                        app:srcCompat="@drawable/ic_alpha"
+                        android:layout_width="@dimen/icon_width"
+                        android:layout_height="@dimen/icon_width" />
+
+                    <TextView
+                        android:padding="@dimen/padding_m"
+                        android:text="@string/background_alpha"
+                        android:textSize="@dimen/text_m"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/sb_alpha"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressTint="@color/colorPrimary"
+                    android:thumbTint="@color/colorPrimary"
+                    android:layout_marginHorizontal="@dimen/margin_xxxl"
+                    android:padding="@dimen/padding_m"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="@dimen/padding_m"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/calendar_view_height" />
+
+                <TextView
+                    android:id="@+id/tv_tips"
+                    android:visibility="gone"
+                    android:padding="@dimen/padding_m"
+                    android:gravity="center"
+                    android:text="@string/click_img_to_reselect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
