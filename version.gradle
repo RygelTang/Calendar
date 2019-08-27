@@ -40,7 +40,7 @@ ext {
             picker                      : "1.2.2",
             date_picker                 : "1.0.9",
             switch_button               : "2.0.0",
-            calendar                    : "1.2.4",
+            calendar                    : "1.2.8",
             calendar_utils              : "1.0.6",
             utils                       : "1.24.7",
             object_box                  : "2.3.4",
