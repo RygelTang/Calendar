@@ -35,7 +35,6 @@ public class AboutActivity extends BaseActivity {
     @Override
     protected void initView() {
         ButterKnife.bind(this);
-        mTvVersion.setOnClickListener(l -> startActivity(new Intent(this, MonthWidgetSettingActivity.class)));
         mToolbar.setNavigationOnClickListener(l -> finish());
     }
 
