@@ -5,7 +5,12 @@ import android.graphics.Canvas;
 import android.support.annotation.ColorInt;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+
 import cn.rygel.gd.app.APP;
+import cn.rygel.gd.setting.Settings;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.calendarview.CalendarView;
@@ -31,11 +36,12 @@ public enum WidgetType {
             options.mCornerTextColor = textColor;
             options.mTermTextColor = textColor;
             options.mHolidayTextColor = textColor;
-            options.mThemeColor = textColor;
+            options.mThemeColor = Settings.getInstance().getCustomThemeColor();
             options.mWeekbarTextSize = min / 20F;
             options.mTextSize = min / 20F;
             options.mSubTextSize = min / 30F;
             options.mCornerTextSize = min / 40F;
+            options.mShowToday = true;
             calendar.getConfig().setOptions(options).config();
             Canvas canvas = new Canvas(background);
             MonthView month = ((MonthView) calendar.getAdapter().instantiateItem(calendar, (today.solarYear - 1901) * 12 + today.solarMonth - 1));
@@ -47,8 +53,14 @@ public enum WidgetType {
             return background;
         }
 
+        @Override
+        public void update(int widgetId) {
+            EventBus.getDefault().post(new OnUpdateMonthWidgetEvent(widgetId));
+        }
     };
 
     public abstract Bitmap getDemoWidgetImage(Bitmap background, @ColorInt int textColor);
+
+    public abstract void update(int widgetId);
 
 }

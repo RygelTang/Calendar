@@ -22,7 +22,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.setting.widget.ImageWidgetSettingActivity"></activity>
+        <receiver android:name=".widget.month.MonthWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/month_widget_info" />
+        </receiver>
+
+        <activity android:name=".ui.setting.widget.month.MonthWidgetSettingActivity" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.setting.theme.ThemeActivity" />
         <activity android:name=".ui.index.activity.MainActivity">
             <intent-filter>
@@ -47,12 +61,10 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
-        <!-- 初始化服务 -->
+            android:theme="@style/Boxing.AppTheme.NoActionBar" /> <!-- 初始化服务 -->
         <service
             android:name=".service.InitService"
-            android:exported="false" />
-        <!-- 推送服务 -->
+            android:exported="false" /> <!-- 推送服务 -->
         <service android:name=".service.PushService" />
 
         <receiver
