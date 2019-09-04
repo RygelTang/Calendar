@@ -20,3 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep public class android.view.inputmethod.InputMethodManager
+-keep public class com.afollestad.materialdialogs.color.ColorChooserDialog

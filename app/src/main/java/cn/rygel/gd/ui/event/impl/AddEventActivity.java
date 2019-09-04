@@ -56,9 +56,6 @@ import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 import skin.support.content.res.SkinCompatUserThemeManager;
 
-import static rygel.cn.calendar.utils.LunarUtils.LUNAR_DAYS;
-import static rygel.cn.calendar.utils.LunarUtils.LUNAR_MONTHS;
-
 public class AddEventActivity extends BaseActivity<AddEventPresenter> implements IAddEventView {
 
     private static final String KEY_EVENT_DATE = "KEY_EVENT_DATE";

@@ -4,7 +4,8 @@ import com.tencent.mmkv.MMKV;
 
 public enum MMKVs {
 
-    SETTING("setting");
+    SETTING("setting"),
+    WIDGET("widget");
 
     private String mDir = "";
 

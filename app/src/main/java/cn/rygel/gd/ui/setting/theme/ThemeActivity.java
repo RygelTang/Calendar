@@ -24,6 +24,7 @@ import cn.rygel.gd.R;
 import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.utils.CircleDrawable;
 import rygel.cn.uilibrary.base.BaseActivity;
+import rygel.cn.uilibrary.utils.LeakClearUtils;
 import rygel.cn.uilibrary.widget.SmoothCheckBox;
 import skin.support.content.res.SkinCompatUserThemeManager;
 
@@ -180,7 +181,7 @@ public class ThemeActivity extends BaseActivity implements ColorChooserDialog.Co
 
     @Override
     public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
-
+        LeakClearUtils.fixColorPickerLeak(dialog);
     }
 
     @Override

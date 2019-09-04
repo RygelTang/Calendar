@@ -43,4 +43,8 @@
     <color name="bg_fragment">#FDFDFD</color>
     <color name="transparent">#00FFFFFF</color>
 
+    <color name="ucrop_color_toolbar">#212121</color>
+    <color name="ucrop_color_statusbar">#212121</color>
+    <color name="ucrop_color_widget_active">#212121</color>
+
 </resources>
