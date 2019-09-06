@@ -63,8 +63,8 @@ dependencies {
     implementation rootProject.ext.support.palette
 
     // 图片加载
-     implementation rootProject.ext.glide.glide
-     annotationProcessor rootProject.ext.glide.compiler
+    implementation rootProject.ext.glide.glide
+    annotationProcessor rootProject.ext.glide.compiler
 
     // 工具类
     implementation rootProject.ext.utils

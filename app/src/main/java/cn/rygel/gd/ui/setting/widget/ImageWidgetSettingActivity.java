@@ -4,20 +4,20 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RemoteViews;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,29 +26,19 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingCrop;
 import com.bilibili.boxing.BoxingMediaLoader;
+import com.bilibili.boxing.loader.IBoxingCrop;
 import com.bilibili.boxing.model.config.BoxingConfig;
 import com.bilibili.boxing.model.config.BoxingCropOption;
 import com.bilibili.boxing.model.entity.BaseMedia;
 import com.bilibili.boxing.utils.BoxingFileHelper;
 import com.bilibili.boxing_impl.ui.BoxingActivity;
-import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ImageUtils;
 import com.blankj.utilcode.util.ThreadUtils;
-import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.orhanobut.logger.Logger;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import org.reactivestreams.Subscriber;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,72 +47,77 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
+import cn.rygel.gd.app.APP;
+import cn.rygel.gd.bean.ImageWidgetInfo;
 import cn.rygel.gd.bean.WidgetType;
 import cn.rygel.gd.utils.CircleDrawable;
-import cn.rygel.gd.utils.CustomBoxingCrop;
 import cn.rygel.gd.utils.GlideLoader;
-import cn.rygel.gd.utils.RoundCornerTransformer;
-import cn.rygel.gd.utils.mmkv.MMKVs;
-import cn.rygel.gd.utils.observer.AsyncTransformer;
-import cn.rygel.gd.utils.observer.BaseObserver;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
+import cn.rygel.gd.utils.ImageWidgetUtils;
+import me.jessyan.autosize.utils.AutoSizeUtils;
 import rygel.cn.uilibrary.base.BaseActivity;
 import rygel.cn.uilibrary.utils.LeakClearUtils;
 
 public abstract class ImageWidgetSettingActivity extends BaseActivity implements ColorChooserDialog.ColorCallback {
 
     private static final int REQUEST_CODE_CHOOSE = 1;
-    private static final int DEFAULT_BITMAP_WIDTH = 1200;
-    private static final int DEFAULT_BITMAP_HEIGHT = 800;
+    private static final int DEFAULT_BITMAP_WIDTH = AutoSizeUtils.dp2px(APP.getInstance(), 320);
+    private static final int DEFAULT_BITMAP_HEIGHT = AutoSizeUtils.dp2px(APP.getInstance(), 320);
 
     @BindView(R.id.tb_img_widget)
-    Toolbar mToolbar;
+    protected Toolbar mToolbar;
 
     @BindView(R.id.sb_corner_radius)
-    SeekBar mSbCornerRadius;
+    protected SeekBar mSbCornerRadius;
 
     @BindView(R.id.sb_alpha)
-    SeekBar mSbBgAlpha;
+    protected SeekBar mSbBgAlpha;
 
     @BindView(R.id.layout_option_blur)
-    View mLayoutOptionBlur;
+    protected View mLayoutOptionBlur;
 
     @BindView(R.id.tv_tips)
-    TextView mTvTips;
+    protected TextView mTvTips;
 
-    @BindView(R.id.img_preview)
-    ImageView mImgPreview;
+    @BindView(R.id.btn_setting)
+    protected ImageView mImgSetting;
+
+    @BindView(R.id.img_background)
+    protected ImageView mImgBackground;
+
+    @BindView(R.id.img_common_widget)
+    protected ImageView mImgWidget;
 
     @BindView(R.id.switch_color_background)
-    SwitchButton mSwitchColorBg;
+    protected SwitchButton mSwitchColorBg;
 
     @BindView(R.id.view_color_text)
-    View mTextColorPreview;
+    protected View mTextColorPreview;
 
     @BindView(R.id.view_color_bg)
-    View mBgColorPreview;
+    protected View mBgColorPreview;
 
     @BindView(R.id.btn_select_bg_color)
-    View mBtnSelectBgColor;
+    protected View mBtnSelectBgColor;
 
-    private String mBgPath;
-    private int mTextColor = Color.BLACK;
+    @BindView(R.id.layout_widget_title)
+    protected View mDemoWidgetTitle;
 
-    private int mBgColor = Color.WHITE;
+    @BindView(R.id.tv_widget_tips)
+    protected TextView mDemoTvTips;
 
-    private Bitmap mBmpBgCache;
-    private boolean mShouldBlur = false;
+    @BindView(R.id.switch_blur)
+    protected SwitchButton mSbBlur;
 
-    private boolean mIsChoosingTextColor = false;
-    private boolean mIsColorBgOnly = true;
+    @BindView(R.id.layout_widget_demo)
+    protected View mWidgetDemo;
 
-    protected abstract WidgetType getWidgetType();
+    protected ImageWidgetInfo mWidgetInfo;
 
-    @OnClick(R.id.img_preview)
+    protected boolean mIsChoosingTextColor = false;
+
+    @OnClick(R.id.img_background)
     protected void onReselect() {
-        if (mIsColorBgOnly) {
+        if (mWidgetInfo.isOnlyColorBg()) {
             return;
         }
         selectPicture();
@@ -130,13 +125,12 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
 
     @OnCheckedChanged(R.id.switch_color_background)
     protected void onOptionColorChanged(boolean colorOnly) {
-        mIsColorBgOnly = colorOnly;
+        mWidgetInfo.setOnlyColorBg(colorOnly);
         if (colorOnly) {
-            invalidateBg();
             mBtnSelectBgColor.setVisibility(View.VISIBLE);
             mLayoutOptionBlur.setVisibility(View.GONE);
             mTvTips.setVisibility(View.GONE);
-            drawForeground();
+            invalidate();
         } else {
             mBtnSelectBgColor.setVisibility(View.GONE);
             mLayoutOptionBlur.setVisibility(View.VISIBLE);
@@ -147,10 +141,9 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
 
     @OnCheckedChanged(R.id.switch_blur)
     protected void onOptionBlurChanged(boolean shouldBlur) {
-        mShouldBlur = shouldBlur;
+        mWidgetInfo.setShouldBlur(shouldBlur);
         // 清除掉缓存的bmp
-        invalidateBg();
-        drawForeground();
+        invalidate();
     }
 
     @Override
@@ -168,18 +161,12 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.action_save:
-                        if (mBmpBgCache != null && !mBmpBgCache.isRecycled()) {
-                            drawForeground();
-                        }
-                        if (mBmpBgCache != null && mBmpBgCache.isRecycled()) {
-                            Toast.makeText(ImageWidgetSettingActivity.this, R.string.save_fail, Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
+                        Intent resultValue = new Intent();
+                        resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetInfo.getWidgetId());
+                        setResult(RESULT_OK, resultValue);
                         Toast.makeText(ImageWidgetSettingActivity.this, R.string.save_success, Toast.LENGTH_SHORT).show();
-                        File cache = new File(getCacheDir(), TimeUtils.getNowString() + ".png");
-                        ImageUtils.save(mBmpBgCache, cache, Bitmap.CompressFormat.PNG);
-                        updateWidget(cache.getAbsolutePath());
                         finish();
+                        mWidgetInfo.save();
                         break;
                     default:
                         break;
@@ -187,13 +174,13 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
                 return true;
             }
         });
-        mTextColorPreview.setBackground(new CircleDrawable(mTextColor));
-        mBgColorPreview.setBackground(new CircleDrawable(mBgColor));
+        mTextColorPreview.setBackground(new CircleDrawable(Color.BLACK));
+        mBgColorPreview.setBackground(new CircleDrawable(Color.WHITE));
         mSbCornerRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                invalidateBg();
-                drawForeground();
+                mWidgetInfo.setCornerRadius(progress);
+                invalidate();
             }
 
             @Override
@@ -209,8 +196,8 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
         mSbBgAlpha.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                invalidateBg();
-                drawForeground();
+                mWidgetInfo.setBgAlpha(progress);
+                invalidate();
             }
 
             @Override
@@ -225,36 +212,44 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
         });
     }
 
-    private void updateWidget(String dir) {
-        final int widgetId;
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            MMKVs.WIDGET.getMMKV().putString(getWidgetType().name() + "img" + widgetId, dir);
-            MMKVs.WIDGET.getMMKV().putInt(getWidgetType().name() + "tv" + widgetId, mTextColor);
-            getWidgetType().update(widgetId);
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-            setResult(RESULT_OK, resultValue);
-        }
-    }
-
     @Override
     protected void loadData() {
         setResult(RESULT_CANCELED);
-        drawForeground();
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            final int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            mWidgetInfo = ImageWidgetInfo.getById(getWidgetType(), widgetId);
+            if (mWidgetInfo == null) {
+                mWidgetInfo = new ImageWidgetInfo(
+                        getWidgetType(),
+                        widgetId,
+                        Color.BLACK,
+                        Color.WHITE,
+                        18,
+                        100,
+                        "",
+                        DEFAULT_BITMAP_WIDTH,
+                        DEFAULT_BITMAP_HEIGHT,
+                        true,
+                        false
+                );
+            }
+            mTextColorPreview.setBackground(new CircleDrawable(mWidgetInfo.getTextColor()));
+            mSwitchColorBg.setCheckedNoEvent(mWidgetInfo.isOnlyColorBg());
+            mSbBgAlpha.setProgress(mWidgetInfo.getBgAlpha());
+            mSbCornerRadius.setProgress(mWidgetInfo.getCornerRadius());
+            mSbBlur.setCheckedNoEvent(mWidgetInfo.isShouldBlur());
+            mBgColorPreview.setBackground(new CircleDrawable(mWidgetInfo.getBgColor()));
+            invalidate();
+            return;
+        }
+        Logger.e("could not found widget id to set!");
+        Toast.makeText(this, R.string.widget_id_not_found, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
-    /**
-     * 创建纯色背景图
-     * @return
-     */
-    private Bitmap createColorBmp() {
-        Bitmap bitmap = Bitmap.createBitmap(DEFAULT_BITMAP_WIDTH, DEFAULT_BITMAP_HEIGHT, Bitmap.Config.ARGB_4444);
-        bitmap.eraseColor(mBgColor);
-        return bitmap;
-    }
+    protected abstract WidgetType getWidgetType();
 
     /**
      * 选择背景图片
@@ -262,13 +257,15 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
     protected void selectPicture() {
         Uri cacheUri = getCacheFileURI();
         if (cacheUri == null) return;
-        BoxingCrop.getInstance().init(new CustomBoxingCrop());
+        BoxingCrop.getInstance().init(getCropper());
         BoxingMediaLoader.getInstance().init(new GlideLoader());
         BoxingConfig config = new BoxingConfig(BoxingConfig.Mode.SINGLE_IMG);
         BoxingCropOption option = new BoxingCropOption(cacheUri);
         config.needCamera(R.drawable.ic_camera_black_24dp).withCropOption(option);
         Boxing.of(config).withIntent(this, BoxingActivity.class).start(this, REQUEST_CODE_CHOOSE);
     }
+
+    protected abstract IBoxingCrop getCropper();
 
     /**
      * 获取缓存路径
@@ -294,117 +291,56 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
 
     /**
      * 背景图片选中的回调，这里只是取出数据
-     * 具体的还是在{@link ImageWidgetSettingActivity#drawForeground()}中绘制
      * @param media
      */
     private void onImageSelected(BaseMedia media) {
-        invalidateBg();
-        mBgPath = media.getPath();
-        drawForeground();
+        mWidgetInfo.setBgPath(media.getPath());
+        int[] size = ImageUtils.getSize(media.getPath());
+        mWidgetInfo.setBgHeight(size[1]);
+        mWidgetInfo.setBgWidth(size[0]);
+        invalidate();
     }
 
-    /**
-     * 以Bitmap的形式绘制整个小部件
-     */
-    private void drawForeground() {
-        addPreviewTaskToFlow();
-    }
-
-    private static class PreviewTaskFlow extends Observable<Bitmap> {
-
-        private Observer<? super Bitmap> mObserver;
-
-        @Override
-        protected void subscribeActual(Observer<? super Bitmap> observer) {
-            mObserver = observer;
+    protected void invalidate() {
+        mDemoTvTips.setTextColor(mWidgetInfo.getTextColor());
+        Drawable setting;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setting = getResources().getDrawable(R.drawable.ic_settings_white_24dp, getTheme());
+        } else {
+            setting = getResources().getDrawable(R.drawable.ic_settings_white_24dp);
         }
-
-        private WeakReference<ImageWidgetSettingActivity> mReference;
-
-        private PreviewTaskFlow(ImageWidgetSettingActivity activity) {
-            mReference = new WeakReference<>(activity);
-        }
-
-        private void sendPreviewTask() {
-            ImageWidgetSettingActivity activity = mReference.get();
-            if (mObserver != null && activity != null) {
-                try {
-                    Bitmap bmp = activity.initBgCache();
-                    if (bmp != null) {
-                        mObserver.onNext(bmp);
-                    } else {
-                        mObserver.onError(new IllegalArgumentException("got null object"));
-                    }
-                } catch (IllegalStateException e) {
-                    Logger.i(e.getMessage());
-                    mObserver.onError(e);
-                }
-            }
-        }
-
-    }
-
-    private PreviewTaskFlow mPreviewTaskFlow = new PreviewTaskFlow(this);
-
-    {
-        mPreviewTaskFlow
-                .compose(new AsyncTransformer<>())
-                .compose(bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new BaseObserver<Bitmap>() {
-                    @Override
-                    public Object getTag() {
-                        return null;
-                    }
-
-                    @Override
-                    public void onSuccess(Bitmap bitmap) {
-                        showPreview(bitmap);
-                    }
-                });
-    }
-
-    private void addPreviewTaskToFlow() {
+        DrawableCompat.setTint(setting, mWidgetInfo.getTextColor());
+        setting.setAlpha(200);
+        mImgSetting.setImageDrawable(setting);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mWidgetInfo.getBgWidth(), mWidgetInfo.getBgHeight());
+        params.gravity = Gravity.CENTER;
+        mWidgetDemo.setLayoutParams(params);
+        LinearLayout.LayoutParams imgParams = new LinearLayout.LayoutParams(mWidgetInfo.getBgHeight() / 12, mWidgetInfo.getBgHeight() / 12);
+        imgParams.gravity = Gravity.CENTER;
+        imgParams.setMargins(mWidgetInfo.getBgHeight() / 20,mWidgetInfo.getBgHeight() / 30,mWidgetInfo.getBgHeight() / 20,mWidgetInfo.getBgHeight() / 40);
+        mImgSetting.setLayoutParams(imgParams);
+        mDemoTvTips.setTextSize(mWidgetInfo.getBgHeight() / 63F);
         ThreadUtils.getSinglePool().execute(new Runnable() {
             @Override
             public void run() {
-                mPreviewTaskFlow.sendPreviewTask();
+                final Bitmap bg = ImageWidgetUtils.getBackgroundOf(mWidgetInfo);
+                final Bitmap fg = ImageWidgetUtils.getForegroundOf(mWidgetInfo);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Glide.with(mImgBackground)
+                                .asBitmap()
+                                .load(bg)
+                                .apply(new RequestOptions().dontAnimate().placeholder(mImgBackground.getDrawable()))
+                                .into(mImgBackground);
+                        Glide.with(mImgWidget)
+                                .load(fg)
+                                .apply(new RequestOptions().dontAnimate().placeholder(mImgWidget.getDrawable()))
+                                .into(mImgWidget);
+                    }
+                });
             }
         });
-    }
-
-    private Bitmap initBgCache() {
-        if (mBmpBgCache == null || mBmpBgCache.isRecycled()) {
-            if (mIsColorBgOnly) {
-                mBmpBgCache = createColorBmp();
-            } else {
-                mBmpBgCache = ImageUtils.getBitmap(mBgPath);
-                if (mBmpBgCache == null) throw new IllegalArgumentException("img not found");
-                if (mShouldBlur) {
-                    mBmpBgCache = ImageUtils.fastBlur(mBmpBgCache, 1, 25);
-                }
-            }
-            mBmpBgCache = getTransparentBitmap(mBmpBgCache, mSbBgAlpha.getProgress());
-            mBmpBgCache = RoundCornerTransformer.transform(mBmpBgCache, mSbCornerRadius.getProgress());
-        }
-        return mBmpBgCache.copy(mBmpBgCache.getConfig(), true);
-    }
-
-    private void showPreview(Bitmap bmp) {
-        if (getWidgetType() != null && bmp != null && !bmp.isRecycled()) {
-            Glide.with(mImgPreview)
-                    .load(
-                            getWidgetType().getDemoWidgetImage(
-                                    bmp.isMutable() ? bmp : bmp.copy(Bitmap.Config.ARGB_8888, true),
-                                    mTextColor
-                            )
-                    )
-                    .apply(new RequestOptions().dontAnimate().placeholder(mImgPreview.getDrawable()))
-                    .into(mImgPreview);
-        }
-    }
-
-    private void invalidateBg() {
-        mBmpBgCache = null;
     }
 
     /**
@@ -415,15 +351,13 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
         if (mIsChoosingTextColor) {
-            mTextColor = selectedColor;
+            mWidgetInfo.setTextColor(selectedColor);
             mTextColorPreview.setBackground(new CircleDrawable(selectedColor));
         } else {
-            mBgColor = selectedColor;
-            // 清除缓存
-            invalidateBg();
+            mWidgetInfo.setBgColor(selectedColor);
             mBgColorPreview.setBackground(new CircleDrawable(selectedColor));
         }
-        drawForeground();
+        invalidate();
     }
 
     /**
@@ -445,7 +379,7 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
                 .titleSub(R.string.choose_color)
                 .doneButton(R.string.select)  // changes label of the done button
                 .cancelButton(R.string.cancel)  // changes label of the cancel button
-                .preselect(mTextColor)  // 开始的时候的默认颜色
+                .preselect(mWidgetInfo.getTextColor())  // 开始的时候的默认颜色
                 .dynamicButtonColor(true)  // defaults to true, false will disable changing action buttons' color to currently selected color
                 .build()
                 .show(getSupportFragmentManager());
@@ -461,7 +395,7 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
                 .titleSub(R.string.choose_color)
                 .doneButton(R.string.select)  // changes label of the done button
                 .cancelButton(R.string.cancel)  // changes label of the cancel button
-                .preselect(mBgColor)  // 开始的时候的默认颜色
+                .preselect(mWidgetInfo.getBgColor())  // 开始的时候的默认颜色
                 .dynamicButtonColor(true)  // defaults to true, false will disable changing action buttons' color to currently selected color
                 .build()
                 .show(getSupportFragmentManager());

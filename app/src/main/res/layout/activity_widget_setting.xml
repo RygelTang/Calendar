@@ -249,12 +249,12 @@
                 android:orientation="vertical"
                 android:padding="@dimen/padding_m"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/img_preview"
+                <include layout="@layout/widget_common_img"
+                    android:id="@+id/layout_widget_demo"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/calendar_view_height" />
+                    android:layout_height="@dimen/demo_calendar_widget_height"/>
 
                 <TextView
                     android:id="@+id/tv_tips"

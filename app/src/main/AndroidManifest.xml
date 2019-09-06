@@ -62,9 +62,7 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Boxing.AppTheme.NoActionBar" /> <!-- 初始化服务 -->
-        <service
-            android:name=".service.InitService"
-            android:exported="false" /> <!-- 推送服务 -->
+        <!-- 推送服务 -->
         <service android:name=".service.PushService" />
 
         <receiver

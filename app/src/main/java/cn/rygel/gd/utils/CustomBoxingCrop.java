@@ -10,8 +10,17 @@ import android.support.v4.app.Fragment;
 import com.bilibili.boxing.loader.IBoxingCrop;
 import com.bilibili.boxing.model.config.BoxingCropOption;
 import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.model.AspectRatio;
 
 public class CustomBoxingCrop implements IBoxingCrop {
+
+    private AspectRatio[] mAspectRatios;
+
+    public CustomBoxingCrop(AspectRatio[] aspectRatios) {
+        mAspectRatios = aspectRatios;
+    }
+
+    public CustomBoxingCrop() { }
 
     @Override
     public void onStartCrop(Context context, Fragment fragment, @NonNull BoxingCropOption cropConfig, @NonNull String path, int requestCode) {
@@ -24,7 +33,11 @@ public class CustomBoxingCrop implements IBoxingCrop {
         // because png do not have exif and png is not Distinguishable
         crop.setCompressionFormat(Bitmap.CompressFormat.PNG);
         crop.withMaxResultSize(cropConfig.getMaxWidth(), cropConfig.getMaxHeight());
-        crop.withAspectRatio(cropConfig.getAspectRatioX(), cropConfig.getAspectRatioY());
+        if (mAspectRatios == null) {
+            crop.withAspectRatio(cropConfig.getAspectRatioX(), cropConfig.getAspectRatioY());
+        } else {
+            crop.setAspectRatioOptions(0, mAspectRatios);
+        }
         UCrop.of(uri, cropConfig.getDestination())
                 .withOptions(crop)
                 .start(context, fragment, requestCode);
@@ -41,4 +54,5 @@ public class CustomBoxingCrop implements IBoxingCrop {
         }
         return UCrop.getOutput(data);
     }
+
 }

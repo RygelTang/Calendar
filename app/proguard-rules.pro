@@ -84,9 +84,8 @@
     void *(*Event);
 }
 
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+-keep enum * {
+    *;
 }
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;

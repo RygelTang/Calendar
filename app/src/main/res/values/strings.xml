@@ -111,6 +111,7 @@
 
     <!--小部件设置-->
     <string name="widget_setting">小部件设置</string>
+    <string name="widget_id_not_found">小部件设置失败</string>
     <string name="color_background">纯色背景</string>
     <string name="text_color">字体颜色</string>
     <string name="bg_color">背景颜色</string>
