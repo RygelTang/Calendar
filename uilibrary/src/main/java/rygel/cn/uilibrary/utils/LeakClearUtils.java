@@ -3,6 +3,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Field;
@@ -40,10 +41,37 @@ public class LeakClearUtils {
                     }
                 }
             } catch (NoSuchFieldException ex) {
-                Logger.e(ex.getMessage());
+                Logger.e(ex.getLocalizedMessage());
             } catch (IllegalAccessException ex) {
-                Logger.e(ex.getMessage());
+                Logger.e(ex.getLocalizedMessage());
             }
+        }
+
+    }
+
+    public static void fixColorPickerLeak(ColorChooserDialog dialog) {
+        if (dialog == null) {
+            return;
+        }
+
+        String fieldName = "callback";
+        Field field;
+        Object obj;
+
+        try {
+            field = dialog.getClass().getField(fieldName);
+
+            if (!field.isAccessible()) {
+                field.setAccessible(true);
+            }
+            obj = field.get(dialog);
+            if (obj instanceof Context) {
+                field.set(dialog, null);
+            }
+        } catch (NoSuchFieldException ex) {
+            Logger.e(ex.getLocalizedMessage());
+        } catch (IllegalAccessException ex) {
+            Logger.e(ex.getLocalizedMessage());
         }
 
     }

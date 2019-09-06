@@ -59,10 +59,12 @@ dependencies {
     // support
     implementation rootProject.ext.support.design
     implementation rootProject.ext.support.recyclerview
+    implementation rootProject.ext.support.constraint_layout
+    implementation rootProject.ext.support.palette
 
     // 图片加载
-    // implementation rootProject.ext.glide.glide
-    // annotationProcessor rootProject.ext.glide.compiler
+    implementation rootProject.ext.glide.glide
+    annotationProcessor rootProject.ext.glide.compiler
 
     // 工具类
     implementation rootProject.ext.utils
@@ -100,6 +102,9 @@ dependencies {
 
     // 图片选择框架
     // implementation rootProject.ext.matisse
+    implementation rootProject.ext.boxing.core
+    implementation rootProject.ext.boxing.impl
+    implementation rootProject.ext.ucrop
 
     // 日历
     implementation rootProject.ext.calendar
@@ -112,6 +117,9 @@ dependencies {
     // spinner
     implementation rootProject.ext.spinner
 
+    // permission
+    implementation rootProject.ext.permission
+
     // 换肤框架
     implementation rootProject.ext.theme.support
     implementation rootProject.ext.theme.design
@@ -123,6 +131,9 @@ dependencies {
     // object box
     debugImplementation rootProject.ext.object_box.browser
     releaseImplementation rootProject.ext.object_box.android
+
+    // keep alive
+    implementation rootProject.ext.keep_alive
 
     // UI基础库
     implementation project(':uilibrary')

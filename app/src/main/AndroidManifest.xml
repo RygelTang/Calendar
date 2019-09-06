@@ -22,6 +22,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".widget.month.MonthWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/month_widget_info" />
+        </receiver>
+
+        <activity android:name=".ui.setting.widget.month.MonthWidgetSettingActivity" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.setting.theme.ThemeActivity" />
         <activity android:name=".ui.index.activity.MainActivity">
             <intent-filter>
@@ -43,19 +58,12 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
-        <!-- 初始化服务 -->
-        <service
-            android:name=".service.InitService"
-            android:exported="false"/>
-        <!-- 重启服务 -->
-        <service
-            android:name=".service.RestartService"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <!-- 双进程保活 -->
-        <service android:name=".service.LocalService" />
-        <service
-            android:name=".service.RemoteService"
-            android:process=":remote" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Boxing.AppTheme.NoActionBar" /> <!-- 初始化服务 -->
+        <!-- 推送服务 -->
+        <service android:name=".service.PushService" />
 
         <receiver
             android:name=".receiver.DateChangeBroadcastReceiver"

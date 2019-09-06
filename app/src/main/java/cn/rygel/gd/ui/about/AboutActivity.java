@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.app.APP;
+import cn.rygel.gd.ui.setting.widget.month.MonthWidgetSettingActivity;
 import cn.rygel.gd.utils.ClipboardUtils;
 import rygel.cn.uilibrary.base.BaseActivity;
 import skin.support.content.res.SkinCompatUserThemeManager;

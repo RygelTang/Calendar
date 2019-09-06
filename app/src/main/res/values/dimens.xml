@@ -71,6 +71,10 @@
     <dimen name="item_indicator">24dp</dimen>
     <dimen name="time_line_width">0.5dp</dimen>
 
+    <!--widget-->
+    <dimen name="setting_icon_width">32dp</dimen>
+    <dimen name="demo_calendar_widget_height">240dp</dimen>
+
     <!--创建日程-->
 
     <!--时间及日期选择-->

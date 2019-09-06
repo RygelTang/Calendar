@@ -5,18 +5,16 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.RemoteException;
+import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
+import com.xdandroid.hellodaemon.AbsWorkService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,7 +22,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import cn.rygel.gd.IRemoteService;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnDateChangedEvent;
 import cn.rygel.gd.bean.OnEventAddedEvent;
@@ -40,50 +37,48 @@ import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 import rygel.cn.uilibrary.utils.WeakHandler;
 
-public class LocalService extends Service {
-
-    private ServiceConnection mConn;
-    private MyService myService;
+public class PushService extends AbsWorkService {
 
     private PushHandler mPushHandler = new PushHandler(this);
+    private boolean mWorkStarted = false;
 
     @Override
-    public IBinder onBind(Intent intent) {
-        return myService;
+    public Boolean shouldStopService(Intent intent, int flags, int startId) {
+        Logger.i("should not stop service!");
+        return false;
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Logger.i("LocalService created");
+    public void startWork(Intent intent, int flags, int startId) {
+        Logger.i("service start work!");
         EventBus.getDefault().register(this);
-        init();
-        initEvents();
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             createNotificationChannel();
         }
-    }
-
-    private void init() {
-        if (mConn == null) {
-            mConn = new MyServiceConnection();
-        }
-        myService = new MyService();
+        initEvents();
+        mWorkStarted = true;
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            Intent intents = new Intent();
-            intents.setClass(this, RemoteService.class);
-            bindService(intents, mConn, Context.BIND_IMPORTANT);
-        }
-        return START_STICKY;
+    public void stopWork(Intent intent, int flags, int startId) {
+        Logger.i("service stop work!");
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public Boolean isWorkRunning(Intent intent, int flags, int startId) {
+        Logger.i("service is working?" + mWorkStarted);
+        return mWorkStarted;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent, Void alwaysNull) {
+        return null;
+    }
+
+    @Override
+    public void onServiceKilled(Intent rootIntent) {
+        Logger.e("service killed, wake up in 6 minutes!");
         EventBus.getDefault().unregister(this);
     }
 
@@ -139,47 +134,21 @@ public class LocalService extends Service {
 
     }
 
-    class MyService extends IRemoteService.Stub {
-        @Override
-        public String getServiceName() throws RemoteException {
-            return null;
-        }
-    }
-
-    class MyServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                LocalService.this.startService(new Intent(LocalService.this,
-                        RemoteService.class));
-                LocalService.this.bindService(new Intent(LocalService.this,
-                        RemoteService.class), mConn, Context.BIND_IMPORTANT);
-            }
-        }
-
-    }
-
-    protected static class PushHandler extends WeakHandler<LocalService> {
+    protected static class PushHandler extends WeakHandler<PushService> {
 
         private static final int MESSAGE_PUSH_EVENT = 0;
 
-        public PushHandler(LocalService localService) {
-            super(localService);
+        public PushHandler(PushService service) {
+            super(service);
         }
 
         @Override
-        protected void handleMessage(LocalService localService, Message message) {
+        protected void handleMessage(PushService service, Message message) {
             switch (message.what) {
                 case MESSAGE_PUSH_EVENT:
                     Logger.i("try to push notification");
                     if(message.obj instanceof BaseEvent) {
-                        localService.pushNotification(message.obj.hashCode(),formatNotification(localService,(BaseEvent) message.obj));
+                        service.pushNotification(message.obj.hashCode(),formatNotification(service,(BaseEvent) message.obj));
                     }
                     break;
             }
@@ -195,7 +164,7 @@ public class LocalService extends Service {
     private void createNotificationChannel() {
         Logger.i("notification channel created");
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String channelId = UIUtils.getString(this,R.string.app_name);
+        String channelId = UIUtils.getString(this, R.string.app_name);
         String channelName = UIUtils.getString(this,R.string.event_notification);
         String channelDescription = UIUtils.getString(this,R.string.event_notification_channel_description);
         int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -208,7 +177,7 @@ public class LocalService extends Service {
     }
 
     private static Notification formatNotification(Context context,BaseEvent event) {
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder builder = null;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -240,5 +209,6 @@ public class LocalService extends Service {
         int interval = SolarUtils.getIntervalDays(new Solar(1970, 1, 1), solar);
         return interval * 86400000L - timeZone;
     }
+
 
 }

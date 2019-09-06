@@ -1,5 +1,6 @@
 package cn.rygel.gd.ui.setting.index.impl;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,9 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.xdandroid.hellodaemon.IntentWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,6 +30,7 @@ import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
 import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.setting.index.ISettingView;
 import cn.rygel.gd.ui.setting.theme.ThemeActivity;
+import pub.devrel.easypermissions.EasyPermissions;
 import rygel.cn.uilibrary.mvp.BaseActivity;
 import rygel.cn.uilibrary.utils.UIUtils;
 import skin.support.content.res.SkinCompatUserThemeManager;
@@ -105,8 +109,20 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         startActivity(new Intent(this, ThemeActivity.class));
     }
 
+    @OnClick(R.id.btn_backup)
+    protected void onBackup() {
+        if (!checkAndGetPermission()) {
+            return;
+        }
+        onLoading();
+        getPresenter().backup();
+    }
+
     @OnCheckedChanged(R.id.switch_keep_alive)
     protected void onKeepAliveChanged(boolean state){
+        if (!getPresenter().isKeepAlive()){
+            IntentWrapper.whiteListMatters(this, StringUtils.getString(R.string.add_to_white_list));
+        }
         if(!getPresenter().putKeepAlive(state)) {
             showToast(R.string.save_fail);
         }
@@ -122,6 +138,15 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @OnClick(R.id.btn_keep_alive)
     protected void onClickKeepAlive() {
         mSwitchKeepAlive.setChecked(!mSwitchKeepAlive.isChecked());
+    }
+
+    @OnClick(R.id.btn_restore)
+    protected void onRestore() {
+        if (!checkAndGetPermission()) {
+            return;
+        }
+        onLoading();
+        getPresenter().restore();
     }
 
     @OnClick(R.id.btn_about)
@@ -149,6 +174,60 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         }
         EventBus.getDefault().post(new OnWeekDayOffsetSelectEvent(index));
         mTvWeekDay.setText(mWeekDays.get(index));
+    }
+
+    @Override
+    public void onBackupSuccess() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onLoadFinish();
+                showToast(R.string.save_success);
+            }
+        });
+    }
+
+    @Override
+    public void onBackupFail() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onLoadFinish();
+                showToast(R.string.save_fail);
+            }
+        });
+    }
+
+    @Override
+    public void onRestoreSuccess() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onLoadFinish();
+                showToast(R.string.restore_success);
+            }
+        });
+    }
+
+    @Override
+    public void onRestoreFail(String err) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onLoadFinish();
+                showToast(err);
+            }
+        });
+    }
+
+    private boolean checkAndGetPermission() {
+        String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            return true;
+        } else {
+            EasyPermissions.requestPermissions(this, StringUtils.getString(R.string.permission_to_backup_and_restore), 8, perms);
+        }
+        return true;
     }
 
     @Override

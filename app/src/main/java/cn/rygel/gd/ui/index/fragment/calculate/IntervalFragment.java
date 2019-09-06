@@ -124,7 +124,7 @@ public class IntervalFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        onDateUpdated();
+        onDateSelected(mEnd, false);
     }
 
     @Override

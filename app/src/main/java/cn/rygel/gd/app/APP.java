@@ -4,7 +4,6 @@ import android.app.Application;
 import android.support.multidex.MultiDex;
 
 import com.blankj.utilcode.util.ColorUtils;
-import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -13,6 +12,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.tencent.mmkv.MMKV;
+import com.xdandroid.hellodaemon.DaemonEnv;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
@@ -21,7 +21,7 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
-import cn.rygel.gd.service.InitService;
+import cn.rygel.gd.service.PushService;
 import cn.rygel.gd.setting.Settings;
 import io.objectbox.BoxStoreBuilder;
 import io.objectbox.android.AndroidObjectBrowser;
@@ -37,7 +37,9 @@ public class APP extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        InitService.startInit(this);
+        // 初始化MultiDex
+        initMultiDex();
+        initBugly();
         // 初始化工具类
         initUtils();
         // 初始化Logger
@@ -46,13 +48,25 @@ public class APP extends Application {
         initBoxStore();
         // 初始化内存泄漏工具
         initLeakCanary();
-        // 初始化MultiDex
-        initMultiDex();
         // 初始化MMKV
         initMMKV();
         // 初始化换肤框架
         initTheme();
+        initPushService();
+    }
 
+    /**
+     * 初始化推送服务
+     */
+    private void initPushService() {
+        DaemonEnv.initialize(APP.getInstance(), PushService.class, 1000 * 60 * 6);
+    }
+
+    /**
+     * 初始化bugly
+     */
+    private void initBugly() {
+        Bugly.init(APP.getInstance(), Global.BUGLY_ID, BuildConfig.DEBUG);
     }
 
     /**

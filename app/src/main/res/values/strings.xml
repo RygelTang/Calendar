@@ -70,7 +70,6 @@
     <string name="cancel">取消</string>
     <string name="create_local_user">创建本地用户</string>
     <string name="about">关于</string>
-    <string name="widget_setting">小部件设置</string>
     <string name="save_fail">保存失败</string>
     <string name="save_success">保存成功</string>
     <string name="edit">编辑</string>
@@ -89,16 +88,37 @@
     <string name="option_first_weekday">一周的起始日</string>
     <string name="option_hide_status">沉浸状态栏</string>
     <string name="option_theme">主题设置</string>
+    <string name="permission_to_backup_and_restore">赋予文件读写权限使用备份以及恢复功能！</string>
+    <string name="option_backup">数据备份</string>
+    <string name="summary_backup">数据文件将保存在系统目录的cn.rygel.gd/backup文件夹下，请妥善保管！</string>
+    <string name="option_restore">数据恢复</string>
+    <string name="summary_restore">请将您的数据文件放在系统目录的cn.rygel.gd/restore文件夹下，并保证该文件夹下只有一个数据文件！在恢复前应用将对您现有的数据进行备份，以保证数据安全！在恢复成功后APP将自动重启！</string>
+    <string name="no_restore_data_found">未找到数据文件</string>
+    <string name="copy_fail">复制失败</string>
+    <string name="more_than_one_file_in_restore_folder">恢复文件夹内包含多个数据文件，请保证只有一个数据文件在文件内！</string>
+    <string name="restore_success">恢复成功,自动重启中！</string>
     <string name="option_group">用户群</string>
     <string name="option_account">账户</string>
     <string name="option_about">关于</string>
     <string name="option_keep_alive">保留后台</string>
+    <string name="add_to_white_list">请将应用加入白名单以保证推送正常运行！</string>
     <string name="summary_keep_alive">如果设备无法正常接收到通知提醒，请打开此选项。</string>
     <string name="summary_hide_status">Android 5.0 以上沉浸式状态栏。</string>
     <string name="default_first_weekday">星期日</string>
     <string name="base_setting">基础设置</string>
     <string name="other_setting">其他设置</string>
     <string name="choose_color">选择颜色</string>
+
+    <!--小部件设置-->
+    <string name="widget_setting">小部件设置</string>
+    <string name="widget_id_not_found">小部件设置失败</string>
+    <string name="color_background">纯色背景</string>
+    <string name="text_color">字体颜色</string>
+    <string name="bg_color">背景颜色</string>
+    <string name="background_blur">背景高斯模糊</string>
+    <string name="background_alpha">背景透明度</string>
+    <string name="background_corner_radius">背景圆角大小</string>
+    <string name="click_img_to_reselect">点击图片以重新选择</string>
 
     <!--时间轴-->
     <string name="event_location">地点：</string>
@@ -299,5 +319,8 @@
         <item>58</item>
         <item>59</item>
     </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

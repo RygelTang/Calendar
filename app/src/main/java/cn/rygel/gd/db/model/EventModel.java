@@ -34,10 +34,10 @@ import rygel.cn.calendar.bean.Solar;
 
 public class EventModel {
 
-    private BoxStore mBoxStore = BoxStoreHolder.getInstance().getBoxStore();
+    private BoxStore mBoxStore = null;
 
-    private Box<Event> mEventBox = mBoxStore.boxFor(Event.class);
-    private Box<Time> mTimeBox = mBoxStore.boxFor(Time.class);
+    private Box<Event> mEventBox = null;
+    private Box<Time> mTimeBox = null;
 
     private User mUser = null;
 
@@ -46,6 +46,13 @@ public class EventModel {
     public static EventModel getInstance(){
         return Instance.sInstance;
     }
+
+    public void onNewStore(BoxStore store) {
+        mBoxStore = store;
+        mEventBox = mBoxStore.boxFor(Event.class);
+        mTimeBox = mBoxStore.boxFor(Time.class);
+    }
+
 
     /**
      * 初始化用户

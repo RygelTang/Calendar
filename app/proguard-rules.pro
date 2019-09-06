@@ -84,9 +84,8 @@
     void *(*Event);
 }
 
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+-keep enum * {
+    *;
 }
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
@@ -148,6 +147,11 @@
 -dontwarn com.squareup.picasso.**
 -dontwarn com.bumptech.glide.**
 -dontwarn com.zhihu.matisse.**
+
+###ucrop
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
 
 # Bugly
 -dontwarn com.tencent.bugly.**

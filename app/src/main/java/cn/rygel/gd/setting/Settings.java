@@ -31,7 +31,7 @@ public class Settings {
     }
 
     public boolean isKeepAlive() {
-        return mKV.decodeBool(KEY_KEEP_ALIVE,true);
+        return mKV.decodeBool(KEY_KEEP_ALIVE,false);
     }
 
     public int getWeekdayOffset() {
