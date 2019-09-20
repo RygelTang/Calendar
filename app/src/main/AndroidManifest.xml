@@ -67,6 +67,8 @@
 
         <receiver
             android:name=".receiver.DateChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
             android:label="DateChangeBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DATE_CHANGED" />

@@ -139,6 +139,12 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
         }
     }
 
+    @OnCheckedChanged({R.id.switch_widget_title})
+    protected void onHideTitleChanged(boolean shouldHide) {
+        mWidgetInfo.setHideTitle(shouldHide);
+        invalidate();
+    }
+
     @OnCheckedChanged(R.id.switch_blur)
     protected void onOptionBlurChanged(boolean shouldBlur) {
         mWidgetInfo.setShouldBlur(shouldBlur);
@@ -232,6 +238,7 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
                         DEFAULT_BITMAP_WIDTH,
                         DEFAULT_BITMAP_HEIGHT,
                         true,
+                        false,
                         false
                 );
             }
@@ -303,6 +310,7 @@ public abstract class ImageWidgetSettingActivity extends BaseActivity implements
 
     protected void invalidate() {
         mDemoTvTips.setTextColor(mWidgetInfo.getTextColor());
+        mDemoWidgetTitle.setVisibility(mWidgetInfo.isHideTitle() ? View.GONE : View.VISIBLE);
         Drawable setting;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setting = getResources().getDrawable(R.drawable.ic_settings_white_24dp, getTheme());

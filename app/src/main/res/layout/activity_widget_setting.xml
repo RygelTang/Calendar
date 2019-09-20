@@ -60,6 +60,41 @@
             </LinearLayout>
 
             <LinearLayout
+                android:padding="@dimen/padding_m"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:padding="@dimen/padding_xxs"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_s"
+                    app:srcCompat="@drawable/ic_hide"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_width" />
+
+                <TextView
+                    android:padding="@dimen/padding_m"
+                    android:text="@string/hide_title"
+                    android:textSize="@dimen/text_m"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:checked="false"
+                    android:id="@+id/switch_widget_title"
+                    app:kswThumbMargin="-3dp"
+                    app:kswTintColor="@color/colorPrimary"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/btn_select_bg_color"
                 android:padding="@dimen/padding_m"

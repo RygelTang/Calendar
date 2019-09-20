@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.blankj.utilcode.util.ConvertUtils;
@@ -69,6 +70,7 @@ public class MonthWidget extends AppWidgetProvider {
 //            views.setViewPadding(R.id.layout_widget_title, paddingX,  paddingY, 0, 0);
             height = 1080 * height / width;
             width = 1080;
+            views.setViewVisibility(R.id.layout_widget_title, info.isHideTitle() ? View.GONE : View.VISIBLE);
             views.setImageViewBitmap(R.id.img_background, ImageWidgetUtils.getBackgroundOf(info, width, height));
             views.setImageViewBitmap(R.id.btn_setting, ConvertUtils.drawable2Bitmap(setting));
             views.setTextViewText(R.id.tv_widget_tips, generateMonthInfo(SolarUtils.today()));

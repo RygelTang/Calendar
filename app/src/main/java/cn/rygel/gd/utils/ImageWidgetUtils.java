@@ -13,7 +13,7 @@ public class ImageWidgetUtils {
 
     public static Bitmap getForegroundOf(ImageWidgetInfo info, int width, int height) {
         return info.getType().getDemoWidgetImage(
-                new Rect(0, 0, width, height - AutoSizeUtils.dp2px(APP.getInstance(), 44)),
+                new Rect(0, 0, width, height - (info.isHideTitle() ? 0 : AutoSizeUtils.dp2px(APP.getInstance(), 44))),
                 info.getTextColor()
         );
     }
@@ -61,7 +61,7 @@ public class ImageWidgetUtils {
         }
         cache = getTransparentBitmap(cache, info.getBgAlpha());
         cache = RoundCornerTransformer.transform(cache, info.getCornerRadius());
-        return cache;
+        return ImageUtils.compressByScale(cache, width, height);
     }
 
     /**

@@ -27,18 +27,21 @@ public class ImageWidgetInfo {
     private boolean mOnlyColorBg;
     private boolean mShouldBlur;
 
-    public ImageWidgetInfo(WidgetType type, int widgetId, int textColor, int bgColor, int cornerRadius, int bgAlpha, String bgPath, int bgWidth, int bgHeight, boolean onlyColorBg, boolean shouldBlur) {
-        mType = type;
-        mWidgetId = widgetId;
-        mTextColor = textColor;
-        mBgColor = bgColor;
-        mCornerRadius = cornerRadius;
-        mBgAlpha = bgAlpha;
-        mBgPath = bgPath;
-        mBgWidth = DEFAULT_BITMAP_WIDTH;
-        mBgHeight = DEFAULT_BITMAP_WIDTH * bgHeight / bgWidth;
-        mOnlyColorBg = onlyColorBg;
-        mShouldBlur = shouldBlur;
+    private boolean mHideTitle;
+
+    public ImageWidgetInfo(WidgetType mType, int mWidgetId, int mTextColor, int mBgColor, int mCornerRadius, int mBgAlpha, String mBgPath, int mBgWidth, int mBgHeight, boolean mOnlyColorBg, boolean mShouldBlur, boolean mHideTitle) {
+        this.mType = mType;
+        this.mWidgetId = mWidgetId;
+        this.mTextColor = mTextColor;
+        this.mBgColor = mBgColor;
+        this.mCornerRadius = mCornerRadius;
+        this.mBgAlpha = mBgAlpha;
+        this.mBgPath = mBgPath;
+        this.mBgWidth = mBgWidth;
+        this.mBgHeight = mBgHeight;
+        this.mOnlyColorBg = mOnlyColorBg;
+        this.mShouldBlur = mShouldBlur;
+        this.mHideTitle = mHideTitle;
     }
 
     public WidgetType getType() {
@@ -133,9 +136,16 @@ public class ImageWidgetInfo {
         mBgWidth = DEFAULT_BITMAP_WIDTH;
     }
 
+    public boolean isHideTitle() {
+        return mHideTitle;
+    }
+
+    public void setHideTitle(boolean mHideTitle) {
+        this.mHideTitle = mHideTitle;
+    }
+
     public void save() {
         save(this);
-        EventBus.getDefault().post(new OnUpdateMonthWidgetEvent(mWidgetId));
     }
 
     public void remove() {
