@@ -12,7 +12,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.tencent.mmkv.MMKV;
-import com.xdandroid.hellodaemon.DaemonEnv;
 
 import cn.rygel.gd.BuildConfig;
 import cn.rygel.gd.R;
@@ -21,6 +20,7 @@ import cn.rygel.gd.db.boxstore.BoxStoreHolder;
 import cn.rygel.gd.db.entity.MyObjectBox;
 import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
+import cn.rygel.gd.deamon.DaemonHolder;
 import cn.rygel.gd.service.PushService;
 import cn.rygel.gd.setting.Settings;
 import io.objectbox.BoxStoreBuilder;
@@ -59,7 +59,7 @@ public class APP extends Application {
      * 初始化推送服务
      */
     private void initPushService() {
-        DaemonEnv.initialize(APP.getInstance(), PushService.class, 1000 * 60 * 6);
+        DaemonHolder.init(this, PushService.class);
     }
 
     /**

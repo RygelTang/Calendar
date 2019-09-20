@@ -4,17 +4,18 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.PowerManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kyleduo.switchbutton.SwitchButton;
-import com.xdandroid.hellodaemon.IntentWrapper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,6 +28,7 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.bean.OnWeekDayOffsetSelectEvent;
+import cn.rygel.gd.deamon.IntentWrapper;
 import cn.rygel.gd.ui.about.AboutActivity;
 import cn.rygel.gd.ui.setting.index.ISettingView;
 import cn.rygel.gd.ui.setting.theme.ThemeActivity;
@@ -43,9 +45,6 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
 
     @BindView(R.id.tb_setting)
     Toolbar mTbSetting;
-
-    @BindView(R.id.switch_keep_alive)
-    SwitchButton mSwitchKeepAlive;
 
     @BindView(R.id.tv_summary_weekday)
     TextView mTvWeekDay;
@@ -73,7 +72,6 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
     @Override
     protected void onResume() {
         mSwitchHideStatus.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
-        mSwitchKeepAlive.setTintColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimary).getColorDefault()));
         setStatusBarColor(Color.parseColor(SkinCompatUserThemeManager.get().getColorState(R.color.colorPrimaryDark).getColorDefault()));
         super.onResume();
     }
@@ -100,7 +98,6 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
 
     @Override
     protected void loadData() {
-        mSwitchKeepAlive.setChecked(getPresenter().isKeepAlive());
         mTvWeekDay.setText(mWeekDays.get(getPresenter().getWeekdayOffset()));
     }
 
@@ -118,14 +115,9 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         getPresenter().backup();
     }
 
-    @OnCheckedChanged(R.id.switch_keep_alive)
-    protected void onKeepAliveChanged(boolean state){
-        if (!getPresenter().isKeepAlive()){
-            IntentWrapper.whiteListMatters(this, StringUtils.getString(R.string.add_to_white_list));
-        }
-        if(!getPresenter().putKeepAlive(state)) {
-            showToast(R.string.save_fail);
-        }
+    @OnClick(R.id.btn_keep_alive)
+    protected void onAddToWhiteList(){
+        IntentWrapper.whiteListMatters(this, StringUtils.getString(R.string.add_to_white_list));
     }
 
     @OnCheckedChanged(R.id.switch_hide_status)
@@ -133,11 +125,6 @@ public class SettingsActivity extends BaseActivity<SettingPresenter> implements 
         if(!getPresenter().putHideStatus(state)) {
             showToast(R.string.save_fail);
         }
-    }
-
-    @OnClick(R.id.btn_keep_alive)
-    protected void onClickKeepAlive() {
-        mSwitchKeepAlive.setChecked(!mSwitchKeepAlive.isChecked());
     }
 
     @OnClick(R.id.btn_restore)

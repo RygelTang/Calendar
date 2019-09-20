@@ -14,7 +14,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
-import com.xdandroid.hellodaemon.AbsWorkService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,6 +27,7 @@ import cn.rygel.gd.bean.OnEventAddedEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;
 import cn.rygel.gd.db.model.EventModel;
+import cn.rygel.gd.deamon.AbsHeartBeatService;
 import cn.rygel.gd.ui.index.activity.MainActivity;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;
@@ -37,49 +37,39 @@ import rygel.cn.calendar.utils.SolarUtils;
 import rygel.cn.uilibrary.utils.UIUtils;
 import rygel.cn.uilibrary.utils.WeakHandler;
 
-public class PushService extends AbsWorkService {
+public class PushService extends AbsHeartBeatService {
 
     private PushHandler mPushHandler = new PushHandler(this);
-    private boolean mWorkStarted = false;
 
     @Override
-    public Boolean shouldStopService(Intent intent, int flags, int startId) {
-        Logger.i("should not stop service!");
-        return false;
-    }
-
-    @Override
-    public void startWork(Intent intent, int flags, int startId) {
+    public void onStartService() {
         Logger.i("service start work!");
         EventBus.getDefault().register(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             createNotificationChannel();
         }
         initEvents();
-        mWorkStarted = true;
     }
 
     @Override
-    public void stopWork(Intent intent, int flags, int startId) {
-        Logger.i("service stop work!");
-    }
-
-    @Override
-    public Boolean isWorkRunning(Intent intent, int flags, int startId) {
-        Logger.i("service is working?" + mWorkStarted);
-        return mWorkStarted;
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent, Void alwaysNull) {
-        return null;
-    }
-
-    @Override
-    public void onServiceKilled(Intent rootIntent) {
-        Logger.e("service killed, wake up in 6 minutes!");
+    public void onStopService() {
+        Logger.e("service killed");
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public long getDelayExecutedMillis() {
+        return 200;
+    }
+
+    @Override
+    public long getHeartBeatMillis() {
+        return 200;
+    }
+
+    @Override
+    public void onHeartBeat() {
+        Logger.v("heart beat");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
