@@ -76,9 +76,16 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_marginHorizontal="@dimen/margin_m"
+                android:background="@color/divider_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divide_width"/>
+
             <TextView
+                android:paddingTop="@dimen/padding_m"
                 android:paddingBottom="@dimen/padding_m"
-                android:paddingLeft="@dimen/padding_xxl"
+                android:paddingLeft="@dimen/padding_xl"
                 android:id="@+id/tv_date_duration"
                 android:textSize="@dimen/text_s"
                 android:layout_width="wrap_content"
