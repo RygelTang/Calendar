@@ -270,10 +270,10 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
 
     @Override
     protected void loadData() {
+        onStartTimeSelect(0,0);
+        onStartTimeSelect(0,0);
         loadIntentData();
         mBtnUser.setText(mUser);
-        onStartTimeSelect(0,0);
-        onStartTimeSelect(0,0);
     }
 
     private void loadIntentData(){
@@ -590,6 +590,7 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
         mBtnStartTime.setText(formatTime(hour, minute));
         mBtnTime.setText(formatTime(hour, minute));
         mStart = hour * 60 + minute;
+        mStartTimePicker.setSelectTime(hour, minute);
         mEndTimePicker.setSelectTime(hour, minute);
         onEndTimeSelect(hour, minute);
     }
@@ -718,6 +719,7 @@ public class EditEventActivity extends BaseActivity<EditEventPresenter> implemen
     }
 
     private static String formatTime(int hour, int minute){
+        Logger.e("format time " + hour + ":" + minute);
         return (hour < 10 ? "0" + hour : String.valueOf(hour)) + ":" + (minute < 10 ? "0" + minute : String.valueOf(minute));
     }
 
