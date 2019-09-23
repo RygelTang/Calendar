@@ -15,57 +15,74 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginLeft="@dimen/margin_xl"
-                android:layout_marginTop="@dimen/margin_m"
-                android:layout_marginBottom="@dimen/margin_m"
-                android:id="@+id/tv_date"
-                android:textScaleX="0.9"
-                android:textSize="@dimen/text_xxxl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_l"
-                android:text="@string/date"
-                android:layout_weight="1"
-                android:textSize="@dimen/text_m"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
-                android:padding="@dimen/padding_m"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:id="@+id/tv_date_lunar_info"
-                    android:padding="@dimen/padding_xs"
-                    android:textSize="@dimen/text_s"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginLeft="@dimen/margin_xl"
+                    android:layout_marginTop="@dimen/margin_m"
+                    android:layout_marginBottom="@dimen/margin_m"
+                    android:id="@+id/tv_date"
+                    android:text="12"
+                    android:textScaleX="0.9"
+                    android:textSize="@dimen/text_xxxl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
+                    android:layout_marginBottom="@dimen/margin_s"
+                    android:layout_weight="1"
+                    android:text="@string/date"
+                    android:textSize="@dimen/text_m"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:id="@+id/tv_date_info"
-                    android:padding="@dimen/padding_xs"
-                    android:textSize="@dimen/text_s"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xl"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
 
+                <LinearLayout
+                    android:padding="@dimen/padding_m"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/tv_date_lunar_info"
+                        android:padding="@dimen/padding_xs"
+                        android:textSize="@dimen/text_s"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/tv_date_info"
+                        android:padding="@dimen/padding_xs"
+                        android:textSize="@dimen/text_s"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
+            <TextView
+                android:paddingBottom="@dimen/padding_m"
+                android:paddingLeft="@dimen/padding_xxl"
+                android:id="@+id/tv_date_duration"
+                android:textSize="@dimen/text_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

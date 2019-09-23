@@ -47,6 +47,18 @@ public class CalendarUtils {
         return true;
     }
 
+    /**
+     * 获取当前日期的星期数
+     * @return
+     */
+    public static int getWeeks(Solar solar) {
+        final Solar start = new Solar(solar.solarYear, 1, 1);
+        final int days = SolarUtils.getIntervalDays(start, solar);
+        final int startWeek = SolarUtils.getWeekDay(start);
+        return (days + startWeek + 1) / 7 + 1;
+    }
+
+
     public static String format(Solar solar) {
         return solar.solarYear + StringUtils.getString(R.string.year) + solar.solarMonth + StringUtils.getString(R.string.month) + solar.solarDay + StringUtils.getString(R.string.day);
     }

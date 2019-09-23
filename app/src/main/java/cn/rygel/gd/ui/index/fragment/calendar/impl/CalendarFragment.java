@@ -34,6 +34,7 @@ import cn.rygel.gd.setting.Settings;
 import cn.rygel.gd.adapter.EventAdapter;
 import cn.rygel.gd.ui.event.impl.AddEventActivity;
 import cn.rygel.gd.ui.index.fragment.calendar.ICalendarView;
+import cn.rygel.gd.utils.CalendarUtils;
 import cn.rygel.gd.view.calendar.CustomItemCommon;
 import cn.rygel.gd.view.calendar.CustomItemSelected;
 import cn.rygel.gd.view.calendar.CustomItemToday;
@@ -70,6 +71,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
 
     private View mCalendarHeader;
 
+    private TextView mTvDateDuration;
     private TextView mTvDate;
     private TextView mTvLunarInfo;
     private TextView mTvDateInfo;
@@ -130,6 +132,7 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
         mTvDate = mCalendarHeader.findViewById(R.id.tv_date);
         mTvLunarInfo = mCalendarHeader.findViewById(R.id.tv_date_lunar_info);
         mTvDateInfo = mCalendarHeader.findViewById(R.id.tv_date_info);
+        mTvDateDuration = mCalendarHeader.findViewById(R.id.tv_date_duration);
         loadDateInfo(mSelected);
         mEventAdapter.setHeaderView(mCalendarHeader);
         // 减少滑动卡顿
@@ -138,12 +141,25 @@ public class CalendarFragment extends BaseFragment<CalendarPresenter> implements
     }
 
     private void loadDateInfo(Solar solar) {
-        Solar date = new Solar(solar.solarYear, solar.solarMonth, solar.solarDay);
-        Lunar lunar = date.toLunar();
+        final Solar today = SolarUtils.today();
+        final Solar date = new Solar(solar.solarYear, solar.solarMonth, solar.solarDay);
+        final Lunar lunar = date.toLunar();
         mTvDate.setText(String.valueOf(date.solarDay));
-        String lunarStr = (lunar.isLeap ? "闰" : "") + LunarUtils.LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" + LunarUtils.LUNAR_DAYS[lunar.lunarDay - 1];
+        final int duration = SolarUtils.getIntervalDays(today, date);
+        if (duration > 0) {
+            mTvDateDuration.setText(StringUtils.getString(R.string.duration_bigger_than_zero, duration));
+        } else {
+            mTvDateDuration.setText(StringUtils.getString(R.string.duration_smaller_than_zero, -duration));
+        }
+        if (solar.equals(today)) {
+            mTvDateDuration.setVisibility(View.GONE);
+        } else {
+            mTvDateDuration.setVisibility(View.VISIBLE);
+        }
+        final String lunarStr = (lunar.isLeap ? "闰" : "") + LunarUtils.LUNAR_MONTHS[lunar.lunarMonth - 1] + "月" + LunarUtils.LUNAR_DAYS[lunar.lunarDay - 1];
         mTvLunarInfo.setText(lunarStr);
-        mTvDateInfo.setText(StringUtils.getStringArray(R.array.weekdays)[SolarUtils.getWeekDay(date)]);
+        final String dateInfo =  "第" + CalendarUtils.getWeeks(solar) + "周 " + StringUtils.getStringArray(R.array.weekdays)[SolarUtils.getWeekDay(date)];
+        mTvDateInfo.setText(dateInfo);
     }
 
     private void initCalendarView(){

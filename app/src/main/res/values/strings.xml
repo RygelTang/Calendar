@@ -8,6 +8,8 @@
     <string name="dd">%d日</string>
     <string name="date">日</string>
     <string name="default_time">00:00</string>
+    <string name="duration_bigger_than_zero">距离今天%d天</string>
+    <string name="duration_smaller_than_zero">已经过去%d天</string>
     <string name="temperature">%d℃</string>
     <string name="event_empty_click_to_add">没有日程，点击添加日程</string>
 
