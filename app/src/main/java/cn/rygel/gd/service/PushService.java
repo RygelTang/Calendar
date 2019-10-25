@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,8 +48,23 @@ public class PushService extends AbsHeartBeatService {
         EventBus.getDefault().register(this);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             createNotificationChannel();
+            createKeepAliveNotificationChannel();
+            startForeground(1, getKeepAliveNotification());
         }
         initEvents();
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private Notification getKeepAliveNotification() {
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification.Builder builder = null;
+        builder = new Notification.Builder(this,UIUtils.getString(this,R.string.keep_alive_notification));
+        return builder.setContentTitle(StringUtils.getString(R.string.app_name))
+                .setContentText(StringUtils.getString(R.string.running))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pendingIntent)
+                .build();
     }
 
     @Override
@@ -154,7 +170,7 @@ public class PushService extends AbsHeartBeatService {
     private void createNotificationChannel() {
         Logger.i("notification channel created");
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String channelId = UIUtils.getString(this, R.string.app_name);
+        String channelId = UIUtils.getString(this, R.string.event_notification);
         String channelName = UIUtils.getString(this,R.string.event_notification);
         String channelDescription = UIUtils.getString(this,R.string.event_notification_channel_description);
         int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -163,6 +179,21 @@ public class PushService extends AbsHeartBeatService {
         channel.enableLights(true);
         channel.setLightColor(Color.RED);
         channel.enableVibration(true);
+        manager.createNotificationChannel(channel);
+    }
+
+    @TargetApi(value = Build.VERSION_CODES.O)
+    private void createKeepAliveNotificationChannel() {
+        Logger.i("keep alive notification channel created");
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        String channelId = UIUtils.getString(this, R.string.keep_alive_notification);
+        String channelName = UIUtils.getString(this,R.string.keep_alive_notification);
+        String channelDescription = UIUtils.getString(this,R.string.keep_alive_notification_channel_description);
+        int importance = NotificationManager.IMPORTANCE_NONE;
+        NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+        channel.setDescription(channelDescription);
+        channel.enableLights(false);
+        channel.enableVibration(false);
         manager.createNotificationChannel(channel);
     }
 
