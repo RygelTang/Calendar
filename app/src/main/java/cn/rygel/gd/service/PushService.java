@@ -9,11 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.IBinder;
 import android.os.Message;
-import android.support.annotation.Nullable;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,25 +43,10 @@ public class PushService extends AbsHeartBeatService {
     public void onStartService() {
         Logger.i("service start work!");
         EventBus.getDefault().register(this);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel();
-            createKeepAliveNotificationChannel();
-            startForeground(1, getKeepAliveNotification());
         }
         initEvents();
-    }
-
-    @TargetApi(Build.VERSION_CODES.O)
-    private Notification getKeepAliveNotification() {
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification.Builder builder = null;
-        builder = new Notification.Builder(this,UIUtils.getString(this,R.string.keep_alive_notification));
-        return builder.setContentTitle(StringUtils.getString(R.string.app_name))
-                .setContentText(StringUtils.getString(R.string.running))
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pendingIntent)
-                .build();
     }
 
     @Override
@@ -120,15 +102,15 @@ public class PushService extends AbsHeartBeatService {
                     @Override
                     public void onSuccess(List<BaseEvent> events) {
                         Logger.i("find " + events.size() + " events!");
-                        for(BaseEvent event : events) {
+                        for (BaseEvent event : events) {
                             // 不提醒，则跳过
-                            if(!event.isShowNotification()) {
+                            if (!event.isShowNotification()) {
                                 continue;
                             }
                             long offset = getAlertTimeOffset(event);
                             Logger.i("push notification in " + offset + " millis!");
                             // 已经过了提醒时间，跳过
-                            if(offset < 0) {
+                            if (offset < 0) {
                                 continue;
                             }
                             // 延时推送通知
@@ -152,9 +134,9 @@ public class PushService extends AbsHeartBeatService {
         protected void handleMessage(PushService service, Message message) {
             switch (message.what) {
                 case MESSAGE_PUSH_EVENT:
-                    Logger.i("try to push notification");
-                    if(message.obj instanceof BaseEvent) {
-                        service.pushNotification(message.obj.hashCode(),formatNotification(service,(BaseEvent) message.obj));
+                    if (message.obj instanceof BaseEvent) {
+                        Logger.i("try to push notification");
+                        service.pushNotification(message.obj.hashCode(), formatNotification(service, (BaseEvent) message.obj));
                     }
                     break;
             }
@@ -163,7 +145,7 @@ public class PushService extends AbsHeartBeatService {
 
     private void pushNotification(int id, Notification notification) {
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(id,notification);
+        manager.notify(id, notification);
     }
 
     @TargetApi(value = Build.VERSION_CODES.O)
@@ -171,10 +153,10 @@ public class PushService extends AbsHeartBeatService {
         Logger.i("notification channel created");
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = UIUtils.getString(this, R.string.event_notification);
-        String channelName = UIUtils.getString(this,R.string.event_notification);
-        String channelDescription = UIUtils.getString(this,R.string.event_notification_channel_description);
+        String channelName = UIUtils.getString(this, R.string.event_notification);
+        String channelDescription = UIUtils.getString(this, R.string.event_notification_channel_description);
         int importance = NotificationManager.IMPORTANCE_HIGH;
-        NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
         channel.setDescription(channelDescription);
         channel.enableLights(true);
         channel.setLightColor(Color.RED);
@@ -182,27 +164,12 @@ public class PushService extends AbsHeartBeatService {
         manager.createNotificationChannel(channel);
     }
 
-    @TargetApi(value = Build.VERSION_CODES.O)
-    private void createKeepAliveNotificationChannel() {
-        Logger.i("keep alive notification channel created");
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String channelId = UIUtils.getString(this, R.string.keep_alive_notification);
-        String channelName = UIUtils.getString(this,R.string.keep_alive_notification);
-        String channelDescription = UIUtils.getString(this,R.string.keep_alive_notification_channel_description);
-        int importance = NotificationManager.IMPORTANCE_NONE;
-        NotificationChannel channel = new NotificationChannel(channelId,channelName,importance);
-        channel.setDescription(channelDescription);
-        channel.enableLights(false);
-        channel.enableVibration(false);
-        manager.createNotificationChannel(channel);
-    }
-
-    private static Notification formatNotification(Context context,BaseEvent event) {
+    private static Notification formatNotification(Context context, BaseEvent event) {
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification.Builder builder = null;
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder = new Notification.Builder(context,UIUtils.getString(context,R.string.app_name));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(context, UIUtils.getString(context, R.string.event_notification));
         } else {
             builder = new Notification.Builder(context);
         }

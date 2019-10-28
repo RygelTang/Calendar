@@ -76,7 +76,7 @@
     <string name="save_success">保存成功</string>
     <string name="edit">编辑</string>
     <string name="delete">删除</string>
-    <string name="running">正在运行,您可以关闭这个渠道来取消这个通知！</string>
+    <string name="running">正在后台运行,您可以点击这里去关闭这个渠道来取消这个通知！</string>
     <string name="event_notification">事件提醒</string>
     <string name="keep_alive_notification">保活通知</string>
     <string name="keep_alive_notification_channel_description">这个渠道只是为了保活，你可以关闭这个渠道，但是这并不会影响到推送服务！</string>

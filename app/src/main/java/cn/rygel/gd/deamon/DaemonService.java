@@ -76,11 +76,7 @@ public class DaemonService extends Service {
         try {
             if (DaemonHolder.mService != null) {
                 Intent serviceIntent = new Intent(this, DaemonHolder.mService);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    startForegroundService(serviceIntent);
-                } else {
-                    startService(serviceIntent);
-                }
+                startService(serviceIntent);
                 bindService(new Intent(this, DaemonHolder.mService), serviceConnection, Context.BIND_IMPORTANT);
             }
         } catch (Exception e) {
