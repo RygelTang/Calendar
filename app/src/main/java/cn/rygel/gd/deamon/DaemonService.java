@@ -24,6 +24,7 @@ import cn.rygel.gd.IDaemon;
  */
 public class DaemonService extends Service {
     private ScreenBroadcastReceiver screenBroadcastReceiver = new ScreenBroadcastReceiver();
+    private boolean connected = false;
 
     private final IDaemon aidl = new IDaemon.Stub() {
         @Override
@@ -41,6 +42,7 @@ public class DaemonService extends Service {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Logger.i("onServiceConnected() 已绑定");
+            connected = true;
             try {
                 service.linkToDeath(() -> {
                     Logger.e("onServiceConnected() linkToDeath");
@@ -58,6 +60,7 @@ public class DaemonService extends Service {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            connected = false;
             Logger.e("onServiceDisconnected() 已解绑");
             try {
                 aidl.stopService();
@@ -110,7 +113,9 @@ public class DaemonService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Logger.e("onDestroy()");
-        unbindService(serviceConnection);
+        if (connected) {
+            unbindService(serviceConnection);
+        }
 
         DaemonHolder.restartService(getApplicationContext(), getClass());
         screenBroadcastReceiver.unregisterScreenBroadcastReceiver(this);
