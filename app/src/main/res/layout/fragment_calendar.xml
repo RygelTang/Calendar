@@ -61,7 +61,7 @@
                         app:common_text_color="@color/text_color"
                         app:weekbar_height="@dimen/calendar_View_week_bar_height"
                         app:text_size="@dimen/text_m"
-                        app:sub_text_size="@dimen/text_s"
+                        app:sub_text_size="@dimen/text_xs"
                         app:corner_padding="@dimen/padding_xxs"
                         app:corner_text_size="@dimen/text_xs"
                         app:weekbar_text_size="@dimen/text_m"

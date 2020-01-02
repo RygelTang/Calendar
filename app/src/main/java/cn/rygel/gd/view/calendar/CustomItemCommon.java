@@ -4,6 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import com.orhanobut.logger.Logger;
+
+import java.lang.reflect.Field;
+
 import cn.rygel.gd.utils.provider.EventInfoProvider;
 import cn.rygel.gd.utils.provider.impl.DefaultEventInfoProvider;
 import rygel.cn.calendar.bean.Solar;
@@ -21,6 +25,7 @@ public class CustomItemCommon extends DefaultItemCommonImpl {
 
     public CustomItemCommon(CalendarView view) {
         super(view);
+        setProviderByReflex(this);
     }
 
     @Override
@@ -38,6 +43,22 @@ public class CustomItemCommon extends DefaultItemCommonImpl {
             mEventDotPaint.setStrokeWidth(8);
             float y = bound.bottom - (bound.bottom - bound.top) / 8F;
             canvas.drawPoint(bound.centerX(), y, mEventDotPaint);
+        }
+    }
+
+    private static void setProviderByReflex(Object obj) {
+        Class clz = obj.getClass().getSuperclass();
+        if (clz == null) {
+            return;
+        }
+        try {
+            Field f = clz.getDeclaredField("mHolidayInfoProvider");
+            f.setAccessible(true);
+            f.set(obj, new cn.rygel.gd.utils.provider.HolidayInfoProvider());
+        } catch (NoSuchFieldException e) {
+            Logger.e(e.getMessage());
+        } catch (IllegalAccessException e) {
+            Logger.e(e.getMessage());
         }
     }
 }

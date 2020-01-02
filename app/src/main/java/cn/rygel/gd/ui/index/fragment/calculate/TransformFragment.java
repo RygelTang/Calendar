@@ -34,6 +34,7 @@ public class TransformFragment extends BaseFragment {
     protected void initView(View view) {
         ButterKnife.bind(this, view);
         initDateSelector();
+        onDateSelected(mSelected);
     }
 
     @OnClick({R.id.btn_solar, R.id.btn_lunar})

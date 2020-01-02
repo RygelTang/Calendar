@@ -43,6 +43,7 @@ public class IntervalFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         initDateSelector();
+        onDateUpdated();
     }
 
     @OnClick({R.id.btn_start_time, R.id.btn_end_time})

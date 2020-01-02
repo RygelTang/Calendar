@@ -28,6 +28,9 @@
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
 
+
+-keep public class * extends rygel.cn.calendarview.item.ItemCommon { *; }
+
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
 -keep public class * extends android.support.multidex.MultiDexApplication

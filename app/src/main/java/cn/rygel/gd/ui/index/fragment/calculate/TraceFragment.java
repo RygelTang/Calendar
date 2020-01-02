@@ -49,6 +49,7 @@ public class TraceFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         initSpinner();
         initDateSelector();
+        onResultUpdate();
     }
 
     @OnClick({R.id.btn_start_time})
