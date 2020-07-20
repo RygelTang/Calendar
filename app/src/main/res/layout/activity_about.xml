@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.about.AboutActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         style="@style/BaseToolBar"
         android:id="@+id/tb_about"
         android:elevation="@dimen/elevation_m"

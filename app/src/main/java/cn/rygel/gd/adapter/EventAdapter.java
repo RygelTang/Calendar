@@ -1,6 +1,6 @@
 package cn.rygel.gd.adapter;
 
-import android.support.v7.widget.PopupMenu;
+import androidx.appcompat.widget.PopupMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,12 +8,9 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 
 import cn.rygel.gd.R;
-import cn.rygel.gd.bean.OnDateEventDeleteEvent;
 import cn.rygel.gd.bean.event.base.BaseEvent;
 import cn.rygel.gd.bean.event.base.DefaultEvent;
 import cn.rygel.gd.bean.event.base.LocationEvent;

@@ -1,7 +1,7 @@
 package rygel.cn.uilibrary.widget.cropper.utils;
 
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import rygel.cn.uilibrary.widget.cropper.helper.CropWindowEdgeSelector;
 import rygel.cn.uilibrary.widget.cropper.helper.Edge;

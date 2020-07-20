@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +15,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.rygel.gd.R;
 import cn.rygel.gd.app.APP;
-import cn.rygel.gd.ui.setting.widget.month.MonthWidgetSettingActivity;
 import cn.rygel.gd.utils.ClipboardUtils;
 import rygel.cn.uilibrary.base.BaseActivity;
 import skin.support.content.res.SkinCompatUserThemeManager;

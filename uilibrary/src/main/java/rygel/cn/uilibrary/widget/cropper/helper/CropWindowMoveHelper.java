@@ -1,7 +1,7 @@
 package rygel.cn.uilibrary.widget.cropper.helper;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 表示手指再裁剪框里面，此时手指移动表明是移动（平移）裁剪框的操作

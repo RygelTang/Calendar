@@ -1,7 +1,7 @@
 package rygel.cn.uilibrary.widget.cropper.helper;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 操控裁剪框的辅助类:操控裁剪框的缩放

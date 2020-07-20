@@ -2,7 +2,7 @@ package cn.rygel.gd.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -10,7 +10,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import cn.rygel.gd.R;
-import cn.rygel.gd.db.model.EventModel;
 import cn.rygel.gd.db.model.UserModel;
 import cn.rygel.gd.utils.observer.AsyncTransformer;
 import cn.rygel.gd.utils.observer.BaseObserver;

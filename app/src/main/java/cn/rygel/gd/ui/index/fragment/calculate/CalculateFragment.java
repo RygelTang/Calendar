@@ -2,8 +2,8 @@ package cn.rygel.gd.ui.index.fragment.calculate;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

@@ -13,7 +13,7 @@ import android.net.NetworkRequest;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.orhanobut.logger.Logger;
 

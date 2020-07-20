@@ -1,7 +1,9 @@
 package cn.rygel.gd.app;
 
 import android.app.Application;
-import android.support.multidex.MultiDex;
+
+import androidx.annotation.Nullable;
+import androidx.multidex.MultiDex;
 
 import com.blankj.utilcode.util.ColorUtils;
 import com.blankj.utilcode.util.StringUtils;
@@ -93,7 +95,12 @@ public class APP extends Application {
                                 .methodCount(5)
                                 .tag("Rygel")
                                 .build()
-                )
+                ) {
+                    @Override
+                    public boolean isLoggable(int priority, @Nullable String tag) {
+                        return BuildConfig.DEBUG;
+                    }
+                }
         );
     }
 

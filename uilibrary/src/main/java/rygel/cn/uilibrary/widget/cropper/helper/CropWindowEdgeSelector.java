@@ -1,7 +1,7 @@
 package rygel.cn.uilibrary.widget.cropper.helper;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * 表示手指选中的裁剪框的哪一个边：有如下几种情况：

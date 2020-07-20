@@ -1,6 +1,6 @@
 package rygel.cn.uilibrary.mvp;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.trello.rxlifecycle2.LifecycleProvider;
 

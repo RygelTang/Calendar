@@ -1,7 +1,7 @@
 package rygel.cn.uilibrary.widget.cropper.helper;
 
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public enum Edge {
 

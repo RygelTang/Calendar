@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.setting.theme.ThemeActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         style="@style/BaseToolBar"
         android:id="@+id/tb_theme"
         app:titleTextColor="@color/white"
@@ -17,7 +17,7 @@
         app:navigationIcon="@drawable/md_nav_back"
         app:title="@string/option_theme"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:overScrollMode="never"
         android:id="@+id/rv_theme"
         android:layout_width="match_parent"
