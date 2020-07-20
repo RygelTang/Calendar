@@ -26,7 +26,7 @@ ext {
             logger                      : "2.2.0",
             okhttp_log_interceptor      : "3.9.1",
             scoops                      : "1.0.0",
-            butter_knife                : "9.0.0-rc1",
+            butter_knife                : "10.2.1",
             leak_canary                 : "1.6.2",
             material_dialog             : "0.9.6.0",
             rxlifecycle                 : "2.2.2",
@@ -134,8 +134,8 @@ ext {
     ]
 
     boxing = [
-            core                : "com.bilibili:boxing:${versions.boxing}",
-            impl                : "com.bilibili:boxing-impl:${versions.boxing}"
+            core                : "com.github.xiaoyuanhu.boxing:boxing:${versions.boxing}",
+            impl                : "com.github.xiaoyuanhu.boxing:boxing-impl:${versions.boxing}"
     ]
 
     vertical_view_pager = "me.kaelaela:verticalviewpager:${versions.vertical_view_pager}"
