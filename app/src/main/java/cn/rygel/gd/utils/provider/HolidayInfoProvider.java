@@ -1,76 +1,66 @@
 package cn.rygel.gd.utils.provider;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.Context;
+import cn.rygel.gd.R;
+import cn.rygel.gd.app.APP;
+import cn.rygel.gd.utils.InputStreamUtils;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import rygel.cn.calendar.bean.Solar;
 import rygel.cn.calendarview.provider.impl.DefaultHolidayInfoProvider;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class HolidayInfoProvider extends DefaultHolidayInfoProvider {
 
     private final static List<Solar> STATUTORY_HOLIDAY = new ArrayList<>();
     private final static List<Solar> MAKE_UP_DAY = new ArrayList<>();
+    private final static Calendar calendar = Calendar.getInstance();
 
     static {
-        initStatutoryHoliday();
-        initMakeUpDay();
+        loadLocalHolidayInfo(APP.getInstance());
     }
 
-    /**
-     * 初始化法定节假日信息
-     */
-    private static void initStatutoryHoliday() {
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,1));
-
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,24));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,25));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,26));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,27));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,28));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,29));
-        STATUTORY_HOLIDAY.add(new Solar(2020,1,30));
-
-        STATUTORY_HOLIDAY.add(new Solar(2020,4,4));
-        STATUTORY_HOLIDAY.add(new Solar(2020,4,5));
-        STATUTORY_HOLIDAY.add(new Solar(2020,4,6));
-
-        STATUTORY_HOLIDAY.add(new Solar(2020,5,1));
-        STATUTORY_HOLIDAY.add(new Solar(2020,5,2));
-        STATUTORY_HOLIDAY.add(new Solar(2020,5,3));
-        STATUTORY_HOLIDAY.add(new Solar(2020,5,4));
-        STATUTORY_HOLIDAY.add(new Solar(2020,5,5));
-
-        STATUTORY_HOLIDAY.add(new Solar(2020,6,25));
-        STATUTORY_HOLIDAY.add(new Solar(2020,6,26));
-        STATUTORY_HOLIDAY.add(new Solar(2020,6,27));
-
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,1));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,2));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,3));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,4));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,5));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,6));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,7));
-        STATUTORY_HOLIDAY.add(new Solar(2020,10,8));
+    private static void loadLocalHolidayInfo(Context context) {
+        final String holidays = InputStreamUtils.readTextFromInputStream(context.getApplicationContext().getResources().openRawResource(R.raw.holiday));
+        try {
+            final DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.SIMPLIFIED_CHINESE);
+            final Holiday holiday = new Gson().fromJson(holidays, Holiday.class);
+            for (String h : holiday.holiday) {
+                Date date = format.parse(h);
+                if (date != null) {
+                    STATUTORY_HOLIDAY.add(dateToSolar(date));
+                }
+            }
+            for (String m : holiday.make_up) {
+                Date date = format.parse(m);
+                if (date != null) {
+                    MAKE_UP_DAY.add(dateToSolar(date));
+                }
+            }
+        } catch (Exception e) {
+            Logger.e(e, "load fail");
+        }
     }
 
-    /**
-     * 初始化法定节假日补班信息
-     */
-    private static void initMakeUpDay() {
-        MAKE_UP_DAY.add(new Solar(2020,1,19));
-        MAKE_UP_DAY.add(new Solar(2020,2,1));
-        MAKE_UP_DAY.add(new Solar(2020,4,26));
-        MAKE_UP_DAY.add(new Solar(2020,5,9));
-        MAKE_UP_DAY.add(new Solar(2020,6,28));
-        MAKE_UP_DAY.add(new Solar(2020,9,27));
-        MAKE_UP_DAY.add(new Solar(2020,10,10));
+    private static Solar dateToSolar(Date date) {
+        calendar.setTime(date);
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH) + 1;
+        final int d = calendar.get(Calendar.DATE);
+        return new Solar(year, month, d);
     }
 
     @Override
     public boolean isStatutoryHoliday(Solar solar) {
-        for(Solar s : STATUTORY_HOLIDAY) {
-            if(s.equals(solar)) {
+        for (Solar s : STATUTORY_HOLIDAY) {
+            if (s.equals(solar)) {
                 return true;
             }
         }
@@ -79,12 +69,38 @@ public class HolidayInfoProvider extends DefaultHolidayInfoProvider {
 
     @Override
     public boolean isMakeUpDay(Solar solar) {
-        for(Solar s : MAKE_UP_DAY) {
-            if(s.equals(solar)) {
+        for (Solar s : MAKE_UP_DAY) {
+            if (s.equals(solar)) {
                 return true;
             }
         }
         return false;
+    }
+
+    private static class Holiday {
+        List<String> holiday;
+        List<String> make_up;
+
+        public Holiday(List<String> holiday, List<String> make_up) {
+            this.holiday = holiday;
+            this.make_up = make_up;
+        }
+
+        public List<String> getHoliday() {
+            return holiday;
+        }
+
+        public void setHoliday(List<String> holiday) {
+            this.holiday = holiday;
+        }
+
+        public List<String> getMake_up() {
+            return make_up;
+        }
+
+        public void setMake_up(List<String> make_up) {
+            this.make_up = make_up;
+        }
     }
 
 }
