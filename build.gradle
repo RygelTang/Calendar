@@ -19,7 +19,7 @@ buildscript {
     dependencies {
         classpath 'com.tencent.bugly:symtabfileuploader:2.2.1'
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.17'
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.4'
         classpath "io.objectbox:objectbox-gradle-plugin:2.3.4"
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
