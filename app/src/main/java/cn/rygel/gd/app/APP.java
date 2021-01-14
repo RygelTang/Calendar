@@ -112,13 +112,6 @@ public class APP extends Application {
                 .androidContext(this);
         BoxStoreHolder.getInstance()
                 .init(builder.build());
-        if(BuildConfig.DEBUG){
-            Logger.i("object browser started?" + new AndroidObjectBrowser(
-                    BoxStoreHolder
-                            .getInstance()
-                            .getBoxStore()
-            ).start(this));
-        }
         if (UserModel.getInstance().getUserByName(StringUtils.getString(R.string.default_user)) == null) {
             UserModel.getInstance().putUser(StringUtils.getString(R.string.default_user));
         }
