@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorDefaultTheme">#90A4A1</color>
-    <color name="colorDefaultThemeDark">#90A4A1</color>
-    <color name="colorDefaultThemeLight">#B0BEC5</color>
-    <color name="colorDefaultAccent">#90A4A1</color>
+	<color name="colorDefaultTheme">#7ABD9A</color>
+	<color name="colorDefaultThemeDark">#7ABD9A</color>
+	<color name="colorDefaultThemeLight">#BCDECD</color>
+	<color name="colorDefaultAccent">#7ABD9A</color>
 
-    <color name="colorPrimary">#90A4A1</color>
-    <color name="colorPrimaryDark">#90A4A1</color>
-    <color name="colorPrimaryLight">#B0BEC5</color>
-    <color name="colorAccent">#90A4A1</color>
+	<color name="colorPrimary">#7ABD9A</color>
+	<color name="colorPrimaryDark">#7ABD9A</color>
+	<color name="colorPrimaryLight">#BCDECD</color>
+	<color name="colorAccent">#7ABD9A</color>
 
-    <color name="cornerTextColor">#EBB471</color>
-    <color name="holidayTextColor">#E87A90</color>
-    <color name="termTextColor">#90B44B</color>
-    <color name="makeupTextColor">#00896C</color>
+	<color name="cornerTextColor">#EBB471</color>
+	<color name="holidayTextColor">#E87A90</color>
+	<color name="termTextColor">#90B44B</color>
+	<color name="makeupTextColor">#00896C</color>
 
-    <color name="colorDivider">#BDBDBD</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
+	<color name="colorDivider">#BDBDBD</color>
+	<color name="colorPrimaryText">#212121</color>
+	<color name="colorSecondaryText">#757575</color>
 
-    <color name="colorText">#FFFFFF</color>
-    <color name="colorIcon">#FFFFFF</color>
+	<color name="colorText">#FFFFFF</color>
+	<color name="colorIcon">#FFFFFF</color>
 
-    <color name="color_transparent">#00FFFFFF</color>
+	<color name="color_transparent">#00FFFFFF</color>
 
-    <color name="colorTimeLine">#444444</color>
+	<color name="colorTimeLine">#444444</color>
 
-    <color name="green">#4CAF50</color>
-    <color name="red">#f38282</color>
-    <color name="blue">#6699cc</color>
-    <color name="white">#FFFFFF</color>
-    <color name="gray">#AAAAAA</color>
-    <color name="black">#313335</color>
+	<color name="green">#4CAF50</color>
+	<color name="red">#f38282</color>
+	<color name="blue">#6699cc</color>
+	<color name="white">#FFFFFF</color>
+	<color name="gray">#AAAAAA</color>
+	<color name="black">#313335</color>
 
-    <color name="color_default">#f24336</color>
-    <color name="color_meeting">#336699</color>
-    <color name="color_appointment">#607d8a</color>
-    <color name="color_birthday">#4cae50</color>
-    <color name="color_memorial">#fc5722</color>
+	<color name="color_default">#f24336</color>
+	<color name="color_meeting">#336699</color>
+	<color name="color_appointment">#607d8a</color>
+	<color name="color_birthday">#4cae50</color>
+	<color name="color_memorial">#fc5722</color>
 
-    <color name="divider_color">#80CCCCCC</color>
-    <color name="bg_fragment">#FDFDFD</color>
-    <color name="transparent">#00FFFFFF</color>
+	<color name="divider_color">#80CCCCCC</color>
+	<color name="bg_fragment">#FDFDFD</color>
+	<color name="transparent">#00FFFFFF</color>
 
-    <color name="ucrop_color_toolbar">#212121</color>
-    <color name="ucrop_color_statusbar">#212121</color>
-    <color name="ucrop_color_widget_active">#212121</color>
+	<color name="ucrop_color_toolbar">#212121</color>
+	<color name="ucrop_color_statusbar">#212121</color>
+	<color name="ucrop_color_widget_active">#212121</color>
 
 </resources>

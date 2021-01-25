@@ -1,6 +1,7 @@
 package cn.rygel.gd.utils.provider;
 
 import android.content.Context;
+import androidx.annotation.Keep;
 import cn.rygel.gd.R;
 import cn.rygel.gd.app.APP;
 import cn.rygel.gd.utils.InputStreamUtils;
@@ -77,6 +78,7 @@ public class HolidayInfoProvider extends DefaultHolidayInfoProvider {
         return false;
     }
 
+    @Keep
     private static class Holiday {
         List<String> holiday;
         List<String> make_up;
