@@ -43,10 +43,10 @@ ext {
             calendar                    : "1.3.3",
             calendar_utils              : "1.1.3",
             utils                       : "1.24.7",
-            object_box                  : "2.3.4",
+            object_box                  : "2.5.1",
             indicator                   : "1.5.0",
             spinner                     : "1.3.1",
-            theme                       : "3.1.1",
+            theme                       : "4.0.5",
             bugly                       : "1.4.1",
             bugly_native                : "3.7.1",
             permission                  : "2.0.1",
@@ -119,6 +119,7 @@ ext {
     ]
 
     theme = [
+            compat              : "skin.support:skin-support-appcompat:${versions.theme}",
             support             : "skin.support:skin-support:${versions.theme}",
             design              : "skin.support:skin-support-design:${versions.theme}",
     ]

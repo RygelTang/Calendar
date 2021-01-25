@@ -121,6 +121,7 @@ dependencies {
     implementation rootProject.ext.permission
 
     // 换肤框架
+//    implementation rootProject.ext.theme.compat
     implementation rootProject.ext.theme.support
     implementation rootProject.ext.theme.design
 

@@ -10,15 +10,21 @@
       "properties": [
         {
           "id": "1:6376776578840466130",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:2655178146350738503",
-          "name": "mAdvanceTime"
+          "name": "mAdvanceTime",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "3:8837589580666275609",
-          "name": "mDelayTime"
+          "name": "mDelayTime",
+          "type": 6,
+          "flags": 4
         }
       ],
       "relations": []
@@ -30,11 +36,14 @@
       "properties": [
         {
           "id": "1:5259005749827219835",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:2649912937370061056",
-          "name": "mDescription"
+          "name": "mDescription",
+          "type": 9
         }
       ],
       "relations": []
@@ -46,40 +55,57 @@
       "properties": [
         {
           "id": "1:6788308174859597016",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:2076051494870013838",
-          "name": "mEventType"
+          "name": "mEventType",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:1537464014919847304",
-          "name": "mName"
+          "name": "mName",
+          "type": 9
         },
         {
           "id": "4:7768369811208050523",
-          "name": "mShowNotification"
+          "name": "mShowNotification",
+          "type": 1,
+          "flags": 4
         },
         {
           "id": "5:1700975065959617029",
+          "name": "mDescriptionId",
           "indexId": "1:3981815898450923787",
-          "name": "mDescriptionId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Description"
         },
         {
           "id": "6:3622521931226495640",
+          "name": "mTimeId",
           "indexId": "2:6240473542344968093",
-          "name": "mTimeId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Time"
         },
         {
           "id": "7:7797958526373910153",
+          "name": "mLocationId",
           "indexId": "3:8587808826113068460",
-          "name": "mLocationId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Location"
         }
       ],
       "relations": [
         {
           "id": "1:5750542542270859803",
-          "name": "mUser"
+          "name": "mUser",
+          "targetId": "6:4562782558809446755"
         }
       ]
     },
@@ -90,11 +116,14 @@
       "properties": [
         {
           "id": "1:7488163240933558613",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:3649423009318534752",
-          "name": "mLocation"
+          "name": "mLocation",
+          "type": 9
         }
       ],
       "relations": []
@@ -106,50 +135,75 @@
       "properties": [
         {
           "id": "1:5636279295662751624",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:4901252804106263381",
-          "name": "mRepeatType"
+          "name": "mRepeatType",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:6347612421450141444",
-          "name": "mLunar"
+          "name": "mLunar",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "4:7414871782991459956",
-          "name": "mSolar"
+          "name": "mSolar",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "5:2659711990214923961",
-          "name": "mIsLunar"
+          "name": "mIsLunar",
+          "type": 1,
+          "flags": 4
         },
         {
           "id": "6:4265938533261273442",
-          "name": "mStart"
+          "name": "mStart",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "7:3710416162405048579",
-          "name": "mDuration"
+          "name": "mDuration",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "8:5928017974971772909",
-          "name": "mTimeZone"
+          "name": "mTimeZone",
+          "type": 6,
+          "flags": 4
         },
         {
           "id": "9:4883602102875689700",
+          "name": "mEventId",
           "indexId": "4:2288870360131853828",
-          "name": "mEventId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Event"
         },
         {
           "id": "10:8161105759807220276",
+          "name": "mUserId",
           "indexId": "5:5304388440753833993",
-          "name": "mUserId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "User"
         },
         {
           "id": "11:8392138605565878918",
+          "name": "mAlertId",
           "indexId": "6:7643901089020259484",
-          "name": "mAlertId"
+          "type": 11,
+          "flags": 1548,
+          "relationTarget": "Alert"
         }
       ],
       "relations": []
@@ -161,12 +215,16 @@
       "properties": [
         {
           "id": "1:4972264825457811495",
-          "name": "mId"
+          "name": "mId",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:7814456439928196631",
+          "name": "mUserName",
           "indexId": "7:8444662044299819666",
-          "name": "mUserName"
+          "type": 9,
+          "flags": 4128
         }
       ],
       "relations": []
@@ -176,8 +234,8 @@
   "lastIndexId": "7:8444662044299819666",
   "lastRelationId": "1:5750542542270859803",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [],
